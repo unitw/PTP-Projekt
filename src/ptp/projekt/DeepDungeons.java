@@ -9,13 +9,13 @@ package ptp.projekt;
  *
  * @author 3flim
  */
-public class PTPProjekt {
+public class DeepDungeons {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
     }
     
 }
