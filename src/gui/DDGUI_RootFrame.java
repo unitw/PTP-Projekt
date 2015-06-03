@@ -6,6 +6,9 @@
 package gui;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.plaf.metal.MetalLookAndFeel;
+import javax.swing.plaf.metal.MetalTheme;
 
 /**
  *
@@ -14,7 +17,11 @@ import javax.swing.JFrame;
 public class DDGUI_RootFrame extends JFrame{
     
     
-    
+      Class themeClass = Class.forName("MacMetricsTheme");
+        MetalTheme theme = (MetalTheme) themeClass.newInstance();
+        MetalLookAndFeel.setCurrentTheme(theme);
+
+        UIManager.setLookAndFeel(new MetalLookAndFeel());
     
     
     
