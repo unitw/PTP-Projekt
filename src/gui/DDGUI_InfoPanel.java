@@ -5,16 +5,22 @@
  */
 package gui;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import net.miginfocom.swing.MigLayout;
 
 /**
+ * http://www.migcalendar.com/miglayout/whitepaper.html
  *
  * @author 3flim
  */
@@ -34,12 +40,17 @@ public class DDGUI_InfoPanel extends JPanel {
     JTextField t_faehigkeit1;
     JTextField t_faehigkeit2;
 
+    Font infomenu = new Font("Arial", Font.BOLD, 20);
+
     public DDGUI_InfoPanel() {
 
-        
-        
-        
+        this.setLayout(new MigLayout("fill"));
+
         l_leben = new JLabel("Leben");
+        l_leben.setFont(infomenu);
+
+    
+
         l_mana = new JLabel("Mana");
         l_ruestung = new JLabel("Ruestung");
         l_schaden = new JLabel("Schaden");
@@ -53,6 +64,14 @@ public class DDGUI_InfoPanel extends JPanel {
         t_faehigkeit1 = new JTextField();
         t_faehigkeit2 = new JTextField();
 
+        this.add(l_leben, "span, split 2, center");
+        
+        t_leben.setOpaque(false);
+        t_leben.setEditable(false);
+        t_leben.setPreferredSize(new Dimension(50,25));
+        this.add(t_leben,"span, split 2, center,wrap");
+        
+        this.add(l_mana, "span, split 2, center,wrap");
     }
 
     public JTextField getT_leben() {
