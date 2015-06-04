@@ -49,8 +49,6 @@ public class DDGUI_InfoPanel extends JPanel {
         l_leben = new JLabel("Leben");
         l_leben.setFont(infomenu);
 
-    
-
         l_mana = new JLabel("Mana");
         l_ruestung = new JLabel("Ruestung");
         l_schaden = new JLabel("Schaden");
@@ -65,12 +63,12 @@ public class DDGUI_InfoPanel extends JPanel {
         t_faehigkeit2 = new JTextField();
 
         this.add(l_leben, "span, split 2, center");
-        
+
         t_leben.setOpaque(false);
         t_leben.setEditable(false);
-        t_leben.setPreferredSize(new Dimension(50,25));
-        this.add(t_leben,"span, split 2, center,wrap");
-        
+        t_leben.setPreferredSize(new Dimension(50, 25));
+        this.add(t_leben, "span, split 2, center,wrap");
+
         this.add(l_mana, "span, split 2, center,wrap");
     }
 
@@ -122,19 +120,30 @@ public class DDGUI_InfoPanel extends JPanel {
         this.t_faehigkeit2 = t_faehigkeit2;
     }
 
+    public void setTree(String Typ) {
+        switch (Typ) {
+            case "boden":
+                  System.out.println("boden");
+                break;
+            case "baum":
+                  System.out.println("baum");
+                break;
+        }
+    }
+
+    public void setMonster() {
+        System.out.println("Monster");
+    }
+
+    public void setSpieler() {
+        System.out.println("Spieler");
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g); //To change body of generated methods, choose Tools | Templates.
+        super.paintComponent(g); 
 
         Graphics2D g2d = (Graphics2D) g.create();
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/infomenuhintergrund.png"));
-        } catch (IOException e) {
-            System.err.println("kein bild da");
-        }
-
-        g2d.drawImage(img, this.getWidth()/2, this.getHeight()/2, this.getWidth(), this.getHeight(), null);
 
     }
 

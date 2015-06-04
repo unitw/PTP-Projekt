@@ -8,6 +8,9 @@ package listener;
 import gui.DDGUI_SpielFeld;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import spiellogik.DD_Monster;
+import spiellogik.DD_Spieler;
+import spiellogik.DD_Umgebung;
 
 /**
  *
@@ -31,10 +34,19 @@ public class DD_Statuslistener implements MouseListener {
         e.getSource();
         int posx = e.getX() / feld.ratio;
         int posy = e.getY() / feld.ratio;
-        
-        
-        
-        
+
+        if (feld.getField()[posx][posy] instanceof DD_Umgebung) {
+
+            DD_Umgebung umg = (DD_Umgebung) feld.getField()[posx][posy];
+
+            feld.getRoot().getInfopanel().setTree(umg.getTyp());
+
+        } else if (feld.getField()[posx][posy] instanceof DD_Spieler) {
+            feld.getRoot().getInfopanel().setSpieler();
+
+        } else if (feld.getField()[posx][posy] instanceof DD_Monster) {
+            feld.getRoot().getInfopanel().setMonster();
+        }
     }
 
     @Override

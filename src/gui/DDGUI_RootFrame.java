@@ -27,6 +27,25 @@ import javax.swing.plaf.metal.MetalTheme;
  */
 public class DDGUI_RootFrame extends JFrame {
 
+    DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 1100, 500);
+    DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
+
+    public DDGUI_SpielFeld getFeld() {
+        return feld;
+    }
+
+    public void setFeld(DDGUI_SpielFeld feld) {
+        this.feld = feld;
+    }
+
+    public DDGUI_InfoPanel getInfopanel() {
+        return infopanel;
+    }
+
+    public void setInfopanel(DDGUI_InfoPanel infopanel) {
+        this.infopanel = infopanel;
+    }
+
     public DDGUI_RootFrame() {
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
@@ -38,16 +57,11 @@ public class DDGUI_RootFrame extends JFrame {
             MetalTheme theme = (MetalTheme) themeClass.newInstance();
             MetalLookAndFeel.setCurrentTheme(theme);
             UIManager.setLookAndFeel(new MetalLookAndFeel());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException ex) {
-            Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (UnsupportedLookAndFeelException ex) {
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        DDGUI_SpielFeld feld = new DDGUI_SpielFeld(1100, 500);
         feld.setPreferredSize(new Dimension(1100, 500));
-
-        DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
 
         infopanel.setPreferredSize(new Dimension(400, 500));
 

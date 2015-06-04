@@ -15,6 +15,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import listener.DD_Figurkeylistener;
 import listener.DD_Statuslistener;
+import spiellogik.DD_Monster;
+import spiellogik.DD_Spieler;
+import spiellogik.DD_Umgebung;
 
 /**
  *
@@ -39,14 +42,27 @@ public class DDGUI_SpielFeld extends JPanel {
     public int x;
     public int y;
 
-    private int[][] field;
+    DD_Spieler dd_player = new DD_Spieler();
+
+    private Object[][] field;
+
+    public Object[][] getField() {
+        return field;
+    }
+
+    public void setField(Object[][] field) {
+        this.field = field;
+    }
     private final int ZELLEN = 30;
     public final int ratio;
     DD_Figurkeylistener figurkeylistener = new DD_Figurkeylistener(this);
     DD_Statuslistener status = new DD_Statuslistener(this);
 
-    public DDGUI_SpielFeld(int width, int height) {
+    DDGUI_RootFrame root;
 
+    public DDGUI_SpielFeld(DDGUI_RootFrame root, int width, int height) {
+
+        this.root = root;
         this.addKeyListener(figurkeylistener);
         this.addMouseListener(status);
 
@@ -65,42 +81,57 @@ public class DDGUI_SpielFeld extends JPanel {
             Logger.getLogger(DDGUI_SpielFeld.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        this.field = new int[ZELLEN][ZELLEN];
+        this.field = new Object[ZELLEN][ZELLEN];
 
         for (int i = 0; i < ZELLEN; i++) {
             for (int j = 0; j < ZELLEN; j++) {
                 if (Math.random() < 0.7f) {
-                    this.field[i][j] = 1;//boden
+                    this.field[i][j] = new DD_Umgebung("boden");//boden
                 } else {
-                    this.field[i][j] = 2;//baum
+                    this.field[i][j] = new DD_Umgebung("baum");//baum
                 }
                 if (Math.random() > 0.95f) {
-                    this.field[i][j] = 3;//baum
+                    this.field[i][j] = new DD_Monster();//Monster
                 }
             }
         }
 
-        this.field[this.zielX][this.zielY] = 1;
-        this.field[this.playerX][this.playerY] = 1;
+        this.field[this.zielX][this.zielY] = new DD_Umgebung("boden");
+        this.field[this.playerX][this.playerY] = dd_player;
         this.setFocusable(true);
         this.setSize(width, height);
+    }
+
+    public DDGUI_RootFrame getRoot() {
+        return root;
+    }
+
+    public void setRoot(DDGUI_RootFrame root) {
+        this.root = root;
     }
 
     public void moveCharacter(int i, String dir) {
 
         if (dir.equals("x")) {
-
+            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
             this.playerX += i;
+            field[this.playerX][this.playerY] = dd_player;
             if (!Zugmoeglich()) {
+                field[this.playerX][this.playerY] = new DD_Umgebung("boden");
                 this.playerX -= i;
-
+                field[this.playerX][this.playerY] = dd_player;
             }
 
         }
         if (dir.equals("y")) {
+            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
+
             this.playerY += i;
+            field[this.playerX][this.playerY] = dd_player;
             if (!Zugmoeglich()) {
+                field[this.playerX][this.playerY] = new DD_Umgebung("boden");
                 this.playerY -= i;
+                field[this.playerX][this.playerY] = dd_player;
             }
         }
 
@@ -108,14 +139,31 @@ public class DDGUI_SpielFeld extends JPanel {
     }
 
     public boolean Zugmoeglich() {
+        try {
+            if (playerX == zielX && playerY == zielY) {
+                this.removeKeyListener(figurkeylistener);
+                JOptionPane.showMessageDialog(this, "Gewonnen! Schatztruhe gefunden");
 
-        if (playerX == zielX && playerY == zielY) {
-            this.removeKeyListener(figurkeylistener);
-            JOptionPane.showMessageDialog(this, "Gewonnen! Schatztruhe gefunden");
+            }
+
+            if (field[this.playerX][this.playerY] instanceof DD_Umgebung) {
+                DD_Umgebung umg = (DD_Umgebung) field[this.playerX][this.playerY];
+
+                if (umg.getTyp().equals("boden")) {
+                    return true;
+                }
+
+            }
+
+            if (field[this.playerX][this.playerY] instanceof DD_Monster) {
+                System.out.println("Kampf");
+                return true;
+            }
+        } catch (Exception ex) {
 
         }
+        return false;
 
-        return field[this.playerX][this.playerY] == 1;
     }
 
     @Override
@@ -124,20 +172,30 @@ public class DDGUI_SpielFeld extends JPanel {
 
         for (int i = 0; i < ZELLEN; i++) {
             for (int j = 0; j < ZELLEN; j++) {
-                if (this.field[i][j] == 1) {
-                    g.drawImage(this.boden, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
-                } else if (this.field[i][j] == 2) {
-                    g.drawImage(this.stein, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
-                } else if (this.field[i][j] == 3) {
+                if (this.field[i][j] instanceof DD_Umgebung) {
+
+                    DD_Umgebung umgebung = (DD_Umgebung) this.field[i][j];
+
+                    switch (umgebung.getTyp()) {
+                        case "boden":
+                            g.drawImage(this.boden, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
+                            break;
+                        case "baum":
+                            g.drawImage(this.stein, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
+                            break;
+                    }
+
+                } else if (this.field[i][j] instanceof DD_Monster) {
                     g.drawImage(this.monster, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
+                } else if (this.field[i][j] instanceof DD_Spieler) {
+                    g.drawImage(this.player, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
                 }
             }
         }
 
-        g.drawImage(this.player, this.playerX * this.ratio, this.playerY * this.ratio, this.ratio, this.ratio, null);
         //ziel
-
         g.drawImage(this.ziel, this.zielX * this.ratio, this.zielY * this.ratio, this.ratio, this.ratio, null);
+        //g.drawImage(this.player, this.playerX * this.ratio, this.playerY * this.ratio, this.ratio, this.ratio, null);
 
     }
 
