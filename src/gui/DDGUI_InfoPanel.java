@@ -134,7 +134,7 @@ public class DDGUI_InfoPanel extends JPanel {
             System.err.println("kein bild da");
         }
 
-        g2d.drawImage(img, 0, 0, this.getWidth(), this.getHeight(), null);
+        g2d.drawImage(img, this.getWidth()/2, this.getHeight()/2, this.getWidth(), this.getHeight(), null);
 
     }
 

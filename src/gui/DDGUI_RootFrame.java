@@ -6,12 +6,15 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -41,18 +44,25 @@ public class DDGUI_RootFrame extends JFrame {
             Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        DDGUI_SpielFeld feld = new DDGUI_SpielFeld();
+        DDGUI_SpielFeld feld = new DDGUI_SpielFeld(1100, 500);
         feld.setPreferredSize(new Dimension(1100, 500));
 
         DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
-       
+
         infopanel.setPreferredSize(new Dimension(400, 500));
 
         contentPanel.add(feld, BorderLayout.CENTER);
         contentPanel.add(infopanel, BorderLayout.EAST);
 
-        this.add(contentPanel);
+        Image img = null;
+        try {
+            img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logo.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
+        this.setIconImage(img);
+        this.add(contentPanel);
         this.setSize(new Dimension(1500, 1000));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
