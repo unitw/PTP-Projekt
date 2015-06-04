@@ -7,8 +7,12 @@ package spiellogik;
 
 /**
  *
- * @author 3flim
+ * @author tw
  */
-public class DDLogik_Spiel {
+public class Spielbrett {
+    
+    
+    
+    
     
 }
