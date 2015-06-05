@@ -5,6 +5,7 @@
  */
 package gui;
 
+import DD_ContextMenu.DD_SpielerMenu;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -28,7 +29,8 @@ import javax.swing.plaf.metal.MetalTheme;
 public class DDGUI_RootFrame extends JFrame {
 
     DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 1100, 500);
-    DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
+    JPanel infopanel = new JPanel();
+   
 
     public DDGUI_SpielFeld getFeld() {
         return feld;
@@ -38,15 +40,14 @@ public class DDGUI_RootFrame extends JFrame {
         this.feld = feld;
     }
 
-    public DDGUI_InfoPanel getInfopanel() {
+    public JPanel getInfopanel() {
         return infopanel;
     }
 
-    public void setInfopanel(DDGUI_InfoPanel infopanel) {
-        this.infopanel = infopanel;
-    }
+ 
 
     public DDGUI_RootFrame() {
+        
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 

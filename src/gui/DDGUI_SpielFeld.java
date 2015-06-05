@@ -112,14 +112,20 @@ public class DDGUI_SpielFeld extends JPanel {
 
     public void moveCharacter(int i, String dir) {
 
+        Object o;
         if (dir.equals("x")) {
             field[this.playerX][this.playerY] = new DD_Umgebung("boden");
             this.playerX += i;
-            field[this.playerX][this.playerY] = dd_player;
-            if (!Zugmoeglich()) {
-                field[this.playerX][this.playerY] = new DD_Umgebung("boden");
+            o = field[this.playerX][this.playerY];
+
+            if (Zugmoeglich()) {
+                field[this.playerX][this.playerY] = dd_player;
+            } else {
+                field[this.playerX][this.playerY] = o;
+
                 this.playerX -= i;
                 field[this.playerX][this.playerY] = dd_player;
+
             }
 
         }
@@ -127,11 +133,16 @@ public class DDGUI_SpielFeld extends JPanel {
             field[this.playerX][this.playerY] = new DD_Umgebung("boden");
 
             this.playerY += i;
-            field[this.playerX][this.playerY] = dd_player;
-            if (!Zugmoeglich()) {
-                field[this.playerX][this.playerY] = new DD_Umgebung("boden");
+             o = field[this.playerX][this.playerY];
+            if (Zugmoeglich()) {
+                field[this.playerX][this.playerY] = dd_player;
+            } else {
+
+                field[this.playerX][this.playerY] = o;
+
                 this.playerY -= i;
                 field[this.playerX][this.playerY] = dd_player;
+
             }
         }
 
