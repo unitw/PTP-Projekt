@@ -103,7 +103,7 @@ public class DDGUI_SpielFeld extends JPanel {
                 } else {
                     this.field[i][j] = new DD_Umgebung("baum");//baum
                 }
-                if (Math.random() > 0.95f) {
+                if (Math.random() > 0.991f) {
 
                     DD_Monster mon = new DD_Monster(i, j);
                     monsterlist.add(mon);
@@ -268,13 +268,14 @@ public class DDGUI_SpielFeld extends JPanel {
             }
 
         }
-      
+
         repaint();
     }
 
     public void nextRound() {
         monstermovement();
         runde += 1;
+        System.out.println("Runde:" + runde);
     }
 
     public void monstermovement() {

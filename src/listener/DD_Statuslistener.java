@@ -39,7 +39,11 @@ public class DD_Statuslistener implements MouseListener {
 
             DD_Umgebung umg = (DD_Umgebung) feld.getField()[posx][posy];
 
-           // feld.getRoot().getInfopanel().setTree(umg.getTyp());
+            feld.getRoot().getInfopanel().removeAll();
+            feld.getRoot().getInfopanel().revalidate();
+            feld.getRoot().getInfopanel().repaint();
+            
+            
         } else if (feld.getField()[posx][posy] instanceof DD_Spieler) {
             DD_Spieler player = (DD_Spieler) feld.getField()[posx][posy];
 

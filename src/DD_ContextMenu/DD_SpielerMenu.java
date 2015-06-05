@@ -5,6 +5,7 @@
  */
 package DD_ContextMenu;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -28,7 +29,7 @@ public class DD_SpielerMenu extends JPanel {
     JLabel l_faehigkeit1;
     JLabel l_faehigkeit2;
 
-    JProgressBar t_leben;
+    JProgressBar pb_leben;
     JTextField t_mana;
     JTextField t_ruestung;
     JTextField t_schaden;
@@ -51,7 +52,7 @@ public class DD_SpielerMenu extends JPanel {
         l_faehigkeit1 = new JLabel("Faehigkeit1");
         l_faehigkeit2 = new JLabel("Faehigkeit2");
 
-        t_leben = new JProgressBar();
+        pb_leben = new JProgressBar();
         t_mana = new JTextField();
         t_ruestung = new JTextField();
         t_schaden = new JTextField();
@@ -60,10 +61,11 @@ public class DD_SpielerMenu extends JPanel {
 
         this.add(l_leben, "span, split 2, center");
 
-        t_leben.setOpaque(false);
+        pb_leben.setOpaque(false);
+        pb_leben.setForeground(Color.red);
 
-        t_leben.setPreferredSize(new Dimension(50, 25));
-        this.add(t_leben, "span, split 2, wrap");
+        pb_leben.setPreferredSize(new Dimension(50, 25));
+        this.add(pb_leben, "span, split 2, wrap");
 
         this.add(l_mana, "span, split 2, center,");
 
@@ -78,11 +80,11 @@ public class DD_SpielerMenu extends JPanel {
     }
 
     public JProgressBar getT_leben() {
-        return t_leben;
+        return pb_leben;
     }
 
     public void setT_leben(JProgressBar t_leben) {
-        this.t_leben = t_leben;
+        this.pb_leben = t_leben;
     }
 
     public JTextField getT_mana() {

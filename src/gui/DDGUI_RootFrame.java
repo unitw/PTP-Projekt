@@ -29,8 +29,7 @@ import javax.swing.plaf.metal.MetalTheme;
 public class DDGUI_RootFrame extends JFrame {
 
     DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
-    JPanel infopanel = new JPanel();
-   
+    DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
 
     public DDGUI_SpielFeld getFeld() {
         return feld;
@@ -44,10 +43,8 @@ public class DDGUI_RootFrame extends JFrame {
         return infopanel;
     }
 
- 
-
     public DDGUI_RootFrame() {
-        
+
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
 
