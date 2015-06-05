@@ -13,15 +13,41 @@ import javax.swing.JPanel;
  *
  * @author tw
  */
-public class DD_Monster implements IDD_MenuAnzeiger {
+public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
 
     DD_SpielerMenu menu = new DD_SpielerMenu();
+
+    int xpos;
+    int ypos;
+
     int l_leben = 80;
+
     int l_mana = 50;
     int l_ruestung = 200;
     int l_schaden;
     int l_faehigkeit1;
     int l_faehigkeit2;
+
+    public DD_Monster(int xpos, int ypos) {
+        this.xpos = xpos;
+        this.ypos = ypos;
+    }
+
+    public int getXpos() {
+        return xpos;
+    }
+
+    public void setXpos(int xpos) {
+        this.xpos = xpos;
+    }
+
+    public int getYpos() {
+        return ypos;
+    }
+
+    public void setYpos(int ypos) {
+        this.ypos = ypos;
+    }
 
     public int getL_leben() {
         return l_leben;
@@ -81,6 +107,17 @@ public class DD_Monster implements IDD_MenuAnzeiger {
         panel.add(menu);
         panel.revalidate();
         panel.repaint();
+    }
+
+    @Override
+    public void moveMonster() {
+
+        if (Math.random() < 0.6) {
+
+        } else {
+
+        }
+
     }
 
 }

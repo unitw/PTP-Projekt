@@ -28,7 +28,7 @@ import javax.swing.plaf.metal.MetalTheme;
  */
 public class DDGUI_RootFrame extends JFrame {
 
-    DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 1100, 500);
+    DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
     JPanel infopanel = new JPanel();
    
 
@@ -62,9 +62,9 @@ public class DDGUI_RootFrame extends JFrame {
             Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        feld.setPreferredSize(new Dimension(1100, 500));
+        feld.setPreferredSize(new Dimension(800, 500));
 
-        infopanel.setPreferredSize(new Dimension(400, 500));
+        infopanel.setPreferredSize(new Dimension(200, 500));
 
         contentPanel.add(feld, BorderLayout.CENTER);
         contentPanel.add(infopanel, BorderLayout.EAST);
@@ -78,7 +78,7 @@ public class DDGUI_RootFrame extends JFrame {
 
         this.setIconImage(img);
         this.add(contentPanel);
-        this.setSize(new Dimension(1500, 1000));
+        this.setSize(new Dimension(1000, 800));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 

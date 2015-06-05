@@ -12,10 +12,16 @@ import javax.swing.JPanel;
  *
  * @author tw
  */
-public class DD_Spieler implements IDD_MenuAnzeiger {
+public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
 
     DD_SpielerMenu menu = new DD_SpielerMenu();
+    int xpos;
+    int ypos;
 
+    public DD_Spieler(int xpos, int ypos) {
+        this.xpos = xpos;
+        this.ypos = ypos;
+    }
     int i_leben = 100;
     int i_mana = 30;
     int i_ruestung = 50;
@@ -73,7 +79,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger {
 
     @Override
     public void showMenu(JPanel panel) {
-        
+
         panel.removeAll();
         menu.getT_leben().setValue(i_leben);
         menu.getT_mana().setText(i_mana + "");
@@ -82,6 +88,22 @@ public class DD_Spieler implements IDD_MenuAnzeiger {
         panel.add(menu);
         panel.revalidate();
         panel.repaint();
+    }
+
+    public int getXpos() {
+        return xpos;
+    }
+
+    public void setXpos(int xpos) {
+        this.xpos = xpos;
+    }
+
+    public int getYpos() {
+        return ypos;
+    }
+
+    public void setYpos(int ypos) {
+        this.ypos = ypos;
     }
 
 }
