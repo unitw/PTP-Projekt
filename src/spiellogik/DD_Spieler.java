@@ -73,12 +73,15 @@ public class DD_Spieler implements IDD_MenuAnzeiger {
 
     @Override
     public void showMenu(JPanel panel) {
+        
+        panel.removeAll();
         menu.getT_leben().setValue(i_leben);
         menu.getT_mana().setText(i_mana + "");
         menu.getT_ruestung().setText(i_ruestung + "");
 
         panel.add(menu);
-
+        panel.revalidate();
+        panel.repaint();
     }
 
 }

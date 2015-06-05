@@ -5,11 +5,13 @@
  */
 package spiellogik;
 
+import javax.swing.JPanel;
+
 /**
  *
  * @author tw
  */
-public class DD_Umgebung {
+public class DD_Umgebung implements  IDD_MenuAnzeiger{
     String Typ;
 
     public DD_Umgebung(String Typ) {
@@ -22,5 +24,10 @@ public class DD_Umgebung {
 
     public void setTyp(String Typ) {
         this.Typ = Typ;
+    }
+
+    @Override
+    public void showMenu(JPanel panel) {
+  
     }
 }

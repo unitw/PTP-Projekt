@@ -69,12 +69,12 @@ public class DD_SpielerMenu extends JPanel {
 
         t_mana.setPreferredSize(new Dimension(50, 25));
         this.add(t_mana, "span, split 2, center,wrap");
-
+        t_mana.setEditable(false);
         this.add(l_ruestung, "span, split 2, center,");
         t_ruestung.setPreferredSize(new Dimension(50, 25));
 
         this.add(t_ruestung, "span, split 2, center,wrap");
-
+        t_ruestung.setEditable(false);
     }
 
     public JProgressBar getT_leben() {

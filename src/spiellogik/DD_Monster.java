@@ -5,13 +5,23 @@
  */
 package spiellogik;
 
+import DD_ContextMenu.DD_SpielerMenu;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
  * @author tw
  */
-public class DD_Monster {
+public class DD_Monster implements IDD_MenuAnzeiger {
+
+    DD_SpielerMenu menu = new DD_SpielerMenu();
+    int l_leben = 80;
+    int l_mana = 50;
+    int l_ruestung = 200;
+    int l_schaden;
+    int l_faehigkeit1;
+    int l_faehigkeit2;
 
     public int getL_leben() {
         return l_leben;
@@ -61,14 +71,16 @@ public class DD_Monster {
         this.l_faehigkeit2 = l_faehigkeit2;
     }
 
-    int l_leben;
-    int l_mana;
-    int l_ruestung;
-    int l_schaden;
-    int l_faehigkeit1;
-    int l_faehigkeit2;
-    
-    
-    
+    @Override
+    public void showMenu(JPanel panel) {
+        panel.removeAll();
+        menu.getT_leben().setValue(l_leben);
+        menu.getT_mana().setText(l_mana + "");
+        menu.getT_ruestung().setText(l_ruestung + "");
+
+        panel.add(menu);
+        panel.revalidate();
+        panel.repaint();
+    }
 
 }
