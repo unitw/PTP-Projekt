@@ -7,7 +7,6 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
@@ -16,8 +15,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 import listener.DD_Figurkeylistener;
 import listener.DD_Statuslistener;
 import spiellogik.DD_Monster;
@@ -37,6 +39,8 @@ public class DDGUI_SpielFeld extends JPanel {
     private BufferedImage stein;
     private BufferedImage boden;
     private BufferedImage player;
+    Image image = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif"));
+
     private BufferedImage monster;
     private int playerX = 2;
     private int playerY = 2;
@@ -78,7 +82,7 @@ public class DDGUI_SpielFeld extends JPanel {
     private int runde = 0;
 
     public DDGUI_SpielFeld(DDGUI_RootFrame root, int width, int height) {
-
+        this.setLayout(null);
         this.root = root;
         this.addKeyListener(figurkeylistener);
         this.addMouseListener(status);
@@ -340,12 +344,8 @@ public class DDGUI_SpielFeld extends JPanel {
                     case 0://oben
                         if (field[xpos][ypos - range] instanceof DD_Monster) {
                             DD_Monster mon = (DD_Monster) field[xpos][ypos - range];
-                            Image image = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemClassLoader().getResource("resources/feuerball.gif"));
-                            Graphics2D g2d = (Graphics2D) this.getGraphics();
-                            g2d.drawImage(image, xpos * this.ratio, ypos - range * this.ratio, root);
-
+                            showFireEffect(xpos, ypos, range);
                             Schadenberechnung(mon, schaden);
-                        //    repaint();
 
                         }
 
@@ -354,6 +354,7 @@ public class DDGUI_SpielFeld extends JPanel {
 
                         if (field[xpos][ypos + range] instanceof DD_Monster) {
                             DD_Monster mon = (DD_Monster) field[xpos][ypos + range];
+                            showFireEffect(xpos, ypos, range);
                             Schadenberechnung(mon, schaden);
 
                         }
@@ -361,14 +362,18 @@ public class DDGUI_SpielFeld extends JPanel {
                     case 2://rechts
                         if (field[xpos + range][ypos] instanceof DD_Monster) {
                             DD_Monster mon = (DD_Monster) field[xpos + range][ypos];
+                            showFireEffect(xpos, ypos, range);
                             Schadenberechnung(mon, schaden);
+
                         }
 
                         break;
                     case 3://links
                         if (field[xpos - range][ypos] instanceof DD_Monster) {
                             DD_Monster mon = (DD_Monster) field[xpos - range][ypos];
+                            showFireEffect(xpos, ypos, range);
                             Schadenberechnung(mon, schaden);
+
                         }
                         break;
                 }
@@ -380,6 +385,26 @@ public class DDGUI_SpielFeld extends JPanel {
         }
 
         repaint();
+    }
+
+    public void showFireEffect(int xpos, int ypos, int range) {
+
+        Timer tim = new Timer(1000000, null);
+        JLabel l = new JLabel();
+        l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
+        l.setBorder(null);
+        l.setOpaque(false);
+        l.setBounds(xpos * this.ratio + 7, ypos * this.ratio + range, this.ratio, this.ratio);
+
+        while (tim.isRunning()) {
+            this.add(l);
+            this.revalidate();
+            this.repaint();
+        }
+
+        this.remove(l);
+        this.revalidate();
+        this.repaint();
     }
 
     public void Schadenberechnung(DD_Monster mon, int schaden) {
