@@ -275,6 +275,10 @@ public class DDGUI_SpielFeld extends JPanel {
 
     public void nextRound() {
         //    monstermovement();
+
+        if (getDd_player().getL_mana() < 30) {
+            getDd_player().setL_mana(getDd_player().getL_mana() + 7);
+        }
         runde += 1;
         System.out.println("Runde:" + runde);
     }
@@ -301,6 +305,93 @@ public class DDGUI_SpielFeld extends JPanel {
         }
     }
 
+    public void checkMonsterList() {
+
+        for (DD_Monster monstercheck : monsterlist) {
+
+            if (monstercheck.getL_leben() <= 0) {
+                monsterlist.remove(monstercheck);
+                field[monstercheck.getXpos()][monstercheck.getYpos()] = new DD_Umgebung("boden");
+
+            }
+
+        }
+        repaint();
+    }
+
+    public void attack(DD_Spieler sp, int attackNr) {
+
+        switch (attackNr) {
+            case 1:
+                int mana = sp.getL_mana();
+                if (mana < 10) {
+                    return;
+                }
+                int xpos = sp.getXpos();
+                int ypos = sp.getYpos();
+                int schaden = sp.getL_schaden();
+                int direction = sp.getDir();
+                int range = sp.getL_faehigkeit1range();
+
+                switch (direction) {
+                    case 0://oben
+                        if (field[xpos][ypos - range] instanceof DD_Monster) {
+                            DD_Monster mon = (DD_Monster) field[xpos][ypos - range];
+                            Schadenberechnung(mon, schaden);
+
+                        }
+
+                        break;
+                    case 1://unten
+
+                        if (field[xpos][ypos + range] instanceof DD_Monster) {
+                            DD_Monster mon = (DD_Monster) field[xpos][ypos + range];
+                            Schadenberechnung(mon, schaden);
+
+                        }
+                        break;
+                    case 2://rechts
+                        if (field[xpos - range][ypos] instanceof DD_Monster) {
+                            DD_Monster mon = (DD_Monster) field[xpos - range][ypos];
+                            Schadenberechnung(mon, schaden);
+                        }
+
+                        break;
+                    case 3://links
+                        if (field[xpos + range][ypos] instanceof DD_Monster) {
+                            DD_Monster mon = (DD_Monster) field[xpos + range][ypos];
+                            Schadenberechnung(mon, schaden);
+                        }
+                        break;
+                }
+                sp.setL_mana(mana - 10);
+                break;
+            case 2:
+                break;
+
+        }
+
+        repaint();
+    }
+
+    public void Schadenberechnung(DD_Monster mon, int schaden) {
+
+        int newleben = (mon.getL_leben() - schaden);
+        if (newleben < 0) {
+            newleben = 0;
+            System.out.println("Monster besiegt");
+            monsterlist.remove(mon);
+            field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden");
+            mon.getMenu().removeAll();
+
+        }
+        mon.setL_leben(newleben);
+        mon.showMenu(root.getInfopanel());
+        mon.getMenu().revalidate();
+        mon.getMenu().repaint();
+        repaint();
+    }
+
     public boolean Zugmoeglich(int x, int y) {
         try {
             if (dd_player.getXpos() == zielX && dd_player.getYpos() == zielY) {
@@ -320,7 +411,7 @@ public class DDGUI_SpielFeld extends JPanel {
 
             if (field[x][y] instanceof DD_Monster) {
                 System.out.println("Kampf");
-                return true;
+                return false;
             }
         } catch (Exception ex) {
 
@@ -332,7 +423,7 @@ public class DDGUI_SpielFeld extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
+        //   checkMonsterList();
         for (int i = 0; i < ZELLEN; i++) {
             for (int j = 0; j < ZELLEN; j++) {
                 if (this.field[i][j] instanceof DD_Umgebung) {

@@ -51,10 +51,8 @@ public class DD_Statuslistener implements MouseListener {
             DD_Umgebung umg = (DD_Umgebung) feld.getField()[posx][posy];
             umg.setHasfocus(true);
             focusstack.push(umg);
+             System.out.println(umg.getTyp());
 
-            feld.getRoot().getInfopanel().removeAll();
-            feld.getRoot().getInfopanel().revalidate();
-            feld.getRoot().getInfopanel().repaint();
 
         } else if (feld.getField()[posx][posy] instanceof DD_Spieler) {
             DD_Spieler player = (DD_Spieler) feld.getField()[posx][posy];
@@ -68,6 +66,7 @@ public class DD_Statuslistener implements MouseListener {
             DD_Monster mon = (DD_Monster) feld.getField()[posx][posy];
             mon.setHasfocus(true);
             focusstack.push(mon);
+             System.out.println("Monster");
             mon.showMenu(feld.getRoot().getInfopanel());
 
         }

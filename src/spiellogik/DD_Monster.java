@@ -16,6 +16,14 @@ import javax.swing.JPanel;
 public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
 
     DD_SpielerMenu menu = new DD_SpielerMenu(false);
+
+    public DD_SpielerMenu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(DD_SpielerMenu menu) {
+        this.menu = menu;
+    }
     boolean hasfocus = false;
 
     public boolean isHasfocus() {

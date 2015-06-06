@@ -32,24 +32,33 @@ public class DD_Figurkeylistener implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             feld.moveChar(feld.getDd_player(), -1, "y");
             feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerOben());
+            feld.getDd_player().setDir(0);
+
+            feld.getDd_player().showMenu(feld.getRoot().getInfopanel());
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             //  feld.moveCharacter(1, "y");
             feld.moveChar(feld.getDd_player(), 1, "y");
             feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerUnten());
+            feld.getDd_player().setDir(1);
+            //feld.getDd_player().showMenu(feld.getRoot().getInfopanel());
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             //   feld.moveCharacter(1, "x");
             feld.moveChar(feld.getDd_player(), 1, "x");
             feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerRechts());
+            feld.getDd_player().setDir(2);
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             //feld.moveCharacter(-1, "x");
             feld.moveChar(feld.getDd_player(), -1, "x");
             feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerLinks());
+            feld.getDd_player().setDir(3);
+
         }
 
         if (e.getKeyCode() == KeyEvent.VK_1) {
+            feld.attack(feld.getDd_player(), 1);
 
         }
         if (e.getKeyCode() == KeyEvent.VK_2) {

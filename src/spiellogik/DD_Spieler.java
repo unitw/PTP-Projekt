@@ -22,6 +22,15 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     DD_SpielerMenu menu = new DD_SpielerMenu(true);
     int xpos;
     int ypos;
+    int dir;
+
+    public int getDir() {
+        return dir;
+    }
+
+    public void setDir(int dir) {
+        this.dir = dir;
+    }
 
     private BufferedImage playerUnten;
     private BufferedImage playerOben;
@@ -40,6 +49,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
 
     public DD_Spieler(int xpos, int ypos) {
         try {
+            dir = 1;
             this.xpos = xpos;
             this.ypos = ypos;
             this.playerUnten = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerUnten.png"));
@@ -55,9 +65,9 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     int i_leben = 100;
     int i_mana = 30;
     int i_ruestung = 50;
-    int i_schaden;
-    int i_faehigkeit1;
-    int i_faehigkeit2;
+    int i_schaden=15;
+    int i_faehigkeit1range = 1;
+    int i_faehigkeit2range = 1;
 
     public BufferedImage getPlayerImage() {
         return playerImageAktuell;
@@ -115,20 +125,20 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
         this.i_schaden = l_schaden;
     }
 
-    public int getL_faehigkeit1() {
-        return i_faehigkeit1;
+    public int getL_faehigkeit1range() {
+        return i_faehigkeit1range;
     }
 
     public void setL_faehigkeit1(int l_faehigkeit1) {
-        this.i_faehigkeit1 = l_faehigkeit1;
+        this.i_faehigkeit1range = l_faehigkeit1;
     }
 
-    public int getL_faehigkeit2() {
-        return i_faehigkeit2;
+    public int getL_faehigkeit2range() {
+        return i_faehigkeit2range;
     }
 
     public void setL_faehigkeit2(int l_faehigkeit2) {
-        this.i_faehigkeit2 = l_faehigkeit2;
+        this.i_faehigkeit2range = l_faehigkeit2;
     }
 
     @Override
