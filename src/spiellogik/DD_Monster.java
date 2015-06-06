@@ -15,8 +15,16 @@ import javax.swing.JPanel;
  */
 public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
 
-    DD_SpielerMenu menu = new DD_SpielerMenu();
+    DD_SpielerMenu menu = new DD_SpielerMenu(false);
+    boolean hasfocus = false;
 
+    public boolean isHasfocus() {
+        return hasfocus;
+    }
+
+    public void setHasfocus(boolean hasfocus) {
+        this.hasfocus = hasfocus;
+    }
     int xpos;
     int ypos;
 
@@ -101,6 +109,7 @@ public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
     public void showMenu(JPanel panel) {
         panel.removeAll();
         menu.getT_leben().setValue(l_leben);
+        menu.getT_leben().setString(l_leben + "");
         menu.getT_mana().setText(l_mana + "");
         menu.getT_ruestung().setText(l_ruestung + "");
 

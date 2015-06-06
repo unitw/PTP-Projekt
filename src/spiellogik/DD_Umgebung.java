@@ -14,6 +14,16 @@ import javax.swing.JPanel;
 public class DD_Umgebung implements  IDD_MenuAnzeiger{
     String Typ;
 
+    public boolean isHasfocus() {
+        return hasfocus;
+    }
+
+    public void setHasfocus(boolean hasfocus) {
+        this.hasfocus = hasfocus;
+    }
+    boolean hasfocus=false;
+    
+    
     public DD_Umgebung(String Typ) {
         this.Typ = Typ;
     }

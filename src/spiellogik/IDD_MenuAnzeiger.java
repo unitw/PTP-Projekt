@@ -12,9 +12,11 @@ import javax.swing.JPanel;
  * @author rw
  */
 public interface IDD_MenuAnzeiger {
-    
-    
-    
+
+    public boolean isHasfocus();
+
+    public void setHasfocus(boolean hasfocus);
+
     public void showMenu(JPanel panel);
-    
+
 }

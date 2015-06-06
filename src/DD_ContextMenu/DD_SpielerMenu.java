@@ -10,6 +10,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -22,23 +24,38 @@ import net.miginfocom.swing.MigLayout;
  */
 public class DD_SpielerMenu extends JPanel {
 
+    boolean player = false;
+
+    public boolean isPlayer() {
+        return player;
+    }
+
+    public void setPlayer(boolean player) {
+        this.player = player;
+    }
+
     JLabel l_leben;
     JLabel l_mana;
     JLabel l_ruestung;
     JLabel l_schaden;
+
     JLabel l_faehigkeit1;
+    JLabel l_faehigkeit1gif;
+
     JLabel l_faehigkeit2;
+    JLabel l_faehigkeit2gif;
 
     JProgressBar pb_leben;
     JTextField t_mana;
     JTextField t_ruestung;
     JTextField t_schaden;
-    JTextField t_faehigkeit1;
-    JTextField t_faehigkeit2;
+    JButton t_faehigkeit1;
+    JButton t_faehigkeit2;
 
     Font infomenu = new Font("Arial", Font.BOLD, 20);
 
-    public DD_SpielerMenu() {
+    public DD_SpielerMenu(boolean player) {
+        this.player = player;
 
         this.setPreferredSize(new Dimension(400, 600));
         this.setLayout(new MigLayout("fill"));
@@ -49,15 +66,18 @@ public class DD_SpielerMenu extends JPanel {
         l_mana = new JLabel("Mana");
         l_ruestung = new JLabel("Ruestung");
         l_schaden = new JLabel("Schaden");
-        l_faehigkeit1 = new JLabel("Faehigkeit1");
-        l_faehigkeit2 = new JLabel("Faehigkeit2");
+        l_faehigkeit1 = new JLabel("Feuerball");
+        l_faehigkeit2 = new JLabel("Wasserball");
+
+        l_faehigkeit1gif = new JLabel();
+        l_faehigkeit2gif = new JLabel();
 
         pb_leben = new JProgressBar();
         t_mana = new JTextField();
         t_ruestung = new JTextField();
         t_schaden = new JTextField();
-        t_faehigkeit1 = new JTextField();
-        t_faehigkeit2 = new JTextField();
+        t_faehigkeit1 = new JButton("Attack");
+        t_faehigkeit2 = new JButton("Attack");
 
         this.add(l_leben, "span, split 2, center");
 
@@ -65,6 +85,7 @@ public class DD_SpielerMenu extends JPanel {
         pb_leben.setForeground(Color.red);
 
         pb_leben.setPreferredSize(new Dimension(50, 25));
+        pb_leben.setStringPainted(true);
         this.add(pb_leben, "span, split 2, wrap");
 
         this.add(l_mana, "span, split 2, center,");
@@ -72,11 +93,28 @@ public class DD_SpielerMenu extends JPanel {
         t_mana.setPreferredSize(new Dimension(50, 25));
         this.add(t_mana, "span, split 2, center,wrap");
         t_mana.setEditable(false);
+
         this.add(l_ruestung, "span, split 2, center,");
         t_ruestung.setPreferredSize(new Dimension(50, 25));
-
         this.add(t_ruestung, "span, split 2, center,wrap");
         t_ruestung.setEditable(false);
+
+        if (player) {
+            this.add(l_faehigkeit1, "span, split 2, center,");
+
+            this.l_faehigkeit1.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
+
+            t_faehigkeit1.setPreferredSize(new Dimension(50, 25));
+            this.add(t_faehigkeit1, "span, split 2, center,wrap");
+
+            this.add(l_faehigkeit2, "span, split 2, center,");
+            this.l_faehigkeit2.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
+
+            t_faehigkeit2.setPreferredSize(new Dimension(50, 25));
+
+            this.add(t_faehigkeit2, "span, split 2, center,wrap");
+        }
+
     }
 
     public JProgressBar getT_leben() {
@@ -111,19 +149,19 @@ public class DD_SpielerMenu extends JPanel {
         this.t_schaden = t_schaden;
     }
 
-    public JTextField getT_faehigkeit1() {
+    public JButton getT_faehigkeit1() {
         return t_faehigkeit1;
     }
 
-    public void setT_faehigkeit1(JTextField t_faehigkeit1) {
+    public void setT_faehigkeit1(JButton t_faehigkeit1) {
         this.t_faehigkeit1 = t_faehigkeit1;
     }
 
-    public JTextField getT_faehigkeit2() {
+    public JButton getT_faehigkeit2() {
         return t_faehigkeit2;
     }
 
-    public void setT_faehigkeit2(JTextField t_faehigkeit2) {
+    public void setT_faehigkeit2(JButton t_faehigkeit2) {
         this.t_faehigkeit2 = t_faehigkeit2;
     }
 

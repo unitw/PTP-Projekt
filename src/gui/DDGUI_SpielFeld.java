@@ -5,6 +5,7 @@
  */
 package gui;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -273,7 +274,7 @@ public class DDGUI_SpielFeld extends JPanel {
     }
 
     public void nextRound() {
-        monstermovement();
+    //    monstermovement();
         runde += 1;
         System.out.println("Runde:" + runde);
     }
@@ -346,11 +347,26 @@ public class DDGUI_SpielFeld extends JPanel {
                             g.drawImage(this.stein, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
                             break;
                     }
+                    if (umgebung.isHasfocus()) {
+                        g.setColor(Color.white);
+                        g.drawRect(i * this.ratio, j * this.ratio, this.ratio, this.ratio);
+                    }
 
                 } else if (this.field[i][j] instanceof DD_Monster) {
                     g.drawImage(this.monster, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
+
+                    DD_Monster m = (DD_Monster) this.field[i][j];
+                    if (m.isHasfocus()) {
+                        g.setColor(Color.red);
+                        g.drawRect(i * this.ratio, j * this.ratio, this.ratio+1, this.ratio+1);
+                    }
                 } else if (this.field[i][j] instanceof DD_Spieler) {
                     g.drawImage(this.player, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
+                    DD_Spieler sp = (DD_Spieler) this.field[i][j];
+                    if (sp.isHasfocus()) {
+                        g.setColor(Color.green);
+                        g.drawRect(i * this.ratio, j * this.ratio, this.ratio, this.ratio);
+                    }
                 }
             }
         }

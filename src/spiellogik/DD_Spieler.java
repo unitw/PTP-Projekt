@@ -14,9 +14,18 @@ import javax.swing.JPanel;
  */
 public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
 
-    DD_SpielerMenu menu = new DD_SpielerMenu();
+    DD_SpielerMenu menu = new DD_SpielerMenu(true);
     int xpos;
     int ypos;
+
+    public boolean isHasfocus() {
+        return hasfocus;
+    }
+
+    public void setHasfocus(boolean hasfocus) {
+        this.hasfocus = hasfocus;
+    }
+    boolean hasfocus = false;
 
     public DD_Spieler(int xpos, int ypos) {
         this.xpos = xpos;
@@ -81,7 +90,9 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     public void showMenu(JPanel panel) {
 
         panel.removeAll();
+
         menu.getT_leben().setValue(i_leben);
+        menu.getT_leben().setString(i_leben + "");
         menu.getT_mana().setText(i_mana + "");
         menu.getT_ruestung().setText(i_ruestung + "");
 
