@@ -7,6 +7,9 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -337,7 +340,12 @@ public class DDGUI_SpielFeld extends JPanel {
                     case 0://oben
                         if (field[xpos][ypos - range] instanceof DD_Monster) {
                             DD_Monster mon = (DD_Monster) field[xpos][ypos - range];
+                            Image image = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemClassLoader().getResource("resources/feuerball.gif"));
+                            Graphics2D g2d = (Graphics2D) this.getGraphics();
+                            g2d.drawImage(image, xpos * this.ratio, ypos - range * this.ratio, root);
+
                             Schadenberechnung(mon, schaden);
+                        //    repaint();
 
                         }
 
@@ -351,15 +359,15 @@ public class DDGUI_SpielFeld extends JPanel {
                         }
                         break;
                     case 2://rechts
-                        if (field[xpos - range][ypos] instanceof DD_Monster) {
-                            DD_Monster mon = (DD_Monster) field[xpos - range][ypos];
+                        if (field[xpos + range][ypos] instanceof DD_Monster) {
+                            DD_Monster mon = (DD_Monster) field[xpos + range][ypos];
                             Schadenberechnung(mon, schaden);
                         }
 
                         break;
                     case 3://links
-                        if (field[xpos + range][ypos] instanceof DD_Monster) {
-                            DD_Monster mon = (DD_Monster) field[xpos + range][ypos];
+                        if (field[xpos - range][ypos] instanceof DD_Monster) {
+                            DD_Monster mon = (DD_Monster) field[xpos - range][ypos];
                             Schadenberechnung(mon, schaden);
                         }
                         break;
