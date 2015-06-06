@@ -75,9 +75,10 @@ public class DDGUI_RootFrame extends JFrame {
 
         this.setIconImage(img);
         this.add(contentPanel);
-        this.setSize(new Dimension(1000, 800));
+        this.setSize(new Dimension(1000, 900));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        
 
     }
 

@@ -6,13 +6,16 @@
 package listener;
 
 import gui.DDGUI_SpielFeld;
+import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Stack;
+import javax.swing.BorderFactory;
 import spiellogik.DD_Monster;
 import spiellogik.DD_Spieler;
 import spiellogik.DD_Umgebung;
 import spiellogik.IDD_MenuAnzeiger;
+import spiellogik.IDD_Movable;
 
 /**
  *
@@ -40,10 +43,16 @@ public class DD_Statuslistener implements MouseListener {
 
         if (!focusstack.empty()) {
 
-            IDD_MenuAnzeiger menu = (IDD_MenuAnzeiger) focusstack.pop();
-            menu.setHasfocus(false);
-            feld.repaint();
+            if (focusstack.peek() instanceof IDD_Movable) {
+                IDD_Movable mov = (IDD_Movable) focusstack.pop();
+                mov.getL_gif().setBorder(null);
+            }
+            if (!focusstack.empty()) {
+                IDD_MenuAnzeiger menu = (IDD_MenuAnzeiger) focusstack.pop();
 
+                menu.setHasfocus(false);
+                feld.repaint();
+            }
         }
 
         if (feld.getField()[posx][posy] instanceof DD_Umgebung) {
@@ -51,22 +60,26 @@ public class DD_Statuslistener implements MouseListener {
             DD_Umgebung umg = (DD_Umgebung) feld.getField()[posx][posy];
             umg.setHasfocus(true);
             focusstack.push(umg);
-             System.out.println(umg.getTyp());
-
+            System.out.println(umg.getTyp());
 
         } else if (feld.getField()[posx][posy] instanceof DD_Spieler) {
             DD_Spieler player = (DD_Spieler) feld.getField()[posx][posy];
+            player.getL_gif().setBorder(BorderFactory.createLineBorder(Color.green, 1));
             player.setHasfocus(true);
             focusstack.push(player);
+
             player.showMenu(feld.getRoot().getInfopanel());
             System.out.println("Spieler");
 
         } else if (feld.getField()[posx][posy] instanceof DD_Monster) {
 
             DD_Monster mon = (DD_Monster) feld.getField()[posx][posy];
+            mon.getL_gif().setBorder(BorderFactory.createLineBorder(Color.red, 1));
+
             mon.setHasfocus(true);
+
             focusstack.push(mon);
-             System.out.println("Monster");
+            System.out.println("Monster");
             mon.showMenu(feld.getRoot().getInfopanel());
 
         }

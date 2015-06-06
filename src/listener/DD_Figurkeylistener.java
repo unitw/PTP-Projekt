@@ -62,7 +62,7 @@ public class DD_Figurkeylistener implements KeyListener {
 
         }
         if (e.getKeyCode() == KeyEvent.VK_2) {
-
+            feld.attack(feld.getDd_player(), 2);
         }
 
     }

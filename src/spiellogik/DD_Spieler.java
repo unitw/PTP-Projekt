@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -23,6 +25,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     int xpos;
     int ypos;
     int dir;
+    JLabel l_gif = new JLabel();
 
     public int getDir() {
         return dir;
@@ -59,13 +62,20 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
         } catch (IOException ex) {
             Logger.getLogger(DD_Spieler.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         playerImageAktuell = playerUnten;
+        l_gif.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/playerz.gif")));
+        l_gif.setBorder(null);
+        l_gif.setOpaque(true);
+
+    }
+
+    public JLabel getL_gif() {
+        return l_gif;
     }
     int i_leben = 100;
     int i_mana = 30;
     int i_ruestung = 50;
-    int i_schaden=15;
+    int i_schaden = 15;
     int i_faehigkeit1range = 1;
     int i_faehigkeit2range = 1;
 
@@ -170,6 +180,11 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
 
     public void setYpos(int ypos) {
         this.ypos = ypos;
+    }
+
+    @Override
+    public void setL_gif(JLabel label) {
+        this.l_gif = label;
     }
 
 }

@@ -5,13 +5,13 @@
  */
 package spiellogik;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author tw
  */
 public interface IDD_Movable {
-
-   
 
     public int getXpos();
 
@@ -20,5 +20,9 @@ public interface IDD_Movable {
     public int getYpos();
 
     public void setYpos(int ypos);
+
+    public JLabel getL_gif();
+
+    public void setL_gif(JLabel label);
 
 }

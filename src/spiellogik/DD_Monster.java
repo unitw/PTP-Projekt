@@ -6,6 +6,7 @@
 package spiellogik;
 
 import DD_ContextMenu.DD_SpielerMenu;
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -16,6 +17,8 @@ import javax.swing.JPanel;
 public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
 
     DD_SpielerMenu menu = new DD_SpielerMenu(false);
+
+    JLabel l_gif = new JLabel();
 
     public DD_SpielerMenu getMenu() {
         return menu;
@@ -47,6 +50,18 @@ public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
     public DD_Monster(int xpos, int ypos) {
         this.xpos = xpos;
         this.ypos = ypos;
+        l_gif.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/geist.gif")));
+        l_gif.setBorder(null);
+        l_gif.setOpaque(true);
+
+    }
+
+    public JLabel getL_gif() {
+        return l_gif;
+    }
+
+    public void setL_gif(JLabel l) {
+        this.l_gif = l;
     }
 
     public int getXpos() {

@@ -9,9 +9,12 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -20,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+
 import listener.DD_Figurkeylistener;
 import listener.DD_Statuslistener;
 import spiellogik.DD_Monster;
@@ -40,6 +44,7 @@ public class DDGUI_SpielFeld extends JPanel {
     private BufferedImage boden;
     private BufferedImage player;
     Image image = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif"));
+    Image geist = Toolkit.getDefaultToolkit().createImage(ClassLoader.getSystemClassLoader().getResource("resources/geist.gif"));
 
     private BufferedImage monster;
     private int playerX = 2;
@@ -74,6 +79,10 @@ public class DDGUI_SpielFeld extends JPanel {
     }
     private final int ZELLEN = 30;
     public final int ratio;
+
+    public int getRatio() {
+        return ratio;
+    }
     DD_Figurkeylistener figurkeylistener = new DD_Figurkeylistener(this);
     DD_Statuslistener status = new DD_Statuslistener(this);
 
@@ -281,7 +290,7 @@ public class DDGUI_SpielFeld extends JPanel {
     }
 
     public void nextRound() {
-        //    monstermovement();
+        monstermovement();
 
         if (getDd_player().getL_mana() < 30) {
             getDd_player().setL_mana(getDd_player().getL_mana() + 7);
@@ -328,83 +337,107 @@ public class DDGUI_SpielFeld extends JPanel {
 
     public void attack(DD_Spieler sp, int attackNr) {
 
-        switch (attackNr) {
-            case 1:
-                int mana = sp.getL_mana();
-                if (mana < 10) {
-                    return;
-                }
-                int xpos = sp.getXpos();
-                int ypos = sp.getYpos();
-                int schaden = sp.getL_schaden();
-                int direction = sp.getDir();
-                int range = sp.getL_faehigkeit1range();
-
-                switch (direction) {
-                    case 0://oben
-                        if (field[xpos][ypos - range] instanceof DD_Monster) {
-                            DD_Monster mon = (DD_Monster) field[xpos][ypos - range];
-                            showFireEffect(xpos, ypos, range);
-                            Schadenberechnung(mon, schaden);
-
-                        }
-
-                        break;
-                    case 1://unten
-
-                        if (field[xpos][ypos + range] instanceof DD_Monster) {
-                            DD_Monster mon = (DD_Monster) field[xpos][ypos + range];
-                            showFireEffect(xpos, ypos, range);
-                            Schadenberechnung(mon, schaden);
-
-                        }
-                        break;
-                    case 2://rechts
-                        if (field[xpos + range][ypos] instanceof DD_Monster) {
-                            DD_Monster mon = (DD_Monster) field[xpos + range][ypos];
-                            showFireEffect(xpos, ypos, range);
-                            Schadenberechnung(mon, schaden);
-
-                        }
-
-                        break;
-                    case 3://links
-                        if (field[xpos - range][ypos] instanceof DD_Monster) {
-                            DD_Monster mon = (DD_Monster) field[xpos - range][ypos];
-                            showFireEffect(xpos, ypos, range);
-                            Schadenberechnung(mon, schaden);
-
-                        }
-                        break;
-                }
-                sp.setL_mana(mana - 10);
-                break;
-            case 2:
-                break;
-
+        int mana = sp.getL_mana();
+        if (mana < 10) {
+            return;
         }
+        int xpos = sp.getXpos();
+        int ypos = sp.getYpos();
+        int schaden = sp.getL_schaden();
+        int direction = sp.getDir();
+        int range = sp.getL_faehigkeit1range();
+
+        switch (direction) {
+            case 0://oben
+                if (field[xpos][ypos - range] instanceof DD_Monster) {
+                    DD_Monster mon = (DD_Monster) field[xpos][ypos - range];
+                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
+                    Schadenberechnung(mon, schaden);
+
+                }
+
+                break;
+            case 1://unten
+
+                if (field[xpos][ypos + range] instanceof DD_Monster) {
+                    DD_Monster mon = (DD_Monster) field[xpos][ypos + range];
+                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
+                    Schadenberechnung(mon, schaden);
+
+                }
+                break;
+            case 2://rechts
+                if (field[xpos + range][ypos] instanceof DD_Monster) {
+                    DD_Monster mon = (DD_Monster) field[xpos + range][ypos];
+                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
+                    Schadenberechnung(mon, schaden);
+
+                }
+
+                break;
+            case 3://links
+                if (field[xpos - range][ypos] instanceof DD_Monster) {
+                    DD_Monster mon = (DD_Monster) field[xpos - range][ypos];
+                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
+                    Schadenberechnung(mon, schaden);
+
+                }
+                break;
+        }
+        sp.setL_mana(mana - 5);
 
         repaint();
     }
+    Timer timer;
 
-    public void showFireEffect(int xpos, int ypos, int range) {
+    public Timer getTimer() {
+        return timer;
+    }
 
-        Timer tim = new Timer(1000000, null);
+    public void showAttackEffect(int attacknr, int xpos, int ypos, int range) {
+
+        if (timer != null) {
+            timer.stop();
+        }
         JLabel l = new JLabel();
-        l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
+        if (attacknr == 1) {
+            l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
+        } else if (attacknr == 2) {
+            l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
+        }
         l.setBorder(null);
         l.setOpaque(false);
-        l.setBounds(xpos * this.ratio + 7, ypos * this.ratio + range, this.ratio, this.ratio);
+        l.setBounds(xpos * this.ratio + 5, ypos * this.ratio + range, this.ratio, this.ratio);
 
-        while (tim.isRunning()) {
-            this.add(l);
-            this.revalidate();
-            this.repaint();
-        }
+        DDGUI_SpielFeld.this.add(l);
+        DDGUI_SpielFeld.this.revalidate();
+        DDGUI_SpielFeld.this.repaint();
 
-        this.remove(l);
-        this.revalidate();
-        this.repaint();
+        timer = new Timer(1000, new ActionListener() {
+            int counterValue = 1;
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 1 Sekunde abziehen
+                counterValue--;
+
+                // Falls Zähler = 0, Countdown abgelaufen!
+                if (counterValue == 0) {
+                    if (attacknr == 1) {
+                        System.out.println("Feuerball getroffen");
+                    } else if (attacknr == 2) {
+                        System.out.println("Wasserball getroffen");
+                    }
+                    // Timer stoppen
+                    getTimer().stop();
+                    DDGUI_SpielFeld.this.remove(l);
+                    DDGUI_SpielFeld.this.revalidate();
+                    DDGUI_SpielFeld.this.repaint();
+                }
+            }
+        });
+        timer.start();
+
     }
 
     public void Schadenberechnung(DD_Monster mon, int schaden) {
@@ -415,6 +448,7 @@ public class DDGUI_SpielFeld extends JPanel {
             System.out.println("Monster besiegt");
             monsterlist.remove(mon);
             field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden");
+            this.remove(mon.getL_gif());
             mon.getMenu().removeAll();
 
         }
@@ -456,7 +490,8 @@ public class DDGUI_SpielFeld extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        //   checkMonsterList();
+        //checkMonsterList();
+        Runnable geisterRunnable = null;
         for (int i = 0; i < ZELLEN; i++) {
             for (int j = 0; j < ZELLEN; j++) {
                 if (this.field[i][j] instanceof DD_Umgebung) {
@@ -477,16 +512,32 @@ public class DDGUI_SpielFeld extends JPanel {
                     }
 
                 } else if (this.field[i][j] instanceof DD_Monster) {
-                    g.drawImage(this.monster, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
 
+                    DD_Monster monster = (DD_Monster) this.field[i][j];
+
+                    this.remove(monster.getL_gif());
+
+                    final int x = i;
+                    final int y = j;
+
+                    monster.getL_gif().setBounds(x * DDGUI_SpielFeld.this.getRatio(), y * DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio());
+
+                    this.add(monster.getL_gif());
+
+                    // g.drawImage(DDGUI_SpielFeld.this.getGeist(), x * DDGUI_SpielFeld.this.getRatio(), y * DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), null);
                     DD_Monster m = (DD_Monster) this.field[i][j];
                     if (m.isHasfocus()) {
                         g.setColor(Color.red);
                         g.drawRect(i * this.ratio, j * this.ratio, this.ratio + 1, this.ratio + 1);
                     }
                 } else if (this.field[i][j] instanceof DD_Spieler) {
-                    g.drawImage(this.dd_player.getPlayerImage(), i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
+
+                    //   g.drawImage(this.dd_player.getPlayerImage(), i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
                     DD_Spieler sp = (DD_Spieler) this.field[i][j];
+                    this.remove(sp.getL_gif());
+                    sp.getL_gif().setBounds(i * DDGUI_SpielFeld.this.getRatio(),j * DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio());
+                    this.add(sp.getL_gif());
+
                     if (sp.isHasfocus()) {
                         g.setColor(Color.green);
                         g.drawRect(i * this.ratio, j * this.ratio, this.ratio, this.ratio);
@@ -499,6 +550,14 @@ public class DDGUI_SpielFeld extends JPanel {
         g.drawImage(this.ziel, this.zielX * this.ratio, this.zielY * this.ratio, this.ratio, this.ratio, null);
         //g.drawImage(this.player, this.playerX * this.ratio, this.playerY * this.ratio, this.ratio, this.ratio, null);
 
+    }
+
+    public Image getGeist() {
+        return geist;
+    }
+
+    public void setGeist(Image geist) {
+        this.geist = geist;
     }
 
 }
