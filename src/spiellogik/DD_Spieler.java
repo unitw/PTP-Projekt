@@ -6,6 +6,11 @@
 package spiellogik;
 
 import DD_ContextMenu.DD_SpielerMenu;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 /**
@@ -18,6 +23,12 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     int xpos;
     int ypos;
 
+    private BufferedImage playerUnten;
+    private BufferedImage playerOben;
+    private BufferedImage playerRechts;
+    private BufferedImage playerLinks;
+    private BufferedImage playerImageAktuell;
+
     public boolean isHasfocus() {
         return hasfocus;
     }
@@ -28,8 +39,18 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     boolean hasfocus = false;
 
     public DD_Spieler(int xpos, int ypos) {
-        this.xpos = xpos;
-        this.ypos = ypos;
+        try {
+            this.xpos = xpos;
+            this.ypos = ypos;
+            this.playerUnten = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerUnten.png"));
+            this.playerOben = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerOben.png"));
+            this.playerRechts = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerRechts.png"));
+            this.playerLinks = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerLinks.png"));
+        } catch (IOException ex) {
+            Logger.getLogger(DD_Spieler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        playerImageAktuell = playerUnten;
     }
     int i_leben = 100;
     int i_mana = 30;
@@ -37,6 +58,30 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     int i_schaden;
     int i_faehigkeit1;
     int i_faehigkeit2;
+
+    public BufferedImage getPlayerImage() {
+        return playerImageAktuell;
+    }
+
+    public void setPlayerImage(BufferedImage image) {
+        playerImageAktuell = image;
+    }
+
+    public BufferedImage getPlayerUnten() {
+        return playerUnten;
+    }
+
+    public BufferedImage getPlayerOben() {
+        return playerOben;
+    }
+
+    public BufferedImage getPlayerRechts() {
+        return playerRechts;
+    }
+
+    public BufferedImage getPlayerLinks() {
+        return playerLinks;
+    }
 
     public int getL_leben() {
         return i_leben;

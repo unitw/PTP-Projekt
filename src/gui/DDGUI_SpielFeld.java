@@ -87,7 +87,6 @@ public class DDGUI_SpielFeld extends JPanel {
         try {
             this.boden = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/boden.png"));
             this.stein = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/stein.png"));
-            this.player = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/player.png"));
             this.ziel = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/ziel.png"));
             this.monster = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/monster.png"));
 
@@ -136,77 +135,78 @@ public class DDGUI_SpielFeld extends JPanel {
         this.root = root;
     }
 
-    public void moveCharacter(int i, String dir) {
-
-        Object o = null;
-        if (dir.equals("x")) {
-            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
-
-            this.playerX += i;
-
-//            if (playerX == -1) {
-//                playerX = 0;
-//                repaint();
-//                return;
-//            }
-//            if (playerX == 31) {
-//                playerX = 30;
-//                repaint();
-//                return;
-//            }
-//            if (playerX < 0) {
-//                playerX -= i;
-//                return;
+    //<editor-fold defaultstate="collapsed" desc="oldplayermove">
+//    public void moveCharacter(int i, String dir) {
+//
+//        Object o = null;
+//        if (dir.equals("x")) {
+//            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
+//
+//            this.playerX += i;
+//
+////            if (playerX == -1) {
+////                playerX = 0;
+////                repaint();
+////                return;
+////            }
+////            if (playerX == 31) {
+////                playerX = 30;
+////                repaint();
+////                return;
+////            }
+////            if (playerX < 0) {
+////                playerX -= i;
+////                return;
+////            }
+////
+////            if (playerX > ZELLEN) {
+////                playerX -= i;
+////                return;
+////            }
+//            o = field[this.playerX][this.playerY];
+//
+//            if (Zugmoeglich(this.playerX, this.playerY)) {
+//                field[this.playerX][this.playerY] = dd_player;
+//            } else {
+//                field[this.playerX][this.playerY] = o;
+//
+//                this.playerX -= i;
+//
+//                field[this.playerX][this.playerY] = dd_player;
+//
 //            }
 //
-//            if (playerX > ZELLEN) {
-//                playerX -= i;
-//                return;
-//            }
-            o = field[this.playerX][this.playerY];
-
-            if (Zugmoeglich(this.playerX, this.playerY)) {
-                field[this.playerX][this.playerY] = dd_player;
-            } else {
-                field[this.playerX][this.playerY] = o;
-
-                this.playerX -= i;
-
-                field[this.playerX][this.playerY] = dd_player;
-
-            }
-
-        }
-        if (dir.equals("y")) {
-            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
-
-            this.playerY += i;
-
-            if (field[this.playerX][this.playerY] != null) {
-
-//                if (playerY < 0 || playerY > ZELLEN) {
-//                    playerY -= i;
-//                    return;
+//        }
+//        if (dir.equals("y")) {
+//            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
+//
+//            this.playerY += i;
+//
+//            if (field[this.playerX][this.playerY] != null) {
+//
+////                if (playerY < 0 || playerY > ZELLEN) {
+////                    playerY -= i;
+////                    return;
+////                }
+//                o = field[this.playerX][this.playerY];
+//
+//                if (Zugmoeglich(this.playerX, this.playerY)) {
+//                    field[this.playerX][this.playerY] = dd_player;
+//                } else {
+//
+//                    field[this.playerX][this.playerY] = o;
+//
+//                    this.playerY -= i;
+//                    field[this.playerX][this.playerY] = dd_player;
+//
 //                }
-                o = field[this.playerX][this.playerY];
-
-                if (Zugmoeglich(this.playerX, this.playerY)) {
-                    field[this.playerX][this.playerY] = dd_player;
-                } else {
-
-                    field[this.playerX][this.playerY] = o;
-
-                    this.playerY -= i;
-                    field[this.playerX][this.playerY] = dd_player;
-
-                }
-            }
-            nextRound();
-
-            repaint();
-        }
-    }
-
+//            }
+//            nextRound();
+//
+//            repaint();
+//        }
+//    }
+//</editor-fold>
     public void moveChar(Object o, int i, String dir) {
 
         if (o instanceof IDD_Movable) {
@@ -274,7 +274,7 @@ public class DDGUI_SpielFeld extends JPanel {
     }
 
     public void nextRound() {
-    //    monstermovement();
+        //    monstermovement();
         runde += 1;
         System.out.println("Runde:" + runde);
     }
@@ -358,10 +358,10 @@ public class DDGUI_SpielFeld extends JPanel {
                     DD_Monster m = (DD_Monster) this.field[i][j];
                     if (m.isHasfocus()) {
                         g.setColor(Color.red);
-                        g.drawRect(i * this.ratio, j * this.ratio, this.ratio+1, this.ratio+1);
+                        g.drawRect(i * this.ratio, j * this.ratio, this.ratio + 1, this.ratio + 1);
                     }
                 } else if (this.field[i][j] instanceof DD_Spieler) {
-                    g.drawImage(this.player, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
+                    g.drawImage(this.dd_player.getPlayerImage(), i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
                     DD_Spieler sp = (DD_Spieler) this.field[i][j];
                     if (sp.isHasfocus()) {
                         g.setColor(Color.green);

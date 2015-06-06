@@ -31,19 +31,29 @@ public class DD_Figurkeylistener implements KeyListener {
 
         if (e.getKeyCode() == KeyEvent.VK_UP) {
             feld.moveChar(feld.getDd_player(), -1, "y");
-            //feld.moveCharacter(-1, "y");
+            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerOben());
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             //  feld.moveCharacter(1, "y");
             feld.moveChar(feld.getDd_player(), 1, "y");
+            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerUnten());
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
             //   feld.moveCharacter(1, "x");
             feld.moveChar(feld.getDd_player(), 1, "x");
+            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerRechts());
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
             //feld.moveCharacter(-1, "x");
             feld.moveChar(feld.getDd_player(), -1, "x");
+            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerLinks());
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_1) {
+
+        }
+        if (e.getKeyCode() == KeyEvent.VK_2) {
+
         }
 
     }
