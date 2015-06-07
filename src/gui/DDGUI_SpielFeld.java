@@ -296,6 +296,7 @@ public class DDGUI_SpielFeld extends JPanel {
             getDd_player().setL_mana(getDd_player().getL_mana() + 7);
         }
         runde += 1;
+        this.getRoot().getOutput().append("Runde:" + runde+"\n");
         System.out.println("Runde:" + runde);
     }
 
@@ -451,6 +452,8 @@ public class DDGUI_SpielFeld extends JPanel {
         int newleben = (mon.getL_leben() - schaden);
         if (newleben < 0) {
             newleben = 0;
+            DDGUI_SpielFeld.this.getRoot().getOutput().append("Monster besiegt\n");
+
             System.out.println("Monster besiegt");
             monsterlist.remove(mon);
             field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden");
@@ -556,14 +559,6 @@ public class DDGUI_SpielFeld extends JPanel {
         g.drawImage(this.ziel, this.zielX * this.ratio, this.zielY * this.ratio, this.ratio, this.ratio, null);
         //g.drawImage(this.player, this.playerX * this.ratio, this.playerY * this.ratio, this.ratio, this.ratio, null);
 
-    }
-
-    public Image getGeist() {
-        return geist;
-    }
-
-    public void setGeist(Image geist) {
-        this.geist = geist;
     }
 
 }
