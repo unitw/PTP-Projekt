@@ -37,6 +37,7 @@ public class DD_Statuslistener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        this.feld.requestFocus();
         e.getSource();
         int posx = e.getX() / feld.ratio;
         int posy = e.getY() / feld.ratio;
@@ -94,7 +95,7 @@ public class DD_Statuslistener implements MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        this.feld.requestFocus();
     }
 
     @Override

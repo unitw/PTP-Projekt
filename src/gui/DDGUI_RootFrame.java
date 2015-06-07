@@ -5,14 +5,13 @@
  */
 package gui;
 
-import DD_ContextMenu.DD_SpielerMenu;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,6 +20,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalTheme;
+import net.miginfocom.swing.MigLayout;
 
 /**
  *
@@ -46,7 +46,9 @@ public class DDGUI_RootFrame extends JFrame {
     public DDGUI_RootFrame() {
 
         JPanel contentPanel = new JPanel();
-        contentPanel.setLayout(new BorderLayout());
+        JEditorPane output = new JEditorPane();
+
+        contentPanel.setLayout(new MigLayout());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         Class themeClass = null;
@@ -59,12 +61,21 @@ public class DDGUI_RootFrame extends JFrame {
             Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        feld.setPreferredSize(new Dimension(800, 500));
+        feld.setPreferredSize(new Dimension(800, 810));
 
-        infopanel.setPreferredSize(new Dimension(200, 500));
+        infopanel.setPreferredSize(new Dimension(200, 600));
+        output.setPreferredSize(new Dimension(800, 100));
 
-        contentPanel.add(feld, BorderLayout.CENTER);
-        contentPanel.add(infopanel, BorderLayout.EAST);
+        JScrollPane sp_feld = new JScrollPane(feld);
+        sp_feld.setBorder(null);
+        JScrollPane sp_info = new JScrollPane(infopanel);
+        sp_info.setBorder(null);
+        JScrollPane sp_output = new JScrollPane(output);
+        sp_output.setBorder(null);
+
+        contentPanel.add(sp_feld, "span 2");
+        contentPanel.add(sp_info, "span 1,wrap");
+        contentPanel.add(sp_output, "span 1");
 
         Image img = null;
         try {
@@ -75,10 +86,9 @@ public class DDGUI_RootFrame extends JFrame {
 
         this.setIconImage(img);
         this.add(contentPanel);
-        this.setSize(new Dimension(1000, 900));
+        this.setSize(new Dimension(1100, 900));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-        
 
     }
 
