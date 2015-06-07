@@ -345,7 +345,7 @@ public class DDGUI_SpielFeld extends JPanel {
         int ypos = sp.getYpos();
         int schaden = sp.getL_schaden();
         int direction = sp.getDir();
-        int range = sp.getL_faehigkeit1range();
+        int range = sp.getFaehigkeitRange(attackNr);
 
         switch (direction) {
             case 0://oben
@@ -403,6 +403,9 @@ public class DDGUI_SpielFeld extends JPanel {
         if (attacknr == 1) {
             l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
         } else if (attacknr == 2) {
+            l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
+//todo dritte attacke
+        } else if (attacknr == 3) {
             l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
         }
         l.setBorder(null);

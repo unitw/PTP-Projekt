@@ -8,6 +8,9 @@ package spiellogik;
 import DD_ContextMenu.DD_SpielerMenu;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -30,8 +33,8 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     int i_mana = 30;
     int i_ruestung = 50;
     int i_schaden = 15;
-    int i_faehigkeit1range = 1;
-    int i_faehigkeit2range = 1;
+
+    Map<Number, Number> faehigkeitenrange = new HashMap<Number, Number>();
 
     private BufferedImage playerUnten;
     private BufferedImage playerOben;
@@ -42,6 +45,10 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     boolean hasfocus = false;
 
     public DD_Spieler(int xpos, int ypos) {
+        faehigkeitenrange.put(1, 1);
+        faehigkeitenrange.put(2, 1);
+        faehigkeitenrange.put(3, 5);
+
         try {
             dir = 1;
             this.xpos = xpos;
@@ -60,10 +67,18 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
 
     }
 
+    public int getFaehigkeitRange(int attackNr) {
+
+        return (int) faehigkeitenrange.get(attackNr);
+
+    }
+
+    @Override
     public boolean isHasfocus() {
         return hasfocus;
     }
 
+    @Override
     public void setHasfocus(boolean hasfocus) {
         this.hasfocus = hasfocus;
     }
@@ -134,22 +149,6 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
 
     public void setL_schaden(int l_schaden) {
         this.i_schaden = l_schaden;
-    }
-
-    public int getL_faehigkeit1range() {
-        return i_faehigkeit1range;
-    }
-
-    public void setL_faehigkeit1(int l_faehigkeit1) {
-        this.i_faehigkeit1range = l_faehigkeit1;
-    }
-
-    public int getL_faehigkeit2range() {
-        return i_faehigkeit2range;
-    }
-
-    public void setL_faehigkeit2(int l_faehigkeit2) {
-        this.i_faehigkeit2range = l_faehigkeit2;
     }
 
     @Override

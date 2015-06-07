@@ -64,7 +64,9 @@ public class DD_Figurkeylistener implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_2) {
             feld.attack(feld.getDd_player(), 2);
         }
-
+        if (e.getKeyCode() == KeyEvent.VK_3) {
+            feld.attack(feld.getDd_player(), 3);
+        }
     }
 
     @Override
