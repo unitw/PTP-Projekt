@@ -15,6 +15,7 @@ import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
@@ -28,8 +29,17 @@ import net.miginfocom.swing.MigLayout;
  */
 public class DDGUI_RootFrame extends JFrame {
 
-    DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
-    DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
+    private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
+    private DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
+    private JTextArea output = new JTextArea();
+
+    public JTextArea getOutput() {
+        return output;
+    }
+
+    public void setOutput(JTextArea output) {
+        this.output = output;
+    }
 
     public DDGUI_SpielFeld getFeld() {
         return feld;
@@ -46,7 +56,6 @@ public class DDGUI_RootFrame extends JFrame {
     public DDGUI_RootFrame() {
 
         JPanel contentPanel = new JPanel();
-        JEditorPane output = new JEditorPane();
 
         contentPanel.setLayout(new MigLayout());
 
@@ -71,11 +80,13 @@ public class DDGUI_RootFrame extends JFrame {
         JScrollPane sp_info = new JScrollPane(infopanel);
         sp_info.setBorder(null);
         JScrollPane sp_output = new JScrollPane(output);
+        sp_output.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        sp_output.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         sp_output.setBorder(null);
 
-        contentPanel.add(sp_feld, "span 2");
-        contentPanel.add(sp_info, "span 1,wrap");
-        contentPanel.add(sp_output, "span 1");
+        contentPanel.add(feld, "span 2");
+        contentPanel.add(infopanel, "span 1,wrap");
+        contentPanel.add(sp_output, "push x");
 
         Image img = null;
         try {

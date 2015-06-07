@@ -424,8 +424,11 @@ public class DDGUI_SpielFeld extends JPanel {
                 // Falls Zähler = 0, Countdown abgelaufen!
                 if (counterValue == 0) {
                     if (attacknr == 1) {
+                        DDGUI_SpielFeld.this.getRoot().getOutput().append("Feuerball getroffen\n");
+
                         System.out.println("Feuerball getroffen");
                     } else if (attacknr == 2) {
+                        DDGUI_SpielFeld.this.getRoot().getOutput().append("Wasserball getroffen\n");
                         System.out.println("Wasserball getroffen");
                     }
                     // Timer stoppen
@@ -535,7 +538,7 @@ public class DDGUI_SpielFeld extends JPanel {
                     //   g.drawImage(this.dd_player.getPlayerImage(), i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
                     DD_Spieler sp = (DD_Spieler) this.field[i][j];
                     this.remove(sp.getL_gif());
-                    sp.getL_gif().setBounds(i * DDGUI_SpielFeld.this.getRatio(),j * DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio());
+                    sp.getL_gif().setBounds(i * DDGUI_SpielFeld.this.getRatio(), j * DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio());
                     this.add(sp.getL_gif());
 
                     if (sp.isHasfocus()) {

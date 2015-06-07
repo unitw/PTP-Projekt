@@ -26,14 +26,12 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     int ypos;
     int dir;
     JLabel l_gif = new JLabel();
-
-    public int getDir() {
-        return dir;
-    }
-
-    public void setDir(int dir) {
-        this.dir = dir;
-    }
+    int i_leben = 100;
+    int i_mana = 30;
+    int i_ruestung = 50;
+    int i_schaden = 15;
+    int i_faehigkeit1range = 1;
+    int i_faehigkeit2range = 1;
 
     private BufferedImage playerUnten;
     private BufferedImage playerOben;
@@ -41,13 +39,6 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
     private BufferedImage playerLinks;
     private BufferedImage playerImageAktuell;
 
-    public boolean isHasfocus() {
-        return hasfocus;
-    }
-
-    public void setHasfocus(boolean hasfocus) {
-        this.hasfocus = hasfocus;
-    }
     boolean hasfocus = false;
 
     public DD_Spieler(int xpos, int ypos) {
@@ -69,15 +60,25 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable {
 
     }
 
+    public boolean isHasfocus() {
+        return hasfocus;
+    }
+
+    public void setHasfocus(boolean hasfocus) {
+        this.hasfocus = hasfocus;
+    }
+
+    public int getDir() {
+        return dir;
+    }
+
+    public void setDir(int dir) {
+        this.dir = dir;
+    }
+
     public JLabel getL_gif() {
         return l_gif;
     }
-    int i_leben = 100;
-    int i_mana = 30;
-    int i_ruestung = 50;
-    int i_schaden = 15;
-    int i_faehigkeit1range = 1;
-    int i_faehigkeit2range = 1;
 
     public BufferedImage getPlayerImage() {
         return playerImageAktuell;
