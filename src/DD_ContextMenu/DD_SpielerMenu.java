@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -57,6 +58,11 @@ public class DD_SpielerMenu extends JPanel {
     public DD_SpielerMenu(boolean player) {
         this.player = player;
 
+        if (player) {
+            this.setBorder(BorderFactory.createTitledBorder("Spieler"));
+        } else {
+            this.setBorder(BorderFactory.createTitledBorder("Monster"));
+        }
         this.setPreferredSize(new Dimension(400, 600));
         this.setLayout(new MigLayout("fill"));
 

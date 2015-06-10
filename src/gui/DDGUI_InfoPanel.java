@@ -39,6 +39,8 @@ public class DDGUI_InfoPanel extends JPanel {
 
     public DDGUI_InfoPanel() {
         super();
+        this.setBackground(Color.white);
+        
         this.WIDTH = this.getWidth();
         this.HEIGHT = this.getHeight();
         this.ratio = this.WIDTH / this.ZELLEN;
@@ -72,7 +74,7 @@ public class DDGUI_InfoPanel extends JPanel {
 
                 if (bodenjn) {
                     g.drawImage(this.boden, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
-                }else{
+                } else {
                     g.drawImage(this.stein, i * this.ratio, j * this.ratio, this.ratio, this.ratio, null);
                 }
             }

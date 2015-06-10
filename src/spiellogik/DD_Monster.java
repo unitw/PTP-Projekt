@@ -6,15 +6,18 @@
 package spiellogik;
 
 import DD_ContextMenu.DD_SpielerMenu;
+import XML.StaxStore;
+import XML.StaxWriter;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.xml.stream.XMLEventFactory;
 
 /**
  *
  * @author tw
  */
-public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
+public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable,StaxStore {
 
     DD_SpielerMenu menu = new DD_SpielerMenu(false);
 
@@ -150,6 +153,51 @@ public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable {
 
         }
 
+    }
+
+    @Override
+    public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String getIdentifier() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setIdentifier(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setXpos(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setYpos(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int getbreite() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void setbreite(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int gethoehe() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void sethoehe(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

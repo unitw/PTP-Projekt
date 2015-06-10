@@ -5,15 +5,20 @@
  */
 package gui;
 
+import XML.StaxStore;
+import XML.StaxWriter;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +28,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.xml.stream.XMLEventFactory;
+import javax.xml.stream.XMLStreamException;
 
 import listener.DD_Figurkeylistener;
 import listener.DD_Statuslistener;
@@ -35,7 +42,7 @@ import spiellogik.IDD_Movable;
  *
  * @author 3flim
  */
-public class DDGUI_SpielFeld extends JPanel {
+public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     public final int WIDTH;
     private final int HEIGHT;
@@ -95,7 +102,7 @@ public class DDGUI_SpielFeld extends JPanel {
         this.root = root;
         this.addKeyListener(figurkeylistener);
         this.addMouseListener(status);
-
+        this.setBackground(Color.white);
         this.WIDTH = width;
         this.HEIGHT = height;
         this.ratio = this.WIDTH / this.ZELLEN;
@@ -115,9 +122,9 @@ public class DDGUI_SpielFeld extends JPanel {
         for (int i = 0; i < ZELLEN; i++) {
             for (int j = 0; j < ZELLEN; j++) {
                 if (Math.random() < 0.7f) {
-                    this.field[i][j] = new DD_Umgebung("boden");//boden
+                    this.field[i][j] = new DD_Umgebung("boden", i, j);//boden
                 } else {
-                    this.field[i][j] = new DD_Umgebung("baum");//baum
+                    this.field[i][j] = new DD_Umgebung("baum", i, j);//baum
                 }
                 if (Math.random() > 0.991f) {
 
@@ -129,7 +136,7 @@ public class DDGUI_SpielFeld extends JPanel {
             }
         }
 
-        this.field[this.zielX][this.zielY] = new DD_Umgebung("boden");
+        this.field[this.zielX][this.zielY] = new DD_Umgebung("boden", this.zielX, this.zielY);
         this.field[dd_player.getXpos()][dd_player.getYpos()] = dd_player;
         this.setFocusable(true);
         this.setSize(width, height);
@@ -151,78 +158,6 @@ public class DDGUI_SpielFeld extends JPanel {
         this.root = root;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="oldplayermove">
-//    public void moveCharacter(int i, String dir) {
-//
-//        Object o = null;
-//        if (dir.equals("x")) {
-//            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
-//
-//            this.playerX += i;
-//
-////            if (playerX == -1) {
-////                playerX = 0;
-////                repaint();
-////                return;
-////            }
-////            if (playerX == 31) {
-////                playerX = 30;
-////                repaint();
-////                return;
-////            }
-////            if (playerX < 0) {
-////                playerX -= i;
-////                return;
-////            }
-////
-////            if (playerX > ZELLEN) {
-////                playerX -= i;
-////                return;
-////            }
-//            o = field[this.playerX][this.playerY];
-//
-//            if (Zugmoeglich(this.playerX, this.playerY)) {
-//                field[this.playerX][this.playerY] = dd_player;
-//            } else {
-//                field[this.playerX][this.playerY] = o;
-//
-//                this.playerX -= i;
-//
-//                field[this.playerX][this.playerY] = dd_player;
-//
-//            }
-//
-//        }
-//        if (dir.equals("y")) {
-//            field[this.playerX][this.playerY] = new DD_Umgebung("boden");
-//
-//            this.playerY += i;
-//
-//            if (field[this.playerX][this.playerY] != null) {
-//
-////                if (playerY < 0 || playerY > ZELLEN) {
-////                    playerY -= i;
-////                    return;
-////                }
-//                o = field[this.playerX][this.playerY];
-//
-//                if (Zugmoeglich(this.playerX, this.playerY)) {
-//                    field[this.playerX][this.playerY] = dd_player;
-//                } else {
-//
-//                    field[this.playerX][this.playerY] = o;
-//
-//                    this.playerY -= i;
-//                    field[this.playerX][this.playerY] = dd_player;
-//
-//                }
-//            }
-//            nextRound();
-//
-//            repaint();
-//        }
-//    }
-//</editor-fold>
     public void moveChar(Object o, int i, String dir) {
 
         if (o instanceof IDD_Movable) {
@@ -232,7 +167,7 @@ public class DDGUI_SpielFeld extends JPanel {
             if (dir.equals("x")) {
                 xpos += i;
                 if (Zugmoeglich(xpos, ypos)) {
-                    field[xpos - i][ypos] = new DD_Umgebung("boden");
+                    field[xpos - i][ypos] = new DD_Umgebung("boden", xpos - i, ypos);
                     field[xpos][ypos] = move;
                     move.setXpos(xpos);
 
@@ -243,7 +178,7 @@ public class DDGUI_SpielFeld extends JPanel {
                 ypos += i;
                 if (Zugmoeglich(xpos, ypos)) {
 
-                    field[xpos][ypos - i] = new DD_Umgebung("boden");
+                    field[xpos][ypos - i] = new DD_Umgebung("boden", xpos, ypos - i);
 
                     field[xpos][ypos] = move;
                     move.setYpos(ypos);
@@ -265,7 +200,7 @@ public class DDGUI_SpielFeld extends JPanel {
             if (dir.equals("x")) {
                 xpos += i;
                 if (Zugmoeglich(xpos, ypos)) {
-                    field[xpos - i][ypos] = new DD_Umgebung("boden");
+                    field[xpos - i][ypos] = new DD_Umgebung("boden", xpos - i, ypos);
                     field[xpos][ypos] = move;
                     move.setXpos(xpos);
 
@@ -276,7 +211,7 @@ public class DDGUI_SpielFeld extends JPanel {
                 ypos += i;
                 if (Zugmoeglich(xpos, ypos)) {
 
-                    field[xpos][ypos - i] = new DD_Umgebung("boden");
+                    field[xpos][ypos - i] = new DD_Umgebung("boden", xpos, ypos - i);
 
                     field[xpos][ypos] = move;
                     move.setYpos(ypos);
@@ -296,7 +231,7 @@ public class DDGUI_SpielFeld extends JPanel {
             getDd_player().setL_mana(getDd_player().getL_mana() + 7);
         }
         runde += 1;
-        this.getRoot().getOutput().append("Runde:" + runde+"\n");
+        this.getRoot().getOutput().append("Runde:" + runde + "\n");
         System.out.println("Runde:" + runde);
     }
 
@@ -322,20 +257,6 @@ public class DDGUI_SpielFeld extends JPanel {
         }
     }
 
-    public void checkMonsterList() {
-
-        for (DD_Monster monstercheck : monsterlist) {
-
-            if (monstercheck.getL_leben() <= 0) {
-                monsterlist.remove(monstercheck);
-                field[monstercheck.getXpos()][monstercheck.getYpos()] = new DD_Umgebung("boden");
-
-            }
-
-        }
-        repaint();
-    }
-
     public void attack(DD_Spieler sp, int attackNr) {
 
         int mana = sp.getL_mana();
@@ -348,48 +269,25 @@ public class DDGUI_SpielFeld extends JPanel {
         int direction = sp.getDir();
         int range = sp.getFaehigkeitRange(attackNr);
 
-        switch (direction) {
-            case 0://oben
-                if (field[xpos][ypos - range] instanceof DD_Monster) {
-                    DD_Monster mon = (DD_Monster) field[xpos][ypos - range];
-                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
-                    Schadenberechnung(mon, schaden);
+        Map<Integer, Point> directionMap = new HashMap();
 
-                }
+        directionMap.put(0, new Point(xpos, ypos - range));
+        directionMap.put(1, new Point(xpos, ypos + range));
+        directionMap.put(2, new Point(xpos + range, ypos));
+        directionMap.put(3, new Point(xpos - range, ypos));
 
-                break;
-            case 1://unten
+        if (field[(int) directionMap.get(direction).getX()][(int) directionMap.get(direction).getY()] instanceof DD_Monster) {
+            DD_Monster mon = (DD_Monster) field[(int) directionMap.get(direction).getX()][(int) directionMap.get(direction).getY()];
+            showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
+            Schadenberechnung(mon, schaden);
 
-                if (field[xpos][ypos + range] instanceof DD_Monster) {
-                    DD_Monster mon = (DD_Monster) field[xpos][ypos + range];
-                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
-                    Schadenberechnung(mon, schaden);
-
-                }
-                break;
-            case 2://rechts
-                if (field[xpos + range][ypos] instanceof DD_Monster) {
-                    DD_Monster mon = (DD_Monster) field[xpos + range][ypos];
-                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
-                    Schadenberechnung(mon, schaden);
-
-                }
-
-                break;
-            case 3://links
-                if (field[xpos - range][ypos] instanceof DD_Monster) {
-                    DD_Monster mon = (DD_Monster) field[xpos - range][ypos];
-                    showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
-                    Schadenberechnung(mon, schaden);
-
-                }
-                break;
+            sp.setL_mana(mana - 5);
         }
-        sp.setL_mana(mana - 5);
 
         repaint();
     }
     Timer timer;
+    JLabel AttackAnimation;
 
     public Timer getTimer() {
         return timer;
@@ -397,23 +295,28 @@ public class DDGUI_SpielFeld extends JPanel {
 
     public void showAttackEffect(int attacknr, int xpos, int ypos, int range) {
 
+        if (AttackAnimation != null) {
+            DDGUI_SpielFeld.this.remove(AttackAnimation);
+        }
+        AttackAnimation = new JLabel();
         if (timer != null) {
             timer.stop();
         }
-        JLabel l = new JLabel();
+
         if (attacknr == 1) {
-            l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
+            AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
         } else if (attacknr == 2) {
-            l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
+            AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
 //todo dritte attacke
         } else if (attacknr == 3) {
-            l.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
-        }
-        l.setBorder(null);
-        l.setOpaque(false);
-        l.setBounds(xpos * this.ratio + 5, ypos * this.ratio + range, this.ratio, this.ratio);
+            AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
 
-        DDGUI_SpielFeld.this.add(l);
+        }
+        AttackAnimation.setBorder(null);
+        AttackAnimation.setOpaque(false);
+        AttackAnimation.setBounds(xpos * DDGUI_SpielFeld.this.ratio + 5, ypos * DDGUI_SpielFeld.this.ratio + range, DDGUI_SpielFeld.this.ratio, DDGUI_SpielFeld.this.ratio);
+
+        DDGUI_SpielFeld.this.add(AttackAnimation);
         DDGUI_SpielFeld.this.revalidate();
         DDGUI_SpielFeld.this.repaint();
 
@@ -428,21 +331,23 @@ public class DDGUI_SpielFeld extends JPanel {
                 // Falls Zähler = 0, Countdown abgelaufen!
                 if (counterValue == 0) {
                     if (attacknr == 1) {
-                        DDGUI_SpielFeld.this.getRoot().getOutput().append("Feuerball getroffen\n");
+                        DDGUI_SpielFeld.this.getRoot().getOutput().append("Feuerball getroffen");
 
                         System.out.println("Feuerball getroffen");
                     } else if (attacknr == 2) {
-                        DDGUI_SpielFeld.this.getRoot().getOutput().append("Wasserball getroffen\n");
+                        DDGUI_SpielFeld.this.getRoot().getOutput().append("Wasserball getroffen");
                         System.out.println("Wasserball getroffen");
                     }
+
                     // Timer stoppen
                     getTimer().stop();
-                    DDGUI_SpielFeld.this.remove(l);
+                    DDGUI_SpielFeld.this.remove(AttackAnimation);
                     DDGUI_SpielFeld.this.revalidate();
                     DDGUI_SpielFeld.this.repaint();
                 }
             }
         });
+
         timer.start();
 
     }
@@ -456,7 +361,7 @@ public class DDGUI_SpielFeld extends JPanel {
 
             System.out.println("Monster besiegt");
             monsterlist.remove(mon);
-            field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden");
+            field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden", mon.getXpos(), mon.getYpos());
             this.remove(mon.getL_gif());
             mon.getMenu().removeAll();
 
@@ -470,6 +375,7 @@ public class DDGUI_SpielFeld extends JPanel {
 
     public boolean Zugmoeglich(int x, int y) {
         try {
+
             if (dd_player.getXpos() == zielX && dd_player.getYpos() == zielY) {
                 this.removeKeyListener(figurkeylistener);
                 JOptionPane.showMessageDialog(this, "Gewonnen! Schatztruhe gefunden");
@@ -558,6 +464,79 @@ public class DDGUI_SpielFeld extends JPanel {
         //ziel
         g.drawImage(this.ziel, this.zielX * this.ratio, this.zielY * this.ratio, this.ratio, this.ratio, null);
         //g.drawImage(this.player, this.playerX * this.ratio, this.playerY * this.ratio, this.ratio, this.ratio, null);
+
+    }
+
+    @Override
+    public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
+
+        Integer xpos = x;
+
+        Integer ypos = y;
+
+        Integer breite = this.getWidth();
+
+        Integer hoehe = this.getHeight();
+
+        String linespos = "";
+        String Identifier = null;
+
+        try {
+            staxwriter.CreateMultiAttributeNode8(staxwriter.writer, Identifier, "xPos", xpos.toString(), "yPos", ypos.toString(), "breite", breite.toString(), "hoehe", hoehe.toString(), "Farbe", "", 1);
+        } catch (XMLStreamException ex) {
+            Logger.getLogger(DDGUI_SpielFeld.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @Override
+    public String getIdentifier() {
+
+        return null;
+    }
+
+    @Override
+    public void setIdentifier(String s) {
+
+    }
+
+    @Override
+    public int getXpos() {
+        return this.getX();
+    }
+
+    @Override
+    public void setXpos(String s) {
+
+    }
+
+    @Override
+    public int getYpos() {
+        return this.getY();
+    }
+
+    @Override
+    public void setYpos(String s) {
+
+    }
+
+    @Override
+    public int getbreite() {
+        return this.getWidth();
+    }
+
+    @Override
+    public void setbreite(String s) {
+
+    }
+
+    @Override
+    public int gethoehe() {
+        return this.getHeight();
+    }
+
+    @Override
+    public void sethoehe(String s) {
 
     }
 
