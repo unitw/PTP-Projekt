@@ -5,27 +5,47 @@
  */
 package gui;
 
+import XML.SaxReader;
+import XML.StaxWriter;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.metal.MetalLookAndFeel;
 import javax.swing.plaf.metal.MetalTheme;
+import javax.xml.stream.XMLEventFactory;
+import javax.xml.stream.XMLOutputFactory;
+import javax.xml.stream.events.StartDocument;
+import javax.xml.stream.events.StartElement;
+import javax.xml.stream.events.XMLEvent;
 import net.miginfocom.swing.MigLayout;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
 
 /**
  *
@@ -117,18 +137,134 @@ public class DDGUI_RootFrame extends JFrame {
         JMenu spielmenu = new JMenu("Spiel Optionen");
         JButton speichern = new JButton("Spiel speichern");
         speichern.setBorder(null);
+        speichern.addActionListener(new ActionListener() {
 
-        JButton info = new JButton("Info");
-        info.setBorder(null);
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                String path = null;
+                try {
+                    StaxWriter staxwriter = new StaxWriter();
+                    final JFileChooser fc = new JFileChooser("C:/");
+                    FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter(
+                            ".xml", ".xml");
+                    fc.setFileFilter(xmlFilter);
+                    int a = fc.showSaveDialog(speichern);
+
+                    if (fc.getSelectedFile().getPath() != null) {
+                        path = fc.getSelectedFile().getPath();
+                        if (path.endsWith(path)) {
+                            path = path + ".xml";
+                        }
+                    }
+
+                    if (path != null) {
+                        staxwriter.writer = staxwriter.outputFactory.createXMLEventWriter(
+                                new FileOutputStream(path));
+
+                        StoreProject(staxwriter);
+                    }
+                } catch (Exception ex) {
+                    System.out.println("kein Pfad ausgewählt");
+
+                }
+                System.out.println("Gespeichert in " + path);
+            }
+        });
+
+        JButton open = new JButton("Spiel oeffnen");
+
+        open.setBorder(null);
+        open.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent ae) {
+                final JFileChooser fc1 = new JFileChooser("C:/");
+
+                XMLReader xmlReader = null;
+                try {
+                    xmlReader = XMLReaderFactory.createXMLReader();
+                } catch (SAXException ex) {
+                    System.out.println("kein Pfad ausgewählt");
+                }
+                SaxReader stxrd = new SaxReader();
+                int a1 = fc1.showOpenDialog(open);
+                if (fc1.getSelectedFile().getPath() == null) {
+                    return;
+                }
+                String path1 = fc1.getSelectedFile().getPath();
+                // Pfad zur XML Datei
+                FileReader reader = null;
+                try {
+                    reader = new FileReader(path1);
+                } catch (FileNotFoundException ex) {
+                    System.out.println("kein Pfad ausgewählt");
+                }
+                InputSource inputSource = new InputSource(reader);
+
+                xmlReader.setContentHandler(stxrd);
+                try {
+                    // Parsen wird gestartet
+                    xmlReader.parse(inputSource);
+                } catch (IOException | SAXException ex) {
+                    System.out.println("kein Pfad ausgewählt");
+                }
+
+                feld.setField(stxrd.spielfeld);
+                feld.repaint();
+                System.out.println(path1 + " geoeffnet");
+
+            }
+        });
 
         spielmenu.add(speichern);
-        spielmenu.add(info);
 
-        spielmenu.add(new JMenu("Spiel Optionen"));
+        spielmenu.add(open);
+
+        spielmenu.add(
+                new JMenu("Spiel Optionen"));
 
         menu.add(spielmenu);
+
         menu.setBackground(Color.white);
 
+    }
+
+    JDialog dia;
+    JProgressBar xmlprogress;
+
+    public void ProgressXML(JDialog dia) {
+
+        xmlprogress = new JProgressBar();
+        xmlprogress.setPreferredSize(new Dimension(50, 25));
+        dia.add(xmlprogress);
+        dia.pack();
+        dia.setLocationRelativeTo(this);
+        dia.setVisible(true);
+    }
+
+    public void StoreProject(StaxWriter staxwriter) throws Exception {
+        XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
+    
+        // create an EventFactory
+        XMLEventFactory eventFactory = XMLEventFactory.newInstance();
+        XMLEvent end = eventFactory.createDTD("\n");
+        // create and write Start Tag
+        StartDocument startDocument = eventFactory.createStartDocument();
+        staxwriter.writer.add(startDocument);
+
+        // create config open tag
+        StartElement configStartElement = eventFactory.createStartElement("",
+                "", "config");
+        staxwriter.writer.add(configStartElement);
+        staxwriter.writer.add(end);
+
+        feld.STAXStore(staxwriter, eventFactory);
+        staxwriter.writer.add(eventFactory.createEndElement("", "", "config"));
+        staxwriter.writer.add(end);
+        staxwriter.writer.add(eventFactory.createEndDocument());
+
+        staxwriter.writer.close();
+        dia.setVisible(false);
     }
 
 }

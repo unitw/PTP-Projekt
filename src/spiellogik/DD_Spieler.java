@@ -8,6 +8,7 @@ package spiellogik;
 import DD_ContextMenu.DD_SpielerMenu;
 import XML.StaxStore;
 import XML.StaxWriter;
+import gui.DDGUI_SpielFeld;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.HashMap;
@@ -19,12 +20,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.xml.stream.XMLEventFactory;
+import javax.xml.stream.XMLStreamException;
 
 /**
  *
  * @author tw
  */
-public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable ,StaxStore {
+public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     DD_SpielerMenu menu = new DD_SpielerMenu(true);
     int xpos;
@@ -36,6 +38,8 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable ,StaxStore {
     int i_ruestung = 50;
     int i_schaden = 15;
 
+    String Typ = "Spieler";
+    
     Map<Number, Number> faehigkeitenrange = new HashMap<>();
 
     private BufferedImage playerUnten;
@@ -191,7 +195,19 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable ,StaxStore {
 
     @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Integer xpos1 = xpos;
+
+        Integer ypos1 = ypos;
+
+        String linespos = "";
+
+        try {
+            staxwriter.StoreDD_Objekt(staxwriter.writer, Typ, "xPos", xpos1.toString(), "yPos", ypos1.toString(), 1);
+        } catch (XMLStreamException ex) {
+            Logger.getLogger(DDGUI_SpielFeld.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override

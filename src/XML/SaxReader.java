@@ -29,7 +29,7 @@ public class SaxReader implements ContentHandler {
     int hoehe;
     Color color;
 
-    Object[][] spielfeld;
+    public Object[][] spielfeld = new Object[30][30];
     DD_Monster monster;
     DD_Spieler spieler;
     DD_Umgebung umgebung;
@@ -66,10 +66,15 @@ public class SaxReader implements ContentHandler {
 
         }
 
-        if (localName.equals("Umgebung")) {
+        if (localName.equals("boden")) {
 
             GetAttr(atts);
-            umgebung = new DD_Umgebung(Typ, xpos, ypos);
+            umgebung = new DD_Umgebung("boden", xpos, ypos);
+        }
+        if (localName.equals("baum")) {
+
+            GetAttr(atts);
+            umgebung = new DD_Umgebung("baum", xpos, ypos);
         }
 
     }
@@ -87,9 +92,14 @@ public class SaxReader implements ContentHandler {
             spielfeld[monster.getXpos()][monster.getYpos()] = monster;
 
         }
-        if ((localName.equals("Umgebung"))) {
+        if ((localName.equals("boden"))) {
 
-            spielfeld[umgebung.getXpos()][umgebung.getYpos()] = monster;
+            spielfeld[umgebung.getXpos()][umgebung.getYpos()] = umgebung;
+
+        }
+        if ((localName.equals("baum"))) {
+
+            spielfeld[umgebung.getXpos()][umgebung.getYpos()] = umgebung;
 
         }
 
@@ -129,8 +139,6 @@ public class SaxReader implements ContentHandler {
         if (atts.getValue("xPos") != null) {
             xpos = Integer.parseInt(atts.getValue("xPos"));
             ypos = Integer.parseInt(atts.getValue("yPos"));
-            breite = Integer.parseInt(atts.getValue("breite"));
-            hoehe = Integer.parseInt(atts.getValue("hoehe"));
 
         }
     }

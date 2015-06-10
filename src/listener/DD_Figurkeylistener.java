@@ -30,43 +30,48 @@ public class DD_Figurkeylistener implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         if (e.getKeyCode() == KeyEvent.VK_UP) {
-            feld.moveChar(feld.getDd_player(), -1, "y");
-            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerOben());
-            feld.getDd_player().setDir(0);
+            feld.moveChar(feld.getDD_player(), -1, "y");
 
-            feld.getDd_player().showMenu(feld.getRoot().getInfopanel());
+            feld.getDD_player().setDir(0);
+
+            //   feld.getDD_player().showMenu(feld.getRoot().getInfopanel());
         }
         if (e.getKeyCode() == KeyEvent.VK_DOWN) {
             //  feld.moveCharacter(1, "y");
-            feld.moveChar(feld.getDd_player(), 1, "y");
-            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerUnten());
-            feld.getDd_player().setDir(1);
+            feld.moveChar(feld.getDD_player(), 1, "y");
+
+            feld.getDD_player().setDir(1);
             //feld.getDd_player().showMenu(feld.getRoot().getInfopanel());
         }
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-            //   feld.moveCharacter(1, "x");
-            feld.moveChar(feld.getDd_player(), 1, "x");
-            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerRechts());
-            feld.getDd_player().setDir(2);
+
+            feld.moveChar(feld.getDD_player(), 1, "x");
+
+            feld.getDD_player().setDir(2);
         }
         if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-            //feld.moveCharacter(-1, "x");
-            feld.moveChar(feld.getDd_player(), -1, "x");
-            feld.getDd_player().setPlayerImage(feld.getDd_player().getPlayerLinks());
-            feld.getDd_player().setDir(3);
+
+            feld.moveChar(feld.getDD_player(), -1, "x");
+
+            feld.getDD_player().setDir(3);
 
         }
 
         if (e.getKeyCode() == KeyEvent.VK_1) {
-            feld.attack(feld.getDd_player(), 1);
+            feld.attack(feld.getDD_player(), 1);
 
         }
         if (e.getKeyCode() == KeyEvent.VK_2) {
-            feld.attack(feld.getDd_player(), 2);
+            feld.attack(feld.getDD_player(), 2);
         }
         if (e.getKeyCode() == KeyEvent.VK_3) {
-            feld.attack(feld.getDd_player(), 3);
+            feld.attack(feld.getDD_player(), 3);
         }
+         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            feld.displayOptionDialog();
+        }
+        
+        
     }
 
     @Override

@@ -8,20 +8,26 @@ package spiellogik;
 import DD_ContextMenu.DD_SpielerMenu;
 import XML.StaxStore;
 import XML.StaxWriter;
+import gui.DDGUI_SpielFeld;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.xml.stream.XMLEventFactory;
+import javax.xml.stream.XMLStreamException;
 
 /**
  *
  * @author tw
  */
-public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable,StaxStore {
+public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable, StaxStore {
 
     DD_SpielerMenu menu = new DD_SpielerMenu(false);
 
     JLabel l_gif = new JLabel();
+
+    String Typ = "Monster";
 
     public DD_SpielerMenu getMenu() {
         return menu;
@@ -39,8 +45,8 @@ public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable,Stax
     public void setHasfocus(boolean hasfocus) {
         this.hasfocus = hasfocus;
     }
-    int xpos;
-    int ypos;
+    int xpos = 0;
+    int ypos = 0;
 
     int l_leben = 80;
 
@@ -157,7 +163,19 @@ public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable,Stax
 
     @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Integer xpos1 = xpos;
+
+        Integer ypos1 = ypos;
+
+        String linespos = "";
+
+        try {
+            staxwriter.StoreDD_Objekt(staxwriter.writer, Typ, "xPos", xpos1.toString(), "yPos", ypos1.toString(), 1);
+        } catch (XMLStreamException ex) {
+            Logger.getLogger(DDGUI_SpielFeld.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override

@@ -7,8 +7,12 @@ package spiellogik;
 
 import XML.StaxStore;
 import XML.StaxWriter;
+import gui.DDGUI_SpielFeld;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 import javax.xml.stream.XMLEventFactory;
+import javax.xml.stream.XMLStreamException;
 
 /**
  *
@@ -49,8 +53,20 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
 
     }
 
-    @Override
+   @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
+
+        Integer xpos1 = xpos;
+
+        Integer ypos1 = ypos;
+
+        String linespos = "";
+
+        try {
+            staxwriter.StoreDD_Objekt(staxwriter.writer, Typ, "xPos", xpos1.toString(), "yPos", ypos1.toString(), 1);
+        } catch (XMLStreamException ex) {
+            Logger.getLogger(DDGUI_SpielFeld.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 
