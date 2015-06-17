@@ -31,7 +31,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.xml.stream.XMLEventFactory;
-import javax.xml.stream.XMLStreamException;
 
 import listener.DD_Figurkeylistener;
 import listener.DD_Statuslistener;
@@ -39,7 +38,9 @@ import net.miginfocom.swing.MigLayout;
 import spiellogik.DD_Monster;
 import spiellogik.DD_Spieler;
 import spiellogik.DD_Umgebung;
+import spiellogik.DD_Zug;
 import spiellogik.IDD_Movable;
+import spiellogik.MonsterKI;
 
 /**
  *
@@ -129,18 +130,22 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 } else {
                     this.field[i][j] = new DD_Umgebung("baum", i, j);//baum
                 }
-                if (Math.random() > 0.991f) {
-
-                    DD_Monster mon = new DD_Monster(i, j);
-                    monsterlist.add(mon);
-                    this.field[i][j] = mon;//Monster
-
-                }
+//                if (Math.random() > 0.991f) {
+//
+//                    DD_Monster mon = new DD_Monster(i, j);
+//                    monsterlist.add(mon);
+//                    this.field[i][j] = mon;//Monster
+//
+//                }
             }
         }
 
         this.field[this.zielX][this.zielY] = new DD_Umgebung("boden", this.zielX, this.zielY);
         this.field[dd_player.getXpos()][dd_player.getYpos()] = dd_player;
+        DD_Monster mon = new DD_Monster(3, 3);
+        monsterlist.add(mon);
+        this.field[3][3] = mon;//Monster
+
         this.setFocusable(true);
         this.setSize(width, height);
     }
@@ -238,27 +243,17 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         System.out.println("Runde:" + runde);
     }
 
+    MonsterKI ki;
+
     public void monstermovement() {
-        int i = 0;
-        String dir = "";
 
         for (DD_Monster monster1 : monsterlist) {
-
-            if (Math.random() > 0.5) {
-                i = -1;
-            } else {
-                i = 1;
-            }
-
-            if (Math.random() > 0.5) {
-                dir = "x";
-            } else {
-                dir = "y";
-            }
-
-            moveSomething(monster1, i, dir);
+            ki = new MonsterKI(monster1, this);
+            moveSomething(monster1, ki.getWert(), ki.getDir());
         }
     }
+
+   
 
     JDialog optiondia = new JDialog();
 

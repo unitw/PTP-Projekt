@@ -7,6 +7,7 @@ package gui;
 
 import XML.SaxReader;
 import XML.StaxWriter;
+
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -30,12 +31,8 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.metal.MetalLookAndFeel;
-import javax.swing.plaf.metal.MetalTheme;
 import javax.xml.stream.XMLEventFactory;
 import javax.xml.stream.XMLOutputFactory;
 import javax.xml.stream.events.StartDocument;
@@ -87,15 +84,15 @@ public class DDGUI_RootFrame extends JFrame {
         contentPanel.setLayout(new MigLayout());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        Class themeClass = null;
-        try {
-            themeClass = Class.forName("MacMetricsTheme");
-            MetalTheme theme = (MetalTheme) themeClass.newInstance();
-            MetalLookAndFeel.setCurrentTheme(theme);
-            UIManager.setLookAndFeel(new MetalLookAndFeel());
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-            Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        Class themeClass = null;
+//        try {
+//            themeClass = Class.forName("MacMetricsTheme");
+//            MetalTheme theme = (MetalTheme) themeClass.newInstance();
+//            MetalLookAndFeel.setCurrentTheme(theme);
+//            UIManager.setLookAndFeel(new MetalLookAndFeel());
+//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+//            Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
         feld.setPreferredSize(new Dimension(800, 810));
 
@@ -107,22 +104,29 @@ public class DDGUI_RootFrame extends JFrame {
         JScrollPane sp_info = new JScrollPane(infopanel);
         sp_info.setBorder(null);
         JScrollPane sp_output = new JScrollPane(output);
-        sp_output.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        sp_output.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
+        sp_output.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
         sp_output.setBorder(null);
 
         //  contentPanel.add(spielmenuBar,"span 3");
         contentPanel.add(feld, "span 2");
         contentPanel.add(infopanel, "span 1,wrap");
-        contentPanel.add(sp_output, "push x");
+        contentPanel.add(new JScrollPane(output), "push x");
 
         Image img = null;
         try {
             img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logo.png"));
+
+           
+
         } catch (IOException ex) {
             Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+
+             
+            
+            
         this.setIconImage(img);
         this.add(spielmenuBar, BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.CENTER);
@@ -220,8 +224,7 @@ public class DDGUI_RootFrame extends JFrame {
 
         spielmenu.add(open);
 
-        spielmenu.add(
-                new JMenu("Spiel Optionen"));
+        spielmenu.add(new JMenu("Spiel Optionen"));
 
         menu.add(spielmenu);
 
@@ -244,7 +247,7 @@ public class DDGUI_RootFrame extends JFrame {
 
     public void StoreProject(StaxWriter staxwriter) throws Exception {
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
-    
+
         // create an EventFactory
         XMLEventFactory eventFactory = XMLEventFactory.newInstance();
         XMLEvent end = eventFactory.createDTD("\n");

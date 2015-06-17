@@ -58,11 +58,8 @@ public class DD_SpielerMenu extends JPanel {
     public DD_SpielerMenu(boolean player) {
         this.player = player;
 
-        if (player) {
-            this.setBorder(BorderFactory.createTitledBorder("Spieler"));
-        } else {
-            this.setBorder(BorderFactory.createTitledBorder("Monster"));
-        }
+       
+        
         this.setPreferredSize(new Dimension(400, 600));
         this.setLayout(new MigLayout("fill"));
 

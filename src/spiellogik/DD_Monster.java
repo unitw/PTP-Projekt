@@ -9,6 +9,8 @@ import DD_ContextMenu.DD_SpielerMenu;
 import XML.StaxStore;
 import XML.StaxWriter;
 import gui.DDGUI_SpielFeld;
+import java.util.LinkedList;
+import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -21,30 +23,26 @@ import javax.xml.stream.XMLStreamException;
  *
  * @author tw
  */
-public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable, StaxStore {
+public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     DD_SpielerMenu menu = new DD_SpielerMenu(false);
+    Stack<DD_Zug> zuege = new Stack();
+
+    public Stack<DD_Zug> getZuege() {
+        return zuege;
+    }
+
+    public void setZuege(DD_Zug zueg) {
+        this.zuege.push(zueg);
+    }
 
     JLabel l_gif = new JLabel();
 
     String Typ = "Monster";
+    int wert = 1;
 
-    public DD_SpielerMenu getMenu() {
-        return menu;
-    }
+    String dir = "x";
 
-    public void setMenu(DD_SpielerMenu menu) {
-        this.menu = menu;
-    }
-    boolean hasfocus = false;
-
-    public boolean isHasfocus() {
-        return hasfocus;
-    }
-
-    public void setHasfocus(boolean hasfocus) {
-        this.hasfocus = hasfocus;
-    }
     int xpos = 0;
     int ypos = 0;
 
@@ -63,6 +61,39 @@ public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable, Sta
         l_gif.setBorder(null);
         l_gif.setOpaque(true);
 
+    }
+
+    public int getWert() {
+        return wert;
+    }
+
+    public void setWert(int dir) {
+        this.wert = dir;
+    }
+
+    public String getDir() {
+        return dir;
+    }
+
+    public void setDir(String dir) {
+        this.dir = dir;
+    }
+
+    public DD_SpielerMenu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(DD_SpielerMenu menu) {
+        this.menu = menu;
+    }
+    boolean hasfocus = false;
+
+    public boolean isHasfocus() {
+        return hasfocus;
+    }
+
+    public void setHasfocus(boolean hasfocus) {
+        this.hasfocus = hasfocus;
     }
 
     public JLabel getL_gif() {
@@ -150,7 +181,6 @@ public class DD_Monster implements IDD_MenuAnzeiger, MonsterKI, IDD_Movable, Sta
         panel.repaint();
     }
 
-    @Override
     public void moveMonster() {
 
         if (Math.random() < 0.6) {
