@@ -30,23 +30,29 @@ public class MonsterKI {
     }
 
     public void initZuege() {
-        if (!mon.getZuege().isEmpty()) {
-            DD_Zug p0 = mon.getZuege().pop();
-            zuege.add(p0);
-        }
+
         DD_Zug p1 = new DD_Zug(mon.getXpos() + 1, mon.getYpos(), 1, "x");
         DD_Zug p3 = new DD_Zug(mon.getXpos(), mon.getYpos() + 1, +1, "y");
         DD_Zug p2 = new DD_Zug(mon.getXpos() - 1, mon.getYpos(), -1, "x");
         DD_Zug p4 = new DD_Zug(mon.getXpos(), mon.getYpos() - 1, -1, "y");
 
         zuege.add(p1);
-
         zuege.add(p3);
         zuege.add(p2);
         zuege.add(p4);
     }
 
     public final int getWert(ArrayList<DD_Zug> zuege) {
+
+        if (!mon.getZuege().isEmpty()) {
+            if (feld.Zugmoeglich((int) mon.getZueg().getXpos(), (int) mon.getZueg().getYpos())) {
+
+                Dir = mon.getZueg().getDir();
+                wert = mon.getZueg().getWert();
+                mon.setZuege(mon.getZueg());
+
+            }
+        }
 
         for (DD_Zug p : zuege) {
             if (feld.Zugmoeglich((int) p.getXpos(), (int) p.getYpos())) {
