@@ -35,10 +35,9 @@ public class MonsterKI {
         DD_Zug p3 = new DD_Zug(mon.getXpos(), mon.getYpos() + 1, +1, "y");
         DD_Zug p2 = new DD_Zug(mon.getXpos() - 1, mon.getYpos(), -1, "x");
         DD_Zug p4 = new DD_Zug(mon.getXpos(), mon.getYpos() - 1, -1, "y");
-        
-        
-        zuege.add(p3);
+
         zuege.add(p1);
+        zuege.add(p3);
         zuege.add(p2);
         zuege.add(p4);
     }

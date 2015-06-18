@@ -29,6 +29,7 @@ import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 import javax.xml.stream.XMLEventFactory;
 
@@ -130,24 +131,25 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 } else {
                     this.field[i][j] = new DD_Umgebung("baum", i, j);//baum
                 }
-//                if (Math.random() > 0.991f) {
+                if (Math.random() > 0.991f) {
+
+                    DD_Monster mon = new DD_Monster(i, j);
+                    monsterlist.add(mon);
+                    this.field[i][j] = mon;//Monster
 //
-//                    DD_Monster mon = new DD_Monster(i, j);
-//                    monsterlist.add(mon);
-//                    this.field[i][j] = mon;//Monster
-//
-//                }
+                }
             }
         }
 
         this.field[this.zielX][this.zielY] = new DD_Umgebung("boden", this.zielX, this.zielY);
         this.field[dd_player.getXpos()][dd_player.getYpos()] = dd_player;
-        DD_Monster mon = new DD_Monster(3, 3);
-        monsterlist.add(mon);
-        this.field[3][3] = mon;//Monster
+//        DD_Monster mon = new DD_Monster(3, 3);
+//        monsterlist.add(mon);
+        //   this.field[3][3] = mon;//Monster
 
         this.setFocusable(true);
         this.setSize(width, height);
+        monstermovement();
     }
 
     public DDGUI_RootFrame getRoot() {
@@ -233,7 +235,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
     public void nextRound() {
-        monstermovement();
+//        monstermovement();
 
         if (getDD_player().getL_mana() < 30) {
             getDD_player().setL_mana(getDD_player().getL_mana() + 7);
@@ -241,19 +243,32 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         runde += 1;
         this.getRoot().getOutput().append("Runde:" + runde + "\n");
         System.out.println("Runde:" + runde);
+
     }
 
     MonsterKI ki;
+    Timer timer1;
 
     public void monstermovement() {
 
-        for (DD_Monster monster1 : monsterlist) {
-            ki = new MonsterKI(monster1, this);
-            moveSomething(monster1, ki.getWert(), ki.getDir());
-        }
-    }
+        timer1 = new Timer(1000, new ActionListener() {
 
-   
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 1 Sekunde abziehen
+                for (DD_Monster monster1 : monsterlist) {
+                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this);
+                    if (ki.getDir() != null) {
+                        moveSomething(monster1, ki.getWert(), ki.getDir());
+                    }
+                }
+            }
+
+        });
+
+        timer1.start();
+
+    }
 
     JDialog optiondia = new JDialog();
 
@@ -403,6 +418,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
             if (dd_player.getXpos() == zielX && dd_player.getYpos() == zielY) {
                 this.removeKeyListener(figurkeylistener);
+                timer.stop();
+                timer1.stop();
                 JOptionPane.showMessageDialog(this, "Gewonnen! Schatztruhe gefunden");
                 return false;
             }
