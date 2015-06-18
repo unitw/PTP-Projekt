@@ -29,7 +29,9 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     Stack<DD_Zug> zuege = new Stack();
 
     public DD_Zug getZueg() {
-        return zuege.pop();
+       
+            return zuege.pop();
+       
     }
 
     public Stack<DD_Zug> getZuege() {

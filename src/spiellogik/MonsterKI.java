@@ -35,9 +35,10 @@ public class MonsterKI {
         DD_Zug p3 = new DD_Zug(mon.getXpos(), mon.getYpos() + 1, +1, "y");
         DD_Zug p2 = new DD_Zug(mon.getXpos() - 1, mon.getYpos(), -1, "x");
         DD_Zug p4 = new DD_Zug(mon.getXpos(), mon.getYpos() - 1, -1, "y");
-
-        zuege.add(p1);
+        
+        
         zuege.add(p3);
+        zuege.add(p1);
         zuege.add(p2);
         zuege.add(p4);
     }
@@ -45,13 +46,30 @@ public class MonsterKI {
     public final int getWert(ArrayList<DD_Zug> zuege) {
 
         if (!mon.getZuege().isEmpty()) {
-            if (feld.Zugmoeglich((int) mon.getZueg().getXpos(), (int) mon.getZueg().getYpos())) {
 
-                Dir = mon.getZueg().getDir();
-                wert = mon.getZueg().getWert();
-                mon.setZuege(mon.getZueg());
+            DD_Zug zug = mon.getZueg();
+            String dir1 = zug.getDir();
+            int wert1 = zug.getWert();
 
+            if (zug.Dir.equals("x")) {
+                if (feld.Zugmoeglich((int) zug.getXpos() + wert1, (int) zug.getYpos())) {
+
+                    Dir = zug.getDir();
+                    wert = zug.getWert();
+
+                    mon.setZuege(new DD_Zug(mon.getXpos() + wert1, mon.getYpos(), wert, Dir));
+                    return 0;
+                }
+            } else {
+                if (feld.Zugmoeglich((int) zug.getXpos(), (int) zug.getYpos() + wert1)) {
+                    Dir = zug.getDir();
+                    wert = zug.getWert();
+
+                    mon.setZuege(new DD_Zug(mon.getXpos(), mon.getYpos() + wert1, wert, Dir));
+                    return 0;
+                }
             }
+
         }
 
         for (DD_Zug p : zuege) {

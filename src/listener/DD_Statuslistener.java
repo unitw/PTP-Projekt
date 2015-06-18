@@ -41,6 +41,7 @@ public class DD_Statuslistener implements MouseListener {
         e.getSource();
         int posx = e.getX() / feld.ratio;
         int posy = e.getY() / feld.ratio;
+        System.out.println("X:" + posx + "|" + "Y:" + posy);
 
         if (!focusstack.empty()) {
 
