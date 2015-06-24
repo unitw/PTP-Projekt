@@ -94,6 +94,9 @@ public class DDGUI_RootFrame extends JFrame {
 //            Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
+        
+        
+        //umgebunng ziel noch ienbaue
         feld.setPreferredSize(new Dimension(800, 810));
 
         infopanel.setPreferredSize(new Dimension(200, 600));
