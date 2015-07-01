@@ -7,7 +7,6 @@ package gui;
 
 import XML.SaxReader;
 import XML.StaxWriter;
-
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -20,6 +19,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.TextArea;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.control.Control;
+import javafx.scene.control.Skin;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.Region;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -30,7 +39,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.stream.XMLEventFactory;
@@ -52,16 +60,7 @@ public class DDGUI_RootFrame extends JFrame {
 
     private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
     private DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
-    private JTextArea output = new JTextArea();
     private JMenuBar spielmenuBar = new JMenuBar();
-
-    public JTextArea getOutput() {
-        return output;
-    }
-
-    public void setOutput(JTextArea output) {
-        this.output = output;
-    }
 
     public DDGUI_SpielFeld getFeld() {
         return feld;
@@ -73,6 +72,14 @@ public class DDGUI_RootFrame extends JFrame {
 
     public JPanel getInfopanel() {
         return infopanel;
+    }
+
+    public TextArea getArea() {
+        return area;
+    }
+
+    public void setArea(TextArea area) {
+        this.area = area;
     }
 
     public DDGUI_RootFrame() {
@@ -94,42 +101,29 @@ public class DDGUI_RootFrame extends JFrame {
 //            Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 
-        
-        
         //umgebunng ziel noch ienbaue
         feld.setPreferredSize(new Dimension(800, 810));
 
         infopanel.setPreferredSize(new Dimension(200, 600));
-        output.setPreferredSize(new Dimension(800, 100));
 
         JScrollPane sp_feld = new JScrollPane(feld);
         sp_feld.setBorder(null);
         JScrollPane sp_info = new JScrollPane(infopanel);
         sp_info.setBorder(null);
-        JScrollPane sp_output = new JScrollPane(output);
-        sp_output.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-
-        sp_output.setBorder(null);
 
         //  contentPanel.add(spielmenuBar,"span 3");
         contentPanel.add(feld, "span 2");
         contentPanel.add(infopanel, "span 1,wrap");
-        contentPanel.add(new JScrollPane(output), "push x");
+        contentPanel.add(fxPanel(), "push x");
 
         Image img = null;
         try {
             img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logo.png"));
 
-           
-
         } catch (IOException ex) {
             Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
-             
-            
-            
         this.setIconImage(img);
         this.add(spielmenuBar, BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.CENTER);
@@ -271,6 +265,45 @@ public class DDGUI_RootFrame extends JFrame {
 
         staxwriter.writer.close();
         dia.setVisible(false);
+    }
+
+    JFXPanel fxPanel = new JFXPanel();
+    TextArea area = new TextArea();
+
+    public JFXPanel fxPanel() {
+
+        Group root = new Group();
+        Scene scene = new Scene(root);
+
+        area.setPrefSize(780, 100);
+//        area.skinProperty().addListener(new ChangeListener<Skin<?>>() {
+//
+//            @Override
+//            public void changed(
+//                    ObservableValue<? extends Skin<?>> ov, Skin<?> t, Skin<?> t1) {
+//                if (t1 != null && t1.getNode() instanceof Region) {
+//                    Region r = (Region) t1.getNode();
+//                    r.setBackground(Background.EMPTY);
+//
+//                    r.getChildrenUnmodifiable().stream().
+//                            filter(n -> n instanceof Region).
+//                            map(n -> (Region) n).
+//                            forEach(n -> n.setBackground(Background.EMPTY));
+//
+//                    r.getChildrenUnmodifiable().stream().
+//                            filter(n -> n instanceof Control).
+//                            map(n -> (Control) n).
+//                            forEach(c -> c.skinProperty().addListener(this)); // *
+//                }
+//            }
+//        });
+        root.getChildren().add(area);
+
+        fxPanel.setScene(scene);
+
+        fxPanel.setPreferredSize(new Dimension(780, 200));
+
+        return fxPanel;
     }
 
 }
