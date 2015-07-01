@@ -82,7 +82,7 @@ public class DD_SpielerMenu extends JPanel {
         t_faehigkeit2 = new JButton("Attack");
 
         this.add(l_leben, "span, split 2, center");
-        l_leben.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/herz.png")));
+        l_leben.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/Basic_set/Basic_set_Mac/Basic_set_Mac/Png/heart_64.png")));
         pb_leben.setOpaque(false);
         pb_leben.setForeground(Color.red);
 
@@ -97,7 +97,7 @@ public class DD_SpielerMenu extends JPanel {
         t_mana.setEditable(false);
 
         this.add(l_ruestung, "span, split 2, center,");
-        l_ruestung.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/ruestung.png")));
+        l_ruestung.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/shield1.png")));
         t_ruestung.setPreferredSize(new Dimension(50, 25));
         this.add(t_ruestung, "span, split 2, center,wrap");
         t_ruestung.setEditable(false);
