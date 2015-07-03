@@ -19,6 +19,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -272,10 +273,15 @@ public class DDGUI_RootFrame extends JFrame {
 
     public JFXPanel fxPanel() {
 
-        Group root = new Group();
-        Scene scene = new Scene(root);
+        Platform.runLater(new Runnable() {
 
-        area.setPrefSize(780, 100);
+            @Override
+            public void run() {
+
+                Group root = new Group();
+                Scene scene = new Scene(root);
+           
+                area.setPrefSize(780, 100);
 //        area.skinProperty().addListener(new ChangeListener<Skin<?>>() {
 //
 //            @Override
@@ -297,11 +303,13 @@ public class DDGUI_RootFrame extends JFrame {
 //                }
 //            }
 //        });
-        root.getChildren().add(area);
+                root.getChildren().add(area);
 
-        fxPanel.setScene(scene);
+                fxPanel.setScene(scene);
 
-        fxPanel.setPreferredSize(new Dimension(780, 200));
+                fxPanel.setPreferredSize(new Dimension(780, 200));
+            }
+        });
 
         return fxPanel;
     }
