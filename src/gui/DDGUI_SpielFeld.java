@@ -43,9 +43,10 @@ import spiellogik.DD_Umgebung;
 import spiellogik.DD_Zug;
 import spiellogik.IDD_Movable;
 import spiellogik.MonsterKI;
+//http://www.google.de/imgres?imgurl=http%3A%2F%2Ffc03.deviantart.com%2Ffs27%2Fi%2F2008%2F035%2F5%2Fd%2FDeveloppers_Icons_by_Sekkyumu.png&imgrefurl=http%3A%2F%2Ffxexperience.com%2F2009%2F07%2Ffree-icons-for-your-javafx-applications%2F&h=288&w=600&tbnid=YqrmDiYd05NwKM%3A&zoom=1&docid=4ky5FndJZy1KPM&ei=_viTVY_YA8T_Uv-mpcAF&tbm=isch&iact=rc&uact=3&dur=144&page=1&start=0&ndsp=51&ved=0CCEQrQMwAA
 
 /**
- * http://www.google.de/imgres?imgurl=http%3A%2F%2Ffc03.deviantart.com%2Ffs27%2Fi%2F2008%2F035%2F5%2Fd%2FDeveloppers_Icons_by_Sekkyumu.png&imgrefurl=http%3A%2F%2Ffxexperience.com%2F2009%2F07%2Ffree-icons-for-your-javafx-applications%2F&h=288&w=600&tbnid=YqrmDiYd05NwKM%3A&zoom=1&docid=4ky5FndJZy1KPM&ei=_viTVY_YA8T_Uv-mpcAF&tbm=isch&iact=rc&uact=3&dur=144&page=1&start=0&ndsp=51&ved=0CCEQrQMwAA
+ *
  *
  * @author 3flim
  */
@@ -381,14 +382,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                     Platform.runLater(() -> {
                         if (attacknr == 1) {
                             DDGUI_SpielFeld.this.getRoot().getArea().appendText("Feuerball getroffen\n");
-                            
+
                             System.out.println("Feuerball getroffen");
                         } else if (attacknr == 2) {
                             DDGUI_SpielFeld.this.getRoot().getArea().appendText("Wasserball getroffen\n");
                             System.out.println("Wasserball getroffen");
                         }
                     });
-                    
 
                     // Timer stoppen
                     getTimer().stop();
@@ -408,16 +408,16 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         int newleben = (mon.getL_leben() - schaden);
         if (newleben < 0) {
             newleben = 0;
-            
+
             Platform.runLater(new Runnable() {
 
                 @Override
                 public void run() {
-                 DDGUI_SpielFeld.this.getRoot().getArea().appendText("Monster besiegt\n");
+                    DDGUI_SpielFeld.this.getRoot().getArea().appendText("Monster besiegt\n");
 
                 }
             });
-        
+
             System.out.println("Monster besiegt");
             monsterlist.remove(mon);
             field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden", mon.getXpos(), mon.getYpos());
