@@ -33,7 +33,10 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
             return zuege.pop();
        
     }
-
+    /**
+     * 
+     * @return Gibt den letzten Zug des Monster zurück
+     */
     public Stack<DD_Zug> getZuege() {
         return zuege;
     }
