@@ -85,7 +85,7 @@ public class DDGUI_RootFrame extends JFrame {
         setUpMenubar(spielmenuBar);
 
         contentPanel.setBackground(Color.white);
-        contentPanel.setLayout(new MigLayout());
+        contentPanel.setLayout(new BorderLayout());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -94,12 +94,7 @@ public class DDGUI_RootFrame extends JFrame {
 
         infopanel.setPreferredSize(new Dimension(200, 600));
 
-        JScrollPane sp_feld = new JScrollPane(feld);
-        sp_feld.setBorder(null);
-        JScrollPane sp_info = new JScrollPane(infopanel);
-        sp_info.setBorder(null);
-
-        contentPanel.add(lvlselect, "center");
+        contentPanel.add(lvlselect, BorderLayout.CENTER);
 //          contentPanel.add(spielmenuBar,"span 3");
 //        contentPanel.add(feld, "span 2");
 //        contentPanel.add(infopanel, "span 1,wrap");
@@ -124,10 +119,14 @@ public class DDGUI_RootFrame extends JFrame {
 
     public void startSpiel() {
         contentPanel.removeAll();
-        contentPanel.add(spielmenuBar, "span 3");
-        contentPanel.add(feld, "span 2");
-        contentPanel.add(infopanel, "span 1,wrap");
-        contentPanel.add(fxPanel(), "push x");
+        fxPanel();
+        JPanel panNorth = new JPanel();
+        panNorth.setLayout(new BorderLayout());
+        panNorth.add(spielmenuBar, BorderLayout.NORTH);
+        panNorth.add(feld, BorderLayout.SOUTH);
+        contentPanel.add(panNorth, BorderLayout.NORTH);
+        contentPanel.add(infopanel, BorderLayout.EAST);
+        contentPanel.add((fxPanel), BorderLayout.SOUTH);
     }
 
     public final void setUpMenubar(JMenuBar menu) {
