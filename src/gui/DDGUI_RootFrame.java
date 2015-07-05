@@ -123,10 +123,13 @@ public class DDGUI_RootFrame extends JFrame {
         JPanel panNorth = new JPanel();
         panNorth.setLayout(new BorderLayout());
         panNorth.add(spielmenuBar, BorderLayout.NORTH);
-        panNorth.add(feld, BorderLayout.SOUTH);
+        panNorth.add(feld, BorderLayout.CENTER);
         contentPanel.add(panNorth, BorderLayout.NORTH);
-        contentPanel.add(infopanel, BorderLayout.EAST);
-        contentPanel.add((fxPanel), BorderLayout.SOUTH);
+        panNorth.add(infopanel, BorderLayout.EAST);
+        panNorth.add((fxPanel), BorderLayout.SOUTH);
+        
+        this.revalidate();
+        this.repaint();
     }
 
     public final void setUpMenubar(JMenuBar menu) {
