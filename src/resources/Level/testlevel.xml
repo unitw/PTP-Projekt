@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><config>
+	<boden xPos="0" yPos="0"></boden>
+	<Spieler xPos="0" yPos="1"></Spieler>
+	<Spieler xPos="0" yPos="2"></Spieler>
+	<Spieler xPos="0" yPos="3"></Spieler>
+	<Monster xPos="0" yPos="4"></Monster>
+	<Monster xPos="0" yPos="5"></Monster>
+	<Monster xPos="0" yPos="6"></Monster>
+	<Monster xPos="0" yPos="7"></Monster>
+	<baum xPos="0" yPos="8"></baum>
+	<baum xPos="0" yPos="9"></baum>
+	<baum xPos="0" yPos="10"></baum>
+	<boden xPos="1" yPos="0"></boden>
+	<boden xPos="2" yPos="0"></boden>
+	<Spieler xPos="11" yPos="0"></Spieler>
+	<Spieler xPos="12" yPos="0"></Spieler>
+</config>
