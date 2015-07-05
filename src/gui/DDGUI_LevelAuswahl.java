@@ -59,8 +59,10 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
 
             @Override
             public void handle(ActionEvent t) {
-                root.startSpiel();
-
+              
+                
+                root.startSpiel(1);
+                
             }
         });
 

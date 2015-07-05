@@ -13,10 +13,13 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -117,7 +120,40 @@ public class DDGUI_RootFrame extends JFrame {
 
     }
 
-    public void startSpiel() {
+    public void startSpiel(int i) {
+
+        if (i == 1) {
+            XMLReader xmlReader = null;
+            try {
+                xmlReader = XMLReaderFactory.createXMLReader();
+            } catch (SAXException ex) {
+                System.out.println("kein Pfad ausgewählt");
+            }
+            SaxReader stxrd = new SaxReader();
+
+            //InputStream istream = getClass().getResourceAsStream("/resources/FirstLevel.xml");
+            URL path1 = getClass().getResource("/resources/FirstLevel.xml");
+            // Pfad zur XML Datei
+            FileReader reader = null;
+            try {
+                reader = new FileReader(path1.getPath());
+            } catch (FileNotFoundException ex) {
+                System.out.println("kein Pfad ausgewählt");
+            }
+            InputSource inputSource = new InputSource(reader);
+
+            xmlReader.setContentHandler(stxrd);
+            try {
+                // Parsen wird gestartet
+                xmlReader.parse(inputSource);
+            } catch (IOException | SAXException ex) {
+                System.out.println("kein Pfad ausgewählt");
+            }
+
+            feld.setField(stxrd.spielfeld);
+            feld.repaint();
+        }
+
         contentPanel.removeAll();
         fxPanel();
         JPanel panNorth = new JPanel();
@@ -127,9 +163,9 @@ public class DDGUI_RootFrame extends JFrame {
         contentPanel.add(panNorth, BorderLayout.NORTH);
         panNorth.add(infopanel, BorderLayout.EAST);
         panNorth.add((fxPanel), BorderLayout.SOUTH);
-        
         this.revalidate();
         this.repaint();
+
     }
 
     public final void setUpMenubar(JMenuBar menu) {

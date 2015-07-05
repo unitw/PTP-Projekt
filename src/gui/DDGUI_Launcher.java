@@ -73,7 +73,7 @@ public class DDGUI_Launcher extends JDialog {
                 vbButtons.setSpacing(50);
                 vbButtons.setPadding(new Insets(100, 50, 10, 20));
                 b_start = new Button("Start");
-                b_start.setDisable(true);
+                b_start.setDisable(false);
                 b_start.setMaxWidth(Double.MAX_VALUE);
                 b_start.setOnAction((ActionEvent t) -> {
                     DDGUI_RootFrame root = new DDGUI_RootFrame();
