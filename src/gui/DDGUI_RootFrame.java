@@ -92,16 +92,7 @@ public class DDGUI_RootFrame extends JFrame {
         contentPanel.setLayout(new MigLayout());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-//        Class themeClass = null;
-//        try {
-//            themeClass = Class.forName("MacMetricsTheme");
-//            MetalTheme theme = (MetalTheme) themeClass.newInstance();
-//            MetalLookAndFeel.setCurrentTheme(theme);
-//            UIManager.setLookAndFeel(new MetalLookAndFeel());
-//        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
-//            Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
+  
         //umgebunng ziel noch ienbaue
         feld.setPreferredSize(new Dimension(800, 810));
 
@@ -119,7 +110,7 @@ public class DDGUI_RootFrame extends JFrame {
 
         Image img = null;
         try {
-            img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logo.png"));
+            img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logoklein.png"));
 
         } catch (IOException ex) {
             Logger.getLogger(DDGUI_RootFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -282,27 +273,7 @@ public class DDGUI_RootFrame extends JFrame {
                 Scene scene = new Scene(root);
            
                 area.setPrefSize(780, 100);
-//        area.skinProperty().addListener(new ChangeListener<Skin<?>>() {
-//
-//            @Override
-//            public void changed(
-//                    ObservableValue<? extends Skin<?>> ov, Skin<?> t, Skin<?> t1) {
-//                if (t1 != null && t1.getNode() instanceof Region) {
-//                    Region r = (Region) t1.getNode();
-//                    r.setBackground(Background.EMPTY);
-//
-//                    r.getChildrenUnmodifiable().stream().
-//                            filter(n -> n instanceof Region).
-//                            map(n -> (Region) n).
-//                            forEach(n -> n.setBackground(Background.EMPTY));
-//
-//                    r.getChildrenUnmodifiable().stream().
-//                            filter(n -> n instanceof Control).
-//                            map(n -> (Control) n).
-//                            forEach(c -> c.skinProperty().addListener(this)); // *
-//                }
-//            }
-//        });
+    
                 root.getChildren().add(area);
 
                 fxPanel.setScene(scene);

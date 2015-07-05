@@ -19,11 +19,14 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
@@ -65,16 +68,16 @@ public class DDGUI_Launcher extends JDialog {
             public void run() {
                 BorderPane border = new BorderPane();
                 Scene scene = new Scene(border);
+                HBox vbButtons = new HBox();
+
+                vbButtons.setSpacing(50);
+                vbButtons.setPadding(new Insets(100, 50, 10, 20));
                 b_start = new Button("Start");
                 b_start.setDisable(true);
-                b_start.setPrefSize(100, 25);
-                b_start.setOnAction(new EventHandler<ActionEvent>() {
-
-                    @Override
-                    public void handle(ActionEvent t) {
-                        DDGUI_RootFrame root = new DDGUI_RootFrame();
-                        DDGUI_Launcher.this.dispose();
-                    }
+                b_start.setMaxWidth(Double.MAX_VALUE);
+                b_start.setOnAction((ActionEvent t) -> {
+                    DDGUI_RootFrame root = new DDGUI_RootFrame();
+                    DDGUI_Launcher.this.dispose();
                 });
                 bar.setPrefSize(600, 50);
                 bar.setProgress(0.0);
@@ -89,6 +92,8 @@ public class DDGUI_Launcher extends JDialog {
                 t.start();
                 //  scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
                 border.setTop(bar);
+
+                vbButtons.getChildren().add(b_start);
                 border.setBottom(b_start);
                 fxPanel.setScene(scene);
 

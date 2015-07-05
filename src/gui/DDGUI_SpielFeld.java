@@ -127,26 +127,26 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
         this.field = new Object[ZELLEN][ZELLEN];
 
-        for (int i = 0; i < ZELLEN; i++) {
-            for (int j = 0; j < ZELLEN; j++) {
-                if (Math.random() < 0.7f) {
-                    this.field[i][j] = new DD_Umgebung("boden", i, j);//boden
-                } else {
-                    this.field[i][j] = new DD_Umgebung("baum", i, j);//baum
-                }
-                if (Math.random() > 0.991f) {
-
-                    DD_Monster mon = new DD_Monster(i, j);
-                    monsterlist.add(mon);
-                    this.field[i][j] = mon;//Monster
+//        for (int i = 0; i < ZELLEN; i++) {
+//            for (int j = 0; j < ZELLEN; j++) {
+//                if (Math.random() < 0.7f) {
+//                    this.field[i][j] = new DD_Umgebung("boden", i, j);//boden
+//                } else {
+//                    this.field[i][j] = new DD_Umgebung("baum", i, j);//baum
+//                }
+//                if (Math.random() > 0.991f) {
 //
-                }
-            }
-        }
-
-        this.field[this.zielX][this.zielY] = new DD_Umgebung("boden", this.zielX, this.zielY);
-        this.field[dd_player.getXpos()][dd_player.getYpos()] = dd_player;
-//        DD_Monster mon = new DD_Monster(3, 3);
+//                    DD_Monster mon = new DD_Monster(i, j);
+//                    monsterlist.add(mon);
+//                    this.field[i][j] = mon;//Monster
+////
+//                }
+//            }
+//        }
+//
+//        this.field[this.zielX][this.zielY] = new DD_Umgebung("boden", this.zielX, this.zielY);
+//        this.field[dd_player.getXpos()][dd_player.getYpos()] = dd_player;
+////        DD_Monster mon = new DD_Monster(3, 3);
 //        monsterlist.add(mon);
         //   this.field[3][3] = mon;//Monster
 
@@ -522,7 +522,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         }
 
         //ziel
-        g.drawImage(this.ziel, this.zielX * this.ratio, this.zielY * this.ratio, this.ratio, this.ratio, null);
+    //    g.drawImage(this.ziel, this.zielX * this.ratio, this.zielY * this.ratio, this.ratio, this.ratio, null);
         //g.drawImage(this.player, this.playerX * this.ratio, this.playerY * this.ratio, this.ratio, this.ratio, null);
 
     }
