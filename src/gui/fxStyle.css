@@ -9,3 +9,11 @@
 .button:hover {
     -fx-background-color: linear-gradient(b30009, ff000d);
 }
+.label {
+
+    -fx-background-image: url("../resources/stern.png");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 46 46;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}

@@ -84,7 +84,7 @@ public class DDGUI_RootFrame extends JFrame {
         setUpMenubar(spielmenuBar);
         JPanel contentPanel = new JPanel();
         contentPanel.setBackground(Color.white);
-        contentPanel.setLayout(new MigLayout());
+        contentPanel.setLayout(new BorderLayout());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,7 +98,7 @@ public class DDGUI_RootFrame extends JFrame {
         JScrollPane sp_info = new JScrollPane(infopanel);
         sp_info.setBorder(null);
 
-        contentPanel.add(lvlselect, "span 3");
+        contentPanel.add(lvlselect,BorderLayout.CENTER);
 //          contentPanel.add(spielmenuBar,"span 3");
 //        contentPanel.add(feld, "span 2");
 //        contentPanel.add(infopanel, "span 1,wrap");

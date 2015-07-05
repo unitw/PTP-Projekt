@@ -8,6 +8,8 @@ package gui;
 import java.awt.Color;
 import java.awt.Dimension;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -24,6 +26,8 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
     Button Level2 = new Button("Level 2");
     Button Level3 = new Button("Level 3");
     Button Level4 = new Button("Level 4");
+    Label star = new Label();
+
     GridPane pane = new GridPane();
     Scene scene = new Scene(pane);
 
@@ -34,14 +38,28 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
         Level2.setPrefSize(100, 100);
         Level3.setPrefSize(100, 100);
         Level4.setPrefSize(100, 100);
+        star.setPrefSize(50, 50);
+       
 
         scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
         pane.setBackground(Background.EMPTY);
         pane.add(Level1, 0, 0);
+        pane.add(star, 0, 1);
         pane.add(Level2, 1, 0);
         pane.add(Level3, 2, 0);
         pane.add(Level4, 3, 0);
 
+        
+        Level1.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent t) {
+           
+                
+                
+            }
+        });
+        
         this.setBackground(Color.white);
         this.setPreferredSize(new Dimension(500, 500));
         this.setScene(scene);
