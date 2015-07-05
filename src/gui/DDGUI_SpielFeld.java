@@ -23,6 +23,11 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -438,8 +443,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             if (dd_player.getXpos() == zielX && dd_player.getYpos() == zielY) {
                 this.removeKeyListener(figurkeylistener);
                 timer.stop();
-                timer1.stop();
-                JOptionPane.showMessageDialog(this, "Gewonnen! Schatztruhe gefunden");
+               
+                Stage dialog = new Stage();
+                dialog.initStyle(StageStyle.UTILITY);
+                Scene scene = new Scene(new Group(new Text(25, 25, "Gewonnen! Schatztruhe gefunden")));
+                dialog.setScene(scene);
+                dialog.show();
+
                 return false;
             }
 

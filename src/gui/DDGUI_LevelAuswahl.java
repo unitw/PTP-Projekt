@@ -40,6 +40,11 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
         Level2.setPrefSize(100, 100);
         Level3.setPrefSize(100, 100);
         Level4.setPrefSize(100, 100);
+
+        Level2.setDisable(true);
+        Level3.setDisable(true);
+        Level4.setDisable(true);
+
         star.setPrefSize(50, 50);
 
         scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
@@ -55,7 +60,7 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
             @Override
             public void handle(ActionEvent t) {
                 root.startSpiel();
-                
+
             }
         });
 
