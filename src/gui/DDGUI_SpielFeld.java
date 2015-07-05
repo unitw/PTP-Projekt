@@ -96,6 +96,21 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     public void setField(Object[][] field) {
         this.field = field;
+        for (int i = 0; i < ZELLEN; i++) {
+            for (int j = 0; j < ZELLEN; j++) {
+
+                if (this.field[i][j] instanceof DD_Monster) {
+
+                    DD_Monster mon = (DD_Monster) this.field[i][j];
+                    monsterlist.add(mon);
+                }
+                if (this.field[i][j] instanceof DD_Spieler) {
+                    this.dd_player = (DD_Spieler) this.field[i][j];
+                }
+
+            }
+        }
+
     }
     private final int ZELLEN = 30;
     public final int ratio;
@@ -131,29 +146,6 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         }
 
         this.field = new Object[ZELLEN][ZELLEN];
-
-//        for (int i = 0; i < ZELLEN; i++) {
-//            for (int j = 0; j < ZELLEN; j++) {
-//                if (Math.random() < 0.7f) {
-//                    this.field[i][j] = new DD_Umgebung("boden", i, j);//boden
-//                } else {
-//                    this.field[i][j] = new DD_Umgebung("baum", i, j);//baum
-//                }
-//                if (Math.random() > 0.991f) {
-//
-//                    DD_Monster mon = new DD_Monster(i, j);
-//                    monsterlist.add(mon);
-//                    this.field[i][j] = mon;//Monster
-////
-//                }
-//            }
-//        }
-//
-//        this.field[this.zielX][this.zielY] = new DD_Umgebung("boden", this.zielX, this.zielY);
-//        this.field[dd_player.getXpos()][dd_player.getYpos()] = dd_player;
-////        DD_Monster mon = new DD_Monster(3, 3);
-////        monsterlist.add(mon);
-//           this.field[3][3] = mon;//Monster
 
         this.setFocusable(true);
         this.setSize(width, height);
@@ -249,19 +241,62 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             getDD_player().setL_mana(getDD_player().getL_mana() + 7);
         }
         runde += 1;
-        Platform.runLater(new Runnable() {
-
-            @Override
-            public void run() {
-                DDGUI_SpielFeld.this.getRoot().getArea().appendText("Runde:" + runde + "\n");
-                System.out.println("Runde:" + runde);
-            }
-        });
+//        Platform.runLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                DDGUI_SpielFeld.this.getRoot().getArea().appendText("Runde:" + runde + "\n");
+//                System.out.println("Runde:" + runde);
+//            }
+//        });
 
     }
 
     MonsterKI ki;
     Timer timer1;
+
+    public boolean SpielerInRange(int x1, int y1) {
+
+        int px = dd_player.getXpos();
+        int py = dd_player.getYpos();
+
+        for (int x = Math.max(0, x1 - 2); x < Math.min(field[0].length, x1 + 2); x++) {
+            for (int y = Math.max(0, y1 - 2); y < Math.min(field.length, y1 + 2); y++) {
+                if (field[x][y] instanceof DD_Spieler) {
+                    Platform.runLater(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            DDGUI_SpielFeld.this.getRoot().getArea().appendText("Spieler in Range\n");
+                        }
+                    });
+
+                    System.out.println("Spieler in range");
+                    return true;
+
+                }
+            }
+        }
+
+//        for (int z = x - 2; z <= x + 2; z++) {
+//            for (int s = y - 2; s <= y + 2; s++) {
+//                if (field[z][s] instanceof DD_Spieler) {
+//                    Platform.runLater(new Runnable() {
+//
+//                        @Override
+//                        public void run() {
+//                            DDGUI_SpielFeld.this.getRoot().getArea().appendText("Spieler in Range\n");
+//                        }
+//                    });
+//
+//                    System.out.println("Spieler in range");
+//                    return true;
+//
+//                }
+//            }
+//        }
+        return false;
+    }
 
     public void monstermovement() {
 
@@ -271,6 +306,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             public void actionPerformed(ActionEvent e) {
                 // 1 Sekunde abziehen
                 for (DD_Monster monster1 : monsterlist) {
+
+                    if (SpielerInRange(monster1.getXpos(), monster1.getYpos())){
+                        
+                        
+                        
+                    }
+
                     ki = new MonsterKI(monster1, DDGUI_SpielFeld.this);
                     if (ki.getDir() != null) {
                         moveSomething(monster1, ki.getWert(), ki.getDir());
@@ -443,7 +485,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             if (dd_player.getXpos() == zielX && dd_player.getYpos() == zielY) {
                 this.removeKeyListener(figurkeylistener);
                 timer.stop();
-               
+
                 Stage dialog = new Stage();
                 dialog.initStyle(StageStyle.UTILITY);
                 Scene scene = new Scene(new Group(new Text(25, 25, "Gewonnen! Schatztruhe gefunden")));
