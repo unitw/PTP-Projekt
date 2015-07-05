@@ -45,9 +45,9 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
         Level3.setDisable(true);
         Level4.setDisable(true);
 
-        star.setPrefSize(50, 50);
+       
 
-        scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
+        star.setPrefSize(50, 50); scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
         pane.setBackground(Background.EMPTY);
         pane.add(Level1, 0, 0);
         pane.add(star, 0, 1);
