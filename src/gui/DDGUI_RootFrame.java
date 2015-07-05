@@ -99,7 +99,7 @@ public class DDGUI_RootFrame extends JFrame {
         sp_info.setBorder(null);
 
         contentPanel.add(lvlselect, "span 3");
-        //  contentPanel.add(spielmenuBar,"span 3");
+//          contentPanel.add(spielmenuBar,"span 3");
 //        contentPanel.add(feld, "span 2");
 //        contentPanel.add(infopanel, "span 1,wrap");
 //        contentPanel.add(fxPanel(), "push x");

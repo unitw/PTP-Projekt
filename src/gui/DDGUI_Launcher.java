@@ -90,7 +90,7 @@ public class DDGUI_Launcher extends JDialog {
 
                 Thread t = new Thread(login);
                 t.start();
-                //  scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
+                  scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
                 border.setTop(bar);
 
                 vbButtons.getChildren().add(b_start);

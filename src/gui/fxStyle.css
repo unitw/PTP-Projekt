@@ -1,17 +1,11 @@
-.progress-bar {
-    -fx-background-color: red;
-    -fx-background-radius: 10, 10, 10, 10;
- 
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#d22730, d25d63);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
 }
- 
-.progress-bar .track{
-    -fx-background-color: blue;
-    -fx-background-insets: 20;
-    -fx-background-radius: 10, 10, 10, 10;
-}
- 
-.progress-bar .bar { 
-    -fx-background-color: grey;
-    -fx-background-insets: 30, 30, 30, 30; 
-    -fx-background-radius: 10, 10, 10, 10;
+.button:hover {
+    -fx-background-color: linear-gradient(b30009, ff000d);
 }
