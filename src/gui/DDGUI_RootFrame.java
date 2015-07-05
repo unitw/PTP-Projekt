@@ -20,16 +20,10 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.control.Control;
-import javafx.scene.control.Skin;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.Region;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -61,6 +55,7 @@ public class DDGUI_RootFrame extends JFrame {
 
     private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
     private DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
+    private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl();
     private JMenuBar spielmenuBar = new JMenuBar();
 
     public DDGUI_SpielFeld getFeld() {
@@ -92,7 +87,7 @@ public class DDGUI_RootFrame extends JFrame {
         contentPanel.setLayout(new MigLayout());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-  
+
         //umgebunng ziel noch ienbaue
         feld.setPreferredSize(new Dimension(800, 810));
 
@@ -103,10 +98,11 @@ public class DDGUI_RootFrame extends JFrame {
         JScrollPane sp_info = new JScrollPane(infopanel);
         sp_info.setBorder(null);
 
+        contentPanel.add(lvlselect, "span 3");
         //  contentPanel.add(spielmenuBar,"span 3");
-        contentPanel.add(feld, "span 2");
-        contentPanel.add(infopanel, "span 1,wrap");
-        contentPanel.add(fxPanel(), "push x");
+//        contentPanel.add(feld, "span 2");
+//        contentPanel.add(infopanel, "span 1,wrap");
+//        contentPanel.add(fxPanel(), "push x");
 
         Image img = null;
         try {
@@ -167,46 +163,41 @@ public class DDGUI_RootFrame extends JFrame {
         JButton open = new JButton("Spiel oeffnen");
 
         open.setBorder(null);
-        open.addActionListener(new ActionListener() {
+        open.addActionListener((ActionEvent ae) -> {
+            final JFileChooser fc1 = new JFileChooser("C:/");
 
-            @Override
-            public void actionPerformed(ActionEvent ae) {
-                final JFileChooser fc1 = new JFileChooser("C:/");
-
-                XMLReader xmlReader = null;
-                try {
-                    xmlReader = XMLReaderFactory.createXMLReader();
-                } catch (SAXException ex) {
-                    System.out.println("kein Pfad ausgewählt");
-                }
-                SaxReader stxrd = new SaxReader();
-                int a1 = fc1.showOpenDialog(open);
-                if (fc1.getSelectedFile().getPath() == null) {
-                    return;
-                }
-                String path1 = fc1.getSelectedFile().getPath();
-                // Pfad zur XML Datei
-                FileReader reader = null;
-                try {
-                    reader = new FileReader(path1);
-                } catch (FileNotFoundException ex) {
-                    System.out.println("kein Pfad ausgewählt");
-                }
-                InputSource inputSource = new InputSource(reader);
-
-                xmlReader.setContentHandler(stxrd);
-                try {
-                    // Parsen wird gestartet
-                    xmlReader.parse(inputSource);
-                } catch (IOException | SAXException ex) {
-                    System.out.println("kein Pfad ausgewählt");
-                }
-
-                feld.setField(stxrd.spielfeld);
-                feld.repaint();
-                System.out.println(path1 + " geoeffnet");
-
+            XMLReader xmlReader = null;
+            try {
+                xmlReader = XMLReaderFactory.createXMLReader();
+            } catch (SAXException ex) {
+                System.out.println("kein Pfad ausgewählt");
             }
+            SaxReader stxrd = new SaxReader();
+            int a1 = fc1.showOpenDialog(open);
+            if (fc1.getSelectedFile().getPath() == null) {
+                return;
+            }
+            String path1 = fc1.getSelectedFile().getPath();
+            // Pfad zur XML Datei
+            FileReader reader = null;
+            try {
+                reader = new FileReader(path1);
+            } catch (FileNotFoundException ex) {
+                System.out.println("kein Pfad ausgewählt");
+            }
+            InputSource inputSource = new InputSource(reader);
+
+            xmlReader.setContentHandler(stxrd);
+            try {
+                // Parsen wird gestartet
+                xmlReader.parse(inputSource);
+            } catch (IOException | SAXException ex) {
+                System.out.println("kein Pfad ausgewählt");
+            }
+
+            feld.setField(stxrd.spielfeld);
+            feld.repaint();
+            System.out.println(path1 + " geoeffnet");
         });
 
         spielmenu.add(speichern);
@@ -271,9 +262,9 @@ public class DDGUI_RootFrame extends JFrame {
 
                 Group root = new Group();
                 Scene scene = new Scene(root);
-           
+
                 area.setPrefSize(780, 100);
-    
+
                 root.getChildren().add(area);
 
                 fxPanel.setScene(scene);
