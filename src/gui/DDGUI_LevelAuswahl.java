@@ -30,16 +30,17 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
 
     GridPane pane = new GridPane();
     Scene scene = new Scene(pane);
+    DDGUI_RootFrame root;
 
-    public DDGUI_LevelAuswahl() {
+    public DDGUI_LevelAuswahl(DDGUI_RootFrame root) {
         super();
         this.setScene(scene);
+        this.root = root;
         Level1.setPrefSize(100, 100);
         Level2.setPrefSize(100, 100);
         Level3.setPrefSize(100, 100);
         Level4.setPrefSize(100, 100);
         star.setPrefSize(50, 50);
-       
 
         scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
         pane.setBackground(Background.EMPTY);
@@ -49,17 +50,15 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
         pane.add(Level3, 2, 0);
         pane.add(Level4, 3, 0);
 
-        
         Level1.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent t) {
-           
-                
+                root.startSpiel();
                 
             }
         });
-        
+
         this.setBackground(Color.white);
         this.setPreferredSize(new Dimension(500, 500));
         this.setScene(scene);

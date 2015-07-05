@@ -55,8 +55,9 @@ public class DDGUI_RootFrame extends JFrame {
 
     private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
     private DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
-    private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl();
+    private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl(this);
     private JMenuBar spielmenuBar = new JMenuBar();
+    JPanel contentPanel = new JPanel();
 
     public DDGUI_SpielFeld getFeld() {
         return feld;
@@ -82,9 +83,9 @@ public class DDGUI_RootFrame extends JFrame {
         this.setLayout(new BorderLayout());
 
         setUpMenubar(spielmenuBar);
-        JPanel contentPanel = new JPanel();
+
         contentPanel.setBackground(Color.white);
-        contentPanel.setLayout(new BorderLayout());
+        contentPanel.setLayout(new MigLayout());
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -98,7 +99,7 @@ public class DDGUI_RootFrame extends JFrame {
         JScrollPane sp_info = new JScrollPane(infopanel);
         sp_info.setBorder(null);
 
-        contentPanel.add(lvlselect,BorderLayout.CENTER);
+        contentPanel.add(lvlselect, "center");
 //          contentPanel.add(spielmenuBar,"span 3");
 //        contentPanel.add(feld, "span 2");
 //        contentPanel.add(infopanel, "span 1,wrap");
@@ -119,6 +120,14 @@ public class DDGUI_RootFrame extends JFrame {
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
+    }
+
+    public void startSpiel() {
+        contentPanel.removeAll();
+        contentPanel.add(spielmenuBar, "span 3");
+        contentPanel.add(feld, "span 2");
+        contentPanel.add(infopanel, "span 1,wrap");
+        contentPanel.add(fxPanel(), "push x");
     }
 
     public final void setUpMenubar(JMenuBar menu) {
