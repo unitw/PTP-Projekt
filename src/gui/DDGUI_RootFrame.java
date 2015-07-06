@@ -118,7 +118,7 @@ public class DDGUI_RootFrame extends JFrame {
         this.setIconImage(img);
         this.add(spielmenuBar, BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.CENTER);
-        this.setSize(new Dimension(1100, 900));
+        this.setSize(new Dimension(1100, 850));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
@@ -164,7 +164,7 @@ public class DDGUI_RootFrame extends JFrame {
         fxPanel();
         JPanel panNorth = new JPanel();
         JPanel AreaInfopanel = new JPanel();
-        AreaInfopanel.setPreferredSize(new Dimension(300, 400));
+        AreaInfopanel.setPreferredSize(new Dimension(300, 380));
         AreaInfopanel.setLayout(new BorderLayout());
 
         AreaInfopanel.add(infopanel, BorderLayout.NORTH);

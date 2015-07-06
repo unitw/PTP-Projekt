@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Stack;
+import javafx.application.Platform;
 import javax.swing.BorderFactory;
 import spiellogik.DD_Monster;
 import spiellogik.DD_Spieler;
@@ -42,7 +43,13 @@ public class DD_Statuslistener implements MouseListener {
         int posx = e.getX() / feld.ratio;
         int posy = e.getY() / feld.ratio;
         System.out.println("X:" + posx + "|" + "Y:" + posy);
+        Platform.runLater(new Runnable() {
 
+            @Override
+            public void run() {
+                feld.getRoot().getArea().appendText("X:" + posx + "|" + "Y:" + posy+"\n");
+            }
+        });
         if (!focusstack.empty()) {
 
             if (focusstack.peek() instanceof IDD_Movable) {
