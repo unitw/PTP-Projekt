@@ -516,6 +516,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
                         reset.setPrefSize(100, 40);
                         reset.setTranslateX(110);
+                        reset.setTranslateY(80);
                         reset.setOnAction((javafx.event.ActionEvent event) -> {
                             dialog.close();
                             DDGUI_SpielFeld.this.removeAll();

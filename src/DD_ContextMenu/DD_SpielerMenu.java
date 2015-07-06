@@ -91,7 +91,7 @@ public class DD_SpielerMenu extends JPanel {
         t_faehigkeit2 = new JButton("Attack");
 
         this.add(l_leben, "span, split 2, center");
-       // l_leben.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/Basic_set/Basic_set_Mac/Basic_set_Mac/Png/heart_64.png")));
+        // l_leben.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/Basic_set/Basic_set_Mac/Basic_set_Mac/Png/heart_64.png")));
 //        fxPanel().setOpaque(false);
 //        fxPanel().setForeground(java.awt.Color.red);
 //
@@ -111,24 +111,7 @@ public class DD_SpielerMenu extends JPanel {
         this.add(t_ruestung, "span, split 2, center,wrap");
         t_ruestung.setEditable(false);
 
-        if (player) {
-            this.add(l_faehigkeit1, "span, split 2, center,");
-
-            this.l_faehigkeit1.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
-
-            t_faehigkeit1.setPreferredSize(new Dimension(50, 25));
-            this.add(t_faehigkeit1, "span, split 2, center,wrap");
-
-            this.add(l_faehigkeit2, "span, split 2, center,");
-            this.l_faehigkeit2.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
-
-            t_faehigkeit2.setPreferredSize(new Dimension(50, 25));
-
-            this.add(t_faehigkeit2, "span, split 2, center,wrap");
-        }
-
     }
-
 
     public JProgressBar getT_leben() {
         return pb_leben;
