@@ -61,9 +61,9 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     int l_leben = 80;
 
-    int l_mana = 50;
-    int l_ruestung = 200;
-    int l_schaden=50;
+    int l_mana = 50;//not used
+    int l_ruestung = 15;
+    int l_schaden=20;
     int l_faehigkeit1;
     int l_faehigkeit2;
 

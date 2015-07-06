@@ -35,8 +35,8 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     JLabel l_gif = new JLabel();
     int i_leben = 100;
     int i_mana = 30;
-    int i_ruestung = 50;
-    int i_schaden = 15;
+    int i_ruestung = 20;
+    int i_schaden = 25;
 
     String Typ = "Spieler";
     
