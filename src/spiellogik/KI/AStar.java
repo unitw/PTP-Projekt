@@ -61,17 +61,22 @@ public class AStar implements TileBasedMap {
         int px = spiel.getDD_player().getXpos();
         int py = spiel.getDD_player().getYpos();
         for (DD_Zug zug : zugliste) {
-
-        //   if()
-            if (blocked(zug.getXpos(), zug.getYpos())) {
+            if (spiel.Zugmoeglich(zug.getXpos(), zug.getYpos())) {
+                zug.getDir();
+                zug.getWert();
+                zug.getXpos();
+                zug.getYpos();
                 zugMap.put(getCost(zug.getXpos(), zug.getYpos(), px, py), zug);
-                if (getCost(zug.getXpos(), zug.getYpos(), px, py) > heuristic) {
+
+                if(heuristic ==0){
+                     heuristic = getCost(zug.getXpos(), zug.getYpos(), px, py);
+                }         
+                else if(getCost(zug.getXpos(), zug.getYpos(), px, py) < heuristic) {
                     heuristic = getCost(zug.getXpos(), zug.getYpos(), px, py);
                 }
             }
         }
 
-       // setvisited(zugMap.get(heuristic).getXpos(), zugMap.get(heuristic).getYpos());
         return zugMap.get(heuristic);
     }
 
@@ -93,9 +98,6 @@ public class AStar implements TileBasedMap {
         return visited[x][y];
     }
 
-   
-    
-    
     /**
      * Get the terrain at a given location
      *
@@ -144,12 +146,12 @@ public class AStar implements TileBasedMap {
                 return true;
             }
 
-        } else if (field[x][y] instanceof DD_Spieler) {
-            DD_Spieler umg = (DD_Spieler) field[x][y];
-
-            return true;
-
-        }
+        } //else if (field[x][y] instanceof DD_Spieler) {
+//            DD_Spieler umg = (DD_Spieler) field[x][y];
+//
+//            return true;
+//
+//        }
 
         return true;
     }

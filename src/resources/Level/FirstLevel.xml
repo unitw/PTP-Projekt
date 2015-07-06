@@ -867,6 +867,7 @@
 	<boden xPos="28" yPos="25"></boden>
 	<boden xPos="28" yPos="26"></boden>
 	<boden xPos="28" yPos="27"></boden>
+        <boden xPos="28" yPos="28"></boden>
 	<baum xPos="28" yPos="29"></baum>
 	<baum xPos="29" yPos="0"></baum>
 	<baum xPos="29" yPos="1"></baum>
@@ -898,4 +899,5 @@
 	<baum xPos="29" yPos="27"></baum>
 	<baum xPos="29" yPos="28"></baum>
 	<baum xPos="29" yPos="29"></baum>
+       
 </config>

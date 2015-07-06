@@ -132,7 +132,7 @@ public class DDGUI_RootFrame extends JFrame {
             SaxReader stxrd = new SaxReader();
 
             //InputStream istream = getClass().getResourceAsStream("/resources/FirstLevel.xml");
-            URL path1 = getClass().getResource("/resources/FirstLevel.xml");
+            URL path1 = getClass().getResource("/resources/Test.xml");
             // Pfad zur XML Datei
             FileReader reader = null;
             try {

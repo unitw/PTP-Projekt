@@ -149,6 +149,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
         this.setFocusable(true);
         this.setSize(width, height);
+        
         monstermovement();
     }
 

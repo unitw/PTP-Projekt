@@ -7,6 +7,7 @@ package gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,47 +29,58 @@ public class DDGUI_LevelAuswahl extends JFXPanel {
     Button Level4 = new Button("Level 4");
     Label star = new Label();
 
-    GridPane pane = new GridPane();
-    Scene scene = new Scene(pane);
+    GridPane pane;
+    Scene scene;
     DDGUI_RootFrame root;
 
     public DDGUI_LevelAuswahl(DDGUI_RootFrame root) {
-        super();
-        this.setScene(scene);
-        this.root = root;
-        Level1.setPrefSize(100, 100);
-        Level2.setPrefSize(100, 100);
-        Level3.setPrefSize(100, 100);
-        Level4.setPrefSize(100, 100);
-
-        Level2.setDisable(true);
-        Level3.setDisable(true);
-        Level4.setDisable(true);
-
-       
-
-        star.setPrefSize(50, 50); scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
-        pane.setBackground(Background.EMPTY);
-        pane.add(Level1, 0, 0);
-        pane.add(star, 0, 1);
-        pane.add(Level2, 1, 0);
-        pane.add(Level3, 2, 0);
-        pane.add(Level4, 3, 0);
-
-        Level1.setOnAction(new EventHandler<ActionEvent>() {
+       super();
+        Platform.runLater(new Runnable() {
 
             @Override
-            public void handle(ActionEvent t) {
-              
-                
-                root.startSpiel(1);
-                
+            public void run() {
+
+               
+
+                pane = new GridPane();
+                scene = new Scene(pane);
+
+                DDGUI_LevelAuswahl.this.setScene(scene);
+                DDGUI_LevelAuswahl.this.root = root;
+                Level1.setPrefSize(100, 100);
+                Level2.setPrefSize(100, 100);
+                Level3.setPrefSize(100, 100);
+                Level4.setPrefSize(100, 100);
+
+                Level2.setDisable(true);
+                Level3.setDisable(true);
+                Level4.setDisable(true);
+
+                star.setPrefSize(50, 50);
+                scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
+                pane.setBackground(Background.EMPTY);
+                pane.add(Level1, 0, 0);
+                pane.add(star, 0, 1);
+                pane.add(Level2, 1, 0);
+                pane.add(Level3, 2, 0);
+                pane.add(Level4, 3, 0);
+
+                Level1.setOnAction(new EventHandler<ActionEvent>() {
+
+                    @Override
+                    public void handle(ActionEvent t) {
+
+                        root.startSpiel(1);
+
+                    }
+                });
+
+               DDGUI_LevelAuswahl.this.setBackground(Color.white);
+                DDGUI_LevelAuswahl.this.setPreferredSize(new Dimension(500, 500));
+                DDGUI_LevelAuswahl.this.setScene(scene);
             }
-        });
 
-        this.setBackground(Color.white);
-        this.setPreferredSize(new Dimension(500, 500));
-        this.setScene(scene);
-    }
+        }
+        );
 
-}
+    }}

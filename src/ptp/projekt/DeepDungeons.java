@@ -6,6 +6,7 @@
 package ptp.projekt;
 
 import gui.DDGUI_Launcher;
+import gui.DDGUI_RootFrame;
 
 /**
  *
@@ -17,8 +18,8 @@ public class DeepDungeons {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-       //DDGUI_RootFrame root= new DDGUI_RootFrame();
-        DDGUI_Launcher l= new DDGUI_Launcher();
+      DDGUI_RootFrame root= new DDGUI_RootFrame();
+       // DDGUI_Launcher l= new DDGUI_Launcher();
       
     }
     
