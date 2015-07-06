@@ -51,7 +51,7 @@ public class MonsterKI {
         if (chase) {
             if (mon.getXpos() - feld.getDD_player().getXpos() <=1 && mon.getYpos() - feld.getDD_player().getYpos() <= 1) {
                 
-                feld.Monsterattack(mon, 3);
+                feld.Monsterattack(mon, 4);
                 
                 System.out.print("Monster greift an");
                 

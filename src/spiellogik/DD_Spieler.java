@@ -36,48 +36,43 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     int i_leben = 100;
     int i_mana = 30;
     int i_ruestung = 20;
-    int i_schaden = 25;
+   
+    DD_Fähigkeit autoattack= new DD_Fähigkeit(0, 1, 0, 20, 1);
+    DD_Fähigkeit fireball= new DD_Fähigkeit(10, 1, 0, 30, 1);
+    DD_Fähigkeit waterhealing= new DD_Fähigkeit(15, 1, 35, 0, 1);
+    
+    
+    Map<Integer,DD_Fähigkeit> attackNr= new HashMap();
+
+    public Map<Integer, DD_Fähigkeit> getAttackNr() {
+        return attackNr;
+    }
+    
+    
 
     String Typ = "Spieler";
     
-    Map<Number, Number> faehigkeitenrange = new HashMap<>();
-
-    private BufferedImage playerUnten;
-    private BufferedImage playerOben;
-    private BufferedImage playerRechts;
-    private BufferedImage playerLinks;
-    private BufferedImage playerImageAktuell;
-
+  
+   
     boolean hasfocus = false;
 
     public DD_Spieler(int xpos, int ypos) {
-        faehigkeitenrange.put(1, 1);
-        faehigkeitenrange.put(2, 1);
-        faehigkeitenrange.put(3, 5);
+        attackNr.put(1, autoattack);
+        attackNr.put(2, fireball);
+        attackNr.put(3, waterhealing);
 
-        try {
+        
             dir = 1;
             this.xpos = xpos;
             this.ypos = ypos;
-            this.playerUnten = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerUnten.png"));
-            this.playerOben = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerOben.png"));
-            this.playerRechts = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerRechts.png"));
-            this.playerLinks = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/playerLinks.png"));
-        } catch (IOException ex) {
-            Logger.getLogger(DD_Spieler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        playerImageAktuell = playerUnten;
+           
         l_gif.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/playerz.gif")));
         l_gif.setBorder(null);
         l_gif.setOpaque(true);
 
     }
 
-    public int getFaehigkeitRange(int attackNr) {
-
-        return (int) faehigkeitenrange.get(attackNr);
-
-    }
+ 
 
     @Override
     public boolean isHasfocus() {
@@ -101,29 +96,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         return l_gif;
     }
 
-    public BufferedImage getPlayerImage() {
-        return playerImageAktuell;
-    }
-
-    public void setPlayerImage(BufferedImage image) {
-        playerImageAktuell = image;
-    }
-
-    public BufferedImage getPlayerUnten() {
-        return playerUnten;
-    }
-
-    public BufferedImage getPlayerOben() {
-        return playerOben;
-    }
-
-    public BufferedImage getPlayerRechts() {
-        return playerRechts;
-    }
-
-    public BufferedImage getPlayerLinks() {
-        return playerLinks;
-    }
+  
 
     public int getL_leben() {
         return i_leben;
@@ -149,13 +122,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         this.i_ruestung = l_ruestung;
     }
 
-    public int getL_schaden() {
-        return i_schaden;
-    }
-
-    public void setL_schaden(int l_schaden) {
-        this.i_schaden = l_schaden;
-    }
+  
 
     @Override
     public void showMenu(JPanel panel) {

@@ -325,7 +325,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 // 1 Sekunde abziehen
                 for (DD_Monster monster1 : monsterlist) {
 
-                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this, SpielerInRange(monster1.getXpos(), monster1.getYpos(), 5) > 0);
+                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this, SpielerInRange(monster1.getXpos(), monster1.getYpos(), 4) > 0);
                     if (ki.getDir() != null) {
                         moveSomething(monster1, ki.getWert(), ki.getDir());
                     }
@@ -366,18 +366,15 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     public void Spielerattack(DD_Spieler sp, int attackNr) {
 
-        int mana = sp.getL_mana();
-        if (mana < 10) {
-            return;
-        }
         int xpos = sp.getXpos();
         int ypos = sp.getYpos();
-        int schaden = sp.getL_schaden();
+        int schaden = sp.getAttackNr().get(attackNr).getSchaden();
         int direction = sp.getDir();
-        int range = sp.getFaehigkeitRange(attackNr);
+        int range = sp.getAttackNr().get(attackNr).getRange();
+        int mana = sp.getL_mana() - sp.getAttackNr().get(attackNr).getManaverbrauch();
+        int leben = sp.getL_leben() + sp.getAttackNr().get(attackNr).getHeilung();
 
         Map<Integer, Point> directionMap = new HashMap();
-
         directionMap.put(0, new Point(xpos, ypos - range));
         directionMap.put(1, new Point(xpos, ypos + range));
         directionMap.put(2, new Point(xpos + range, ypos));
@@ -385,10 +382,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
         if (field[(int) directionMap.get(direction).getX()][(int) directionMap.get(direction).getY()] instanceof DD_Monster) {
             DD_Monster mon = (DD_Monster) field[(int) directionMap.get(direction).getX()][(int) directionMap.get(direction).getY()];
-            showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
-            Schadenberechnung(mon, schaden);
-
-            sp.setL_mana(mana - 5);
+            if (attackNr == 3) {
+                showAttackEffect(attackNr, xpos, ypos, -1);
+            } else {
+                showAttackEffect(attackNr, mon.getXpos(), mon.getYpos(), range);
+                Schadenberechnung(mon, schaden);
+            }
+            sp.setL_mana(mana);
         }
 
         repaint();
@@ -423,14 +423,15 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         AttackAnimation = new JLabel();
         if (timer != null) {
             timer.stop();
+        } else if (attacknr == 1) {
+            AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/autoattack.gif")));
         }
-
-        if (attacknr == 1) {
+        if (attacknr == 2) {
             AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/feuerball1.gif")));
-        } else if (attacknr == 2) {
+        } else if (attacknr == 3) {
             AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
 //todo dritte attacke
-        } else if (attacknr == 3) {
+        } else if (attacknr == 4) {
             AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/skull2.gif")));
 
         }
@@ -543,9 +544,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                         // t.setTranslateY(400);
                         GridPane pane = new GridPane();
                         Scene scene = new Scene(pane);
-                       pane.setPrefSize(300, 300);
+                        pane.setPrefSize(300, 300);
                         pane.getStyleClass().add("bordered-titled-border");
-                       pane.add(l, 0, 0);
+                        pane.add(l, 0, 0);
                         pane.add(t, 0, 1);
                         pane.add(reset, 0, 2);
                         scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
