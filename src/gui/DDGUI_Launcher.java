@@ -106,7 +106,7 @@ public class DDGUI_Launcher extends JDialog {
 
     public void startProgressbar() {
         final Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(3000), new KeyValue(bar.progressProperty(), 1))
+                new KeyFrame(Duration.millis(750), new KeyValue(bar.progressProperty(), 1))
         );
 
         timeline.play();

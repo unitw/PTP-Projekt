@@ -29,6 +29,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.embed.swing.JFXPanel;
+import javafx.scene.control.Button;
+import javafx.scene.control.TitledPane;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -103,7 +105,7 @@ public class DDGUI_RootFrame extends JFrame {
 //          contentPanel.add(spielmenuBar,"span 3");
 //        contentPanel.add(feld, "span 2");
 //        contentPanel.add(infopanel, "span 1,wrap");
-//        contentPanel.add(fxPanel(), "push x");
+//        contentPanel.add(fxPanelTextArea(), "push x");
 
         Image img = null;
         try {
@@ -122,15 +124,12 @@ public class DDGUI_RootFrame extends JFrame {
 
     }
 
-    
-    
-    Map<Integer,URL> lvlXml= new HashMap();
-    
-    
+    Map<Integer, URL> lvlXml = new HashMap();
+
     public void startSpiel(int i) {
-       lvlXml.put(1, getClass().getResource("/resources/FirstLevel.xml"));
-       lvlXml.put(2, getClass().getResource("/resources/Test.xml"));
-      
+        lvlXml.put(1, getClass().getResource("/resources/FirstLevel.xml"));
+        lvlXml.put(2, getClass().getResource("/resources/Test.xml"));
+
         XMLReader xmlReader = null;
         try {
             xmlReader = XMLReaderFactory.createXMLReader();
@@ -139,7 +138,7 @@ public class DDGUI_RootFrame extends JFrame {
         }
         SaxReader stxrd = new SaxReader();
 
-            //InputStream istream = getClass().getResourceAsStream("/resources/FirstLevel.xml");
+        //InputStream istream = getClass().getResourceAsStream("/resources/FirstLevel.xml");
         // Pfad zur XML Datei
         FileReader reader = null;
         try {
@@ -164,12 +163,19 @@ public class DDGUI_RootFrame extends JFrame {
         contentPanel.removeAll();
         fxPanel();
         JPanel panNorth = new JPanel();
+        JPanel AreaInfopanel = new JPanel();
+        AreaInfopanel.setPreferredSize(new Dimension(300, 400));
+        AreaInfopanel.setLayout(new BorderLayout());
+
+        AreaInfopanel.add(infopanel, BorderLayout.NORTH);
+        AreaInfopanel.add(fxPanelTextArea, BorderLayout.SOUTH);
         panNorth.setLayout(new BorderLayout());
+
         panNorth.add(spielmenuBar, BorderLayout.NORTH);
         panNorth.add(feld, BorderLayout.CENTER);
         contentPanel.add(panNorth, BorderLayout.NORTH);
-        panNorth.add(infopanel, BorderLayout.EAST);
-        panNorth.add((fxPanel), BorderLayout.SOUTH);
+        panNorth.add(AreaInfopanel, BorderLayout.EAST);
+
         this.revalidate();
         this.repaint();
 
@@ -304,7 +310,7 @@ public class DDGUI_RootFrame extends JFrame {
         dia.setVisible(false);
     }
 
-    JFXPanel fxPanel = new JFXPanel();
+    JFXPanel fxPanelTextArea = new JFXPanel();
     TextArea area = new TextArea();
 
     public JFXPanel fxPanel() {
@@ -314,20 +320,19 @@ public class DDGUI_RootFrame extends JFrame {
             @Override
             public void run() {
 
-                Group root = new Group();
-                Scene scene = new Scene(root);
+                TitledPane t1 = new TitledPane("Spielausgabe", area);
 
-                area.setPrefSize(780, 100);
+                Scene scene = new Scene(t1);
 
-                root.getChildren().add(area);
+                area.setPrefSize(300, 100);
 
-                fxPanel.setScene(scene);
+                fxPanelTextArea.setScene(scene);
 
-                fxPanel.setPreferredSize(new Dimension(780, 200));
+                fxPanelTextArea.setPreferredSize(new Dimension(780, 200));
             }
         });
 
-        return fxPanel;
+        return fxPanelTextArea;
     }
 
 }

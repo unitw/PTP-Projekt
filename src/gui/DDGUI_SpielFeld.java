@@ -34,6 +34,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
@@ -514,7 +515,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                         Button reset = new Button("Try Again");
 
                         reset.setPrefSize(100, 40);
-                        reset.setTranslateX(120);
+                        reset.setTranslateX(110);
                         reset.setOnAction((javafx.event.ActionEvent event) -> {
                             dialog.close();
                             DDGUI_SpielFeld.this.removeAll();
@@ -523,7 +524,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
                         Label l = new Label();
                         l.setPrefSize(324, 137);
-
+                        l.getTransforms().add(new Rotate(9, 50, 30));
                         Text t = new Text();
                         t.setY(160);
                         t.setTranslateX(75);
@@ -541,12 +542,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                         // t.setTranslateY(400);
                         GridPane pane = new GridPane();
                         Scene scene = new Scene(pane);
-
-                        pane.add(l, 0, 0);
+                       pane.setPrefSize(300, 300);
+                        pane.getStyleClass().add("bordered-titled-border");
+                       pane.add(l, 0, 0);
                         pane.add(t, 0, 1);
                         pane.add(reset, 0, 2);
                         scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
-
+                        dialog.setMaxHeight(600);
                         dialog.setTitle("Game Over");
                         dialog.setScene(scene);
                         dialog.show();
