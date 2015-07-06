@@ -528,6 +528,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                         // t.setTranslateY(400);
                         GridPane pane = new GridPane();
                         Scene scene = new Scene(pane);
+                        
+                        
                         pane.setPrefSize(300, 300);
                         pane.getStyleClass().add("bordered-titled-border");
                         pane.add(l, 0, 0);

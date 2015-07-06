@@ -10,7 +10,7 @@ import XML.StaxWriter;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Image;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -29,8 +29,19 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.embed.swing.JFXPanel;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -89,8 +100,7 @@ public class DDGUI_RootFrame extends JFrame {
     public DDGUI_RootFrame() {
         this.setLayout(new BorderLayout());
 
-        setUpMenubar(spielmenuBar);
-
+        //  setUpMenubar(spielmenuBar);
         contentPanel.setBackground(Color.white);
         contentPanel.setLayout(new BorderLayout());
 
@@ -107,7 +117,7 @@ public class DDGUI_RootFrame extends JFrame {
 //        contentPanel.add(infopanel, "span 1,wrap");
 //        contentPanel.add(fxPanelTextArea(), "push x");
 
-        Image img = null;
+        java.awt.Image img = null;
         try {
             img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logoklein.png"));
 
@@ -116,7 +126,7 @@ public class DDGUI_RootFrame extends JFrame {
         }
 
         this.setIconImage(img);
-        this.add(spielmenuBar, BorderLayout.NORTH);
+        this.add(FXMenuBar(), BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.CENTER);
         this.setSize(new Dimension(1100, 850));
         this.setVisible(true);
@@ -171,7 +181,7 @@ public class DDGUI_RootFrame extends JFrame {
         AreaInfopanel.add(fxPanelTextArea, BorderLayout.SOUTH);
         panNorth.setLayout(new BorderLayout());
 
-        panNorth.add(spielmenuBar, BorderLayout.NORTH);
+        //panNorth.add(FXMenuBar(), BorderLayout.NORTH);
         panNorth.add(feld, BorderLayout.CENTER);
         contentPanel.add(panNorth, BorderLayout.NORTH);
         panNorth.add(AreaInfopanel, BorderLayout.EAST);
@@ -181,108 +191,226 @@ public class DDGUI_RootFrame extends JFrame {
 
     }
 
-    public final void setUpMenubar(JMenuBar menu) {
-
-        JMenu spielmenu = new JMenu("Spiel Optionen");
-        JButton speichern = new JButton("Spiel speichern");
-        speichern.setBorder(null);
-        speichern.addActionListener(new ActionListener() {
+    // //<editor-fold defaultstate="collapsed" desc="old menubar">
+    //public final void setUpMenubar(JMenuBar menu) {
+//
+//        JMenu spielmenu = new JMenu("Spiel Optionen");
+//        JButton speichern = new JButton("Spiel speichern");
+//        speichern.setBorder(null);
+//        speichern.addActionListener(new ActionListener() {
+//
+//            @Override
+//            public void actionPerformed(ActionEvent ae) {
+//                String path = null;
+//                try {
+//                    StaxWriter staxwriter = new StaxWriter();
+//                    final JFileChooser fc = new JFileChooser("C:/");
+//                    FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter(
+//                            ".xml", ".xml");
+//                    fc.setFileFilter(xmlFilter);
+//                    int a = fc.showSaveDialog(speichern);
+//
+//                    if (fc.getSelectedFile().getPath() != null) {
+//                        path = fc.getSelectedFile().getPath();
+//                        if (path.endsWith(path)) {
+//                            path = path + ".xml";
+//                        }
+//                    }
+//
+//                    if (path != null) {
+//                        staxwriter.writer = staxwriter.outputFactory.createXMLEventWriter(
+//                                new FileOutputStream(path));
+//
+//                        StoreProject(staxwriter);
+//                    }
+//                } catch (Exception ex) {
+//                    System.out.println("kein Pfad ausgewählt");
+//
+//                }
+//                System.out.println("Gespeichert in " + path);
+//            }
+//        });
+//
+//        JButton open = new JButton("Spiel oeffnen");
+//
+//        open.setBorder(null);
+//        open.addActionListener((ActionEvent ae) -> {
+//            final JFileChooser fc1 = new JFileChooser("C:/");
+//
+//            XMLReader xmlReader = null;
+//            try {
+//                xmlReader = XMLReaderFactory.createXMLReader();
+//            } catch (SAXException ex) {
+//                System.out.println("kein Pfad ausgewählt");
+//            }
+//            SaxReader stxrd = new SaxReader();
+//            int a1 = fc1.showOpenDialog(open);
+//            if (fc1.getSelectedFile().getPath() == null) {
+//                return;
+//            }
+//            String path1 = fc1.getSelectedFile().getPath();
+//            // Pfad zur XML Datei
+//            FileReader reader = null;
+//            try {
+//                reader = new FileReader(path1);
+//            } catch (FileNotFoundException ex) {
+//                System.out.println("kein Pfad ausgewählt");
+//            }
+//            InputSource inputSource = new InputSource(reader);
+//
+//            xmlReader.setContentHandler(stxrd);
+//            try {
+//                // Parsen wird gestartet
+//                xmlReader.parse(inputSource);
+//            } catch (IOException | SAXException ex) {
+//                System.out.println("kein Pfad ausgewählt");
+//            }
+//
+//            feld.setField(stxrd.spielfeld);
+//            feld.repaint();
+//            System.out.println(path1 + " geoeffnet");
+//        });
+//
+//        spielmenu.add(speichern);
+//
+//        spielmenu.add(open);
+//
+//        spielmenu.add(new JMenu("Spiel Optionen"));
+//
+//        menu.add(spielmenu);
+//
+//        menu.setBackground(Color.white);
+//
+//    }
+//</editor-fold>
+    public JFXPanel FXMenuBar() {
+        JFXPanel menubar = new JFXPanel();
+        Platform.runLater(new Runnable() {
 
             @Override
-            public void actionPerformed(ActionEvent ae) {
-                String path = null;
-                try {
-                    StaxWriter staxwriter = new StaxWriter();
-                    final JFileChooser fc = new JFileChooser("C:/");
-                    FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter(
-                            ".xml", ".xml");
-                    fc.setFileFilter(xmlFilter);
-                    int a = fc.showSaveDialog(speichern);
+            public void run() {
 
-                    if (fc.getSelectedFile().getPath() != null) {
-                        path = fc.getSelectedFile().getPath();
-                        if (path.endsWith(path)) {
-                            path = path + ".xml";
+                Scene scene = new Scene(new VBox(), 1000, 25);
+                scene.setFill(javafx.scene.paint.Color.OLDLACE);
+
+                MenuBar menuBar = new MenuBar();
+
+                // --- Menu File
+                Menu optionen = new Menu("Optionen");
+                MenuItem open = new MenuItem("Spiel oeffnen");
+                open.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
+
+                    @Override
+                    public void handle(javafx.event.ActionEvent event) {
+
+                        final JFileChooser fc1 = new JFileChooser("C:/");
+
+                        XMLReader xmlReader = null;
+                        try {
+                            xmlReader = XMLReaderFactory.createXMLReader();
+                        } catch (SAXException ex) {
+                            System.out.println("kein Pfad ausgewählt");
                         }
+                        SaxReader stxrd = new SaxReader();
+                        int a1 = fc1.showOpenDialog(null);
+                        if (fc1.getSelectedFile().getPath() == null) {
+                            return;
+                        }
+                        String path1 = fc1.getSelectedFile().getPath();
+                        // Pfad zur XML Datei
+                        FileReader reader = null;
+                        try {
+                            reader = new FileReader(path1);
+                        } catch (FileNotFoundException ex) {
+                            System.out.println("kein Pfad ausgewählt");
+                        }
+                        InputSource inputSource = new InputSource(reader);
+
+                        xmlReader.setContentHandler(stxrd);
+                        try {
+                            // Parsen wird gestartet
+                            xmlReader.parse(inputSource);
+                        } catch (IOException | SAXException ex) {
+                            System.out.println("kein Pfad ausgewählt");
+                        }
+
+                        feld.setField(stxrd.spielfeld);
+                        feld.repaint();
+                        System.out.println(path1 + " geoeffnet");
                     }
+                });
 
-                    if (path != null) {
-                        staxwriter.writer = staxwriter.outputFactory.createXMLEventWriter(
-                                new FileOutputStream(path));
+                MenuItem save = new MenuItem("Spiel speichern");
+                save.setOnAction(new EventHandler<javafx.event.ActionEvent>() {
 
-                        StoreProject(staxwriter);
+                    @Override
+                    public void handle(javafx.event.ActionEvent event) {
+                        String path = null;
+                        try {
+                            StaxWriter staxwriter = new StaxWriter();
+                            final JFileChooser fc = new JFileChooser("C:/");
+                            FileNameExtensionFilter xmlFilter = new FileNameExtensionFilter(
+                                    ".xml", ".xml");
+                            fc.setFileFilter(xmlFilter);
+                            int a = fc.showSaveDialog(null);
+
+                            if (fc.getSelectedFile().getPath() != null) {
+                                path = fc.getSelectedFile().getPath();
+                                if (path.endsWith(path)) {
+                                    path = path + ".xml";
+                                }
+                            }
+
+                            if (path != null) {
+                                staxwriter.writer = staxwriter.outputFactory.createXMLEventWriter(
+                                        new FileOutputStream(path));
+
+                                StoreProject(staxwriter);
+                            }
+                        } catch (Exception ex) {
+                            System.out.println("kein Pfad ausgewählt");
+
+                        }
+                        System.out.println("Gespeichert in " + path);
                     }
-                } catch (Exception ex) {
-                    System.out.println("kein Pfad ausgewählt");
+                });
 
-                }
-                System.out.println("Gespeichert in " + path);
+                optionen.getItems().addAll(open, save);
+
+                // --- Menu View
+                Menu menuView = new Menu("Help");
+                Image imageOk = new Image(getClass().getResourceAsStream("/resources/help.gif"));
+                Button but = new Button("", new ImageView(imageOk));
+
+                MenuItem spielanleitung = new MenuItem("Spielanleitung", but);
+                spielanleitung.setOnAction((javafx.event.ActionEvent event) -> {
+                    Stage webdialog = new Stage();
+                    webdialog.initStyle(StageStyle.DECORATED);
+                    WebView browser = new WebView();
+                   
+                    URL url=getClass().getResource("/resources/Spielanleitung.html");
+                    WebEngine webEngine = browser.getEngine();
+                    webEngine.load(url.toString());
+                    Scene scene1 = new Scene(browser);
+                    
+                    
+                    webdialog.setMaxHeight(600);
+                    webdialog.setTitle("Spielanleitung");
+                    webdialog.setScene(scene1);
+                    webdialog.show();
+
+                });
+                menuView.getItems().add(spielanleitung);
+
+                menuBar.getMenus().addAll(optionen, menuView);
+
+                ((VBox) scene.getRoot()).getChildren().addAll(menuBar);
+
+                menubar.setScene(scene);
+
             }
         });
-
-        JButton open = new JButton("Spiel oeffnen");
-
-        open.setBorder(null);
-        open.addActionListener((ActionEvent ae) -> {
-            final JFileChooser fc1 = new JFileChooser("C:/");
-
-            XMLReader xmlReader = null;
-            try {
-                xmlReader = XMLReaderFactory.createXMLReader();
-            } catch (SAXException ex) {
-                System.out.println("kein Pfad ausgewählt");
-            }
-            SaxReader stxrd = new SaxReader();
-            int a1 = fc1.showOpenDialog(open);
-            if (fc1.getSelectedFile().getPath() == null) {
-                return;
-            }
-            String path1 = fc1.getSelectedFile().getPath();
-            // Pfad zur XML Datei
-            FileReader reader = null;
-            try {
-                reader = new FileReader(path1);
-            } catch (FileNotFoundException ex) {
-                System.out.println("kein Pfad ausgewählt");
-            }
-            InputSource inputSource = new InputSource(reader);
-
-            xmlReader.setContentHandler(stxrd);
-            try {
-                // Parsen wird gestartet
-                xmlReader.parse(inputSource);
-            } catch (IOException | SAXException ex) {
-                System.out.println("kein Pfad ausgewählt");
-            }
-
-            feld.setField(stxrd.spielfeld);
-            feld.repaint();
-            System.out.println(path1 + " geoeffnet");
-        });
-
-        spielmenu.add(speichern);
-
-        spielmenu.add(open);
-
-        spielmenu.add(new JMenu("Spiel Optionen"));
-
-        menu.add(spielmenu);
-
-        menu.setBackground(Color.white);
-
-    }
-
-    JDialog dia;
-    JProgressBar xmlprogress;
-
-    public void ProgressXML(JDialog dia) {
-
-        xmlprogress = new JProgressBar();
-        xmlprogress.setPreferredSize(new Dimension(50, 25));
-        dia.add(xmlprogress);
-        dia.pack();
-        dia.setLocationRelativeTo(this);
-        dia.setVisible(true);
+        return menubar;
     }
 
     public void StoreProject(StaxWriter staxwriter) throws Exception {
@@ -307,7 +435,7 @@ public class DDGUI_RootFrame extends JFrame {
         staxwriter.writer.add(eventFactory.createEndDocument());
 
         staxwriter.writer.close();
-        dia.setVisible(false);
+
     }
 
     JFXPanel fxPanelTextArea = new JFXPanel();

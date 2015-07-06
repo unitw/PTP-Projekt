@@ -67,9 +67,7 @@ public class DD_Figurkeylistener implements KeyListener {
         if (e.getKeyCode() == KeyEvent.VK_3) {
             feld.Spielerattack(feld.getDD_player(), 3);
         }
-         if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-            feld.displayOptionDialog();
-        }
+       
         
         
     }
