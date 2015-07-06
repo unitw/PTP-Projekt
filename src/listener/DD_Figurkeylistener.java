@@ -58,14 +58,14 @@ public class DD_Figurkeylistener implements KeyListener {
         }
 
         if (e.getKeyCode() == KeyEvent.VK_1) {
-            feld.attack(feld.getDD_player(), 1);
+            feld.Spielerattack(feld.getDD_player(), 1);
 
         }
         if (e.getKeyCode() == KeyEvent.VK_2) {
-            feld.attack(feld.getDD_player(), 2);
+            feld.Spielerattack(feld.getDD_player(), 2);
         }
         if (e.getKeyCode() == KeyEvent.VK_3) {
-            feld.attack(feld.getDD_player(), 3);
+            feld.Spielerattack(feld.getDD_player(), 3);
         }
          if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
             feld.displayOptionDialog();

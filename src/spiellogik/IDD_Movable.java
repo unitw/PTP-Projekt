@@ -5,7 +5,9 @@
  */
 package spiellogik;
 
+import DD_ContextMenu.DD_SpielerMenu;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
@@ -24,5 +26,14 @@ public interface IDD_Movable {
     public JLabel getL_gif();
 
     public void setL_gif(JLabel label);
+
+    public int getL_leben();
+
+    public void setL_leben(int l_leben);
+
+    public void showMenu(JPanel panel);
+
+    public void setMenu(DD_SpielerMenu menu);
+     public DD_SpielerMenu getMenu();
 
 }

@@ -25,6 +25,7 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -59,7 +60,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     public final int WIDTH;
     private final int HEIGHT;
-
+private int lvl;
     private BufferedImage stein;
     private BufferedImage boden;
     private BufferedImage player;
@@ -149,7 +150,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
         this.setFocusable(true);
         this.setSize(width, height);
-        
+
         monstermovement();
     }
 
@@ -235,6 +236,14 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         repaint();
     }
 
+    public int getLvl() {
+        return lvl;
+    }
+
+    public void setLvl(int lvl) {
+        this.lvl = lvl;
+    }
+
     public void nextRound() {
 //        monstermovement();
 
@@ -256,13 +265,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     MonsterKI ki;
     Timer timer1;
 
-    public boolean SpielerInRange(int x1, int y1) {
+    public int SpielerInRange(int x1, int y1, int range) {
 
         int px = dd_player.getXpos();
         int py = dd_player.getYpos();
 
-        for (int x = Math.max(0, x1 - 2); x < Math.min(field[0].length, x1 + 2); x++) {
-            for (int y = Math.max(0, y1 - 2); y < Math.min(field.length, y1 + 2); y++) {
+        for (int x = Math.max(0, x1 - range); x < Math.min(field[0].length, x1 + range); x++) {
+            for (int y = Math.max(0, y1 - range); y < Math.min(field.length, y1 + range); y++) {
                 if (field[x][y] instanceof DD_Spieler) {
                     Platform.runLater(new Runnable() {
 
@@ -273,7 +282,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                     });
 
                     System.out.println("Spieler in range");
-                    return true;
+                    return x;
 
                 }
             }
@@ -296,10 +305,10 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 //                }
 //            }
 //        }
-        return false;
+        return 0;
     }
 
-     public void monstermovement() {
+    public void monstermovement() {
 
         timer1 = new Timer(1000, new ActionListener() {
 
@@ -308,9 +317,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 // 1 Sekunde abziehen
                 for (DD_Monster monster1 : monsterlist) {
 
-                   
-
-                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this,SpielerInRange(monster1.getXpos(), monster1.getYpos()));
+                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this, SpielerInRange(monster1.getXpos(), monster1.getYpos(), 5) > 0);
                     if (ki.getDir() != null) {
                         moveSomething(monster1, ki.getWert(), ki.getDir());
                     }
@@ -349,7 +356,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
-    public void attack(DD_Spieler sp, int attackNr) {
+    public void Spielerattack(DD_Spieler sp, int attackNr) {
 
         int mana = sp.getL_mana();
         if (mana < 10) {
@@ -377,8 +384,22 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         }
 
         repaint();
-        nextRound();
+
     }
+
+    public void Monsterattack(DD_Monster sp, int attackNr) {
+
+        int xpos = sp.getXpos();
+        int ypos = sp.getYpos();
+        int schaden = sp.getL_schaden();
+
+        DD_Spieler player = getDD_player();
+        showAttackEffect(attackNr, player.getXpos(), player.getYpos(), 1);
+        Schadenberechnung(this.getDD_player(), schaden);
+        repaint();
+
+    }
+
     Timer timer;
     JLabel AttackAnimation;
 
@@ -447,27 +468,50 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
-    public void Schadenberechnung(DD_Monster mon, int schaden) {
+    public void Schadenberechnung(IDD_Movable mon, int schaden) {
 
         int newleben = (mon.getL_leben() - schaden);
-        if (newleben < 0) {
-            newleben = 0;
 
-            Platform.runLater(new Runnable() {
+        if (mon instanceof DD_Monster) {
+            if (newleben < 0) {
+                newleben = 0;
 
-                @Override
-                public void run() {
-                    DDGUI_SpielFeld.this.getRoot().getArea().appendText("Monster besiegt\n");
+                Platform.runLater(new Runnable() {
 
-                }
-            });
+                    @Override
+                    public void run() {
+                        if (mon instanceof DD_Monster) {
+                            DDGUI_SpielFeld.this.getRoot().getArea().appendText("Monster besiegt\n");
+                        }
+                    }
+                });
 
-            System.out.println("Monster besiegt");
-            monsterlist.remove(mon);
-            field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden", mon.getXpos(), mon.getYpos());
-            this.remove(mon.getL_gif());
-            mon.getMenu().removeAll();
+                System.out.println("Monster besiegt");
+                monsterlist.remove(mon);
+                field[mon.getXpos()][mon.getYpos()] = new DD_Umgebung("boden", mon.getXpos(), mon.getYpos());
+                this.remove(mon.getL_gif());
+                mon.getMenu().removeAll();
 
+            }
+        } else {
+            if (newleben < 0) {
+                newleben = 0;
+
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Stage dialog = new Stage();
+                        dialog.initStyle(StageStyle.UTILITY);
+                        Scene scene = new Scene(new Group(new Label("Spieler besiegt\n  GameOver")));
+                        dialog.setScene(scene);
+                        dialog.show();
+                        monsterlist.removeAll(monsterlist);
+                        DDGUI_SpielFeld.this.removeAll();
+                        resetSpiel();
+                    }
+                });
+            }
         }
         mon.setL_leben(newleben);
         mon.showMenu(root.getInfopanel());
@@ -476,6 +520,12 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         repaint();
     }
 
+    
+    public void resetSpiel(){
+        getRoot().contentPanel.removeAll();
+        getRoot().startSpiel(lvl);
+    }
+    
     public boolean Zugmoeglich(int x, int y) {
         try {
 

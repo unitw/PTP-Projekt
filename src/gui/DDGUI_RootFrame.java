@@ -20,6 +20,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -120,39 +122,44 @@ public class DDGUI_RootFrame extends JFrame {
 
     }
 
+    
+    
+    Map<Integer,URL> lvlXml= new HashMap();
+    
+    
     public void startSpiel(int i) {
-
-        if (i == 1) {
-            XMLReader xmlReader = null;
-            try {
-                xmlReader = XMLReaderFactory.createXMLReader();
-            } catch (SAXException ex) {
-                System.out.println("kein Pfad ausgewählt");
-            }
-            SaxReader stxrd = new SaxReader();
+       lvlXml.put(1, getClass().getResource("/resources/FirstLevel.xml"));
+       lvlXml.put(2, getClass().getResource("/resources/Test.xml"));
+      
+        XMLReader xmlReader = null;
+        try {
+            xmlReader = XMLReaderFactory.createXMLReader();
+        } catch (SAXException ex) {
+            System.out.println("kein Pfad ausgewählt");
+        }
+        SaxReader stxrd = new SaxReader();
 
             //InputStream istream = getClass().getResourceAsStream("/resources/FirstLevel.xml");
-            URL path1 = getClass().getResource("/resources/Test.xml");
-            // Pfad zur XML Datei
-            FileReader reader = null;
-            try {
-                reader = new FileReader(path1.getPath());
-            } catch (FileNotFoundException ex) {
-                System.out.println("kein Pfad ausgewählt");
-            }
-            InputSource inputSource = new InputSource(reader);
-
-            xmlReader.setContentHandler(stxrd);
-            try {
-                // Parsen wird gestartet
-                xmlReader.parse(inputSource);
-            } catch (IOException | SAXException ex) {
-                System.out.println("kein Pfad ausgewählt");
-            }
-
-            feld.setField(stxrd.spielfeld);
-            feld.repaint();
+        // Pfad zur XML Datei
+        FileReader reader = null;
+        try {
+            reader = new FileReader(lvlXml.get(i).getPath());
+        } catch (FileNotFoundException ex) {
+            System.out.println("kein Pfad ausgewählt");
         }
+        InputSource inputSource = new InputSource(reader);
+
+        xmlReader.setContentHandler(stxrd);
+        try {
+            // Parsen wird gestartet
+            xmlReader.parse(inputSource);
+        } catch (IOException | SAXException ex) {
+            System.out.println("kein Pfad ausgewählt");
+        }
+
+        feld.setLvl(i);
+        feld.setField(stxrd.spielfeld);
+        feld.repaint();
 
         contentPanel.removeAll();
         fxPanel();

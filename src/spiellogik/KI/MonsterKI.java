@@ -48,57 +48,65 @@ public class MonsterKI {
 
     public final int getWert(ArrayList<DD_Zug> zuege) {
 
-        //if (chase) {
-        DD_Zug heuristicZug = astern.setzüge(zuege);
+        if (chase) {
+            if (mon.getXpos() - feld.getDD_player().getXpos() <=1 && mon.getYpos() - feld.getDD_player().getYpos() <= 1) {
+                
+                feld.Monsterattack(mon, 3);
+                
+                System.out.print("Monster greift an");
+                
+            } else {
+                DD_Zug heuristicZug = astern.setzüge(zuege);
 
-        Dir = heuristicZug.getDir();
-        wert = heuristicZug.getWert();
-        mon.setZuege(heuristicZug);
-        return 0;
+                Dir = heuristicZug.getDir();
+                wert = heuristicZug.getWert();
+                mon.setZuege(heuristicZug);
+                return 0;
 
-        //} 
-        //else {
-//
-//            if (!mon.getZuege().isEmpty()) {
-//
-//                DD_Zug zug = mon.getZueg();
-//                String dir1 = zug.getDir();
-//                int wert1 = zug.getWert();
-//
-//                if (zug.getDir().equals("x")) {
-//                    if (feld.Zugmoeglich((int) zug.getXpos() + wert1, (int) zug.getYpos())) {
-//
-//                        Dir = zug.getDir();
-//                        wert = zug.getWert();
-//
-//                        mon.setZuege(new DD_Zug(mon.getXpos() + wert1, mon.getYpos(), wert, Dir));
-//                        return 0;
-//                    }
-//                } else {
-//                    if (feld.Zugmoeglich((int) zug.getXpos(), (int) zug.getYpos() + wert1)) {
-//                        Dir = zug.getDir();
-//                        wert = zug.getWert();
-//
-//                        mon.setZuege(new DD_Zug(mon.getXpos(), mon.getYpos() + wert1, wert, Dir));
-//                        return 0;
-//                    }
-//                }
-//
-//            }
-//
-//            for (DD_Zug p : zuege) {
-//                if (feld.Zugmoeglich((int) p.getXpos(), (int) p.getYpos())) {
-//
-//                    Dir = p.getDir();
-//                    wert = p.getWert();
-//                    mon.setZuege(p);
-//
-//                    break;
-//                }
-//
-//            }
-//        }
-//        return -1;
+            }
+
+            }else {
+
+            if (!mon.getZuege().isEmpty()) {
+
+                DD_Zug zug = mon.getZueg();
+                String dir1 = zug.getDir();
+                int wert1 = zug.getWert();
+
+                if (zug.getDir().equals("x")) {
+                    if (feld.Zugmoeglich((int) zug.getXpos() + wert1, (int) zug.getYpos())) {
+
+                        Dir = zug.getDir();
+                        wert = zug.getWert();
+
+                        mon.setZuege(new DD_Zug(mon.getXpos() + wert1, mon.getYpos(), wert, Dir));
+                        return 0;
+                    }
+                } else {
+                    if (feld.Zugmoeglich((int) zug.getXpos(), (int) zug.getYpos() + wert1)) {
+                        Dir = zug.getDir();
+                        wert = zug.getWert();
+
+                        mon.setZuege(new DD_Zug(mon.getXpos(), mon.getYpos() + wert1, wert, Dir));
+                        return 0;
+                    }
+                }
+
+            }
+
+            for (DD_Zug p : zuege) {
+                if (feld.Zugmoeglich((int) p.getXpos(), (int) p.getYpos())) {
+
+                    Dir = p.getDir();
+                    wert = p.getWert();
+                    mon.setZuege(p);
+
+                    break;
+                }
+
+            }
+        }
+        return -1;
     }
 
     public String getDir() {

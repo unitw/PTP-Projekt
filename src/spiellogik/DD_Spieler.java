@@ -250,4 +250,14 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
+    public void setMenu(DD_SpielerMenu menu) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public DD_SpielerMenu getMenu() {
+        return this.menu;
+    }
+
 }
