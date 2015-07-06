@@ -1,10 +1,23 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 06.07.2015, 17:37:25
-    Author     : rw
-*/
+.label {
 
+    -fx-background-image: url("../resources/grabstein.png");
+    -fx-background-repeat: stretch;   
+
+    -fx-background-size: 80 80;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}
+#GAMEOVER{
+    -fx-fill: linear-gradient(from 0% 0% to 100% 200%, repeat, #d22730 0%, red 50%);
+}
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#d22730, d25d63);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+.button:hover {
+    -fx-background-color: linear-gradient(b30009, ff000d);
+}

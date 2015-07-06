@@ -7,7 +7,7 @@ package gui;
 
 import XML.StaxStore;
 import XML.StaxWriter;
-import java.awt.Color;
+
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Point;
@@ -23,9 +23,16 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Reflection;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -131,7 +138,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         this.root = root;
         this.addKeyListener(figurkeylistener);
         this.addMouseListener(status);
-        this.setBackground(Color.white);
+        this.setBackground(java.awt.Color.white);
         this.WIDTH = width;
         this.HEIGHT = height;
         this.ratio = this.WIDTH / this.ZELLEN;
@@ -347,7 +354,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
         optionPanel.add(new JButton("Back"), "cell 0  7,center");
         optiondia.add(optionPanel);
-        optionPanel.setBackground(Color.white);
+        optionPanel.setBackground(java.awt.Color.white);
         optiondia.pack();
         optiondia.setModal(true);
         //        optiondia.setUndecorated(true);
@@ -502,17 +509,49 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                     @Override
                     public void run() {
                         Stage dialog = new Stage();
-                        dialog.initStyle(StageStyle.UTILITY);
+                        dialog.initStyle(StageStyle.UNDECORATED);
 
-                        Scene scene = new Scene(new Group(new Label("Spieler besiegt\n  GameOver")));
-                       // scene.getStylesheets().add(""):
-                             
+                        Button reset = new Button("Try Again");
 
+                        reset.setPrefSize(100, 40);
+                        reset.setTranslateX(120);
+                        reset.setOnAction((javafx.event.ActionEvent event) -> {
+                            dialog.close();
+                            DDGUI_SpielFeld.this.removeAll();
+                            resetSpiel();
+                        });
+
+                        Label l = new Label();
+                        l.setPrefSize(324, 137);
+
+                        Text t = new Text();
+                        t.setY(160);
+                        t.setTranslateX(75);
+                        t.setCache(true);
+                        t.setText("GAME OVER");
+                        t.setId("GAMEOVER");
+
+                        t.setFont(Font.font(null, FontWeight.BOLD, 30));
+
+                        Reflection r = new Reflection();
+                        r.setFraction(0.7f);
+
+                        t.setEffect(r);
+
+                        // t.setTranslateY(400);
+                        GridPane pane = new GridPane();
+                        Scene scene = new Scene(pane);
+
+                        pane.add(l, 0, 0);
+                        pane.add(t, 0, 1);
+                        pane.add(reset, 0, 2);
+                        scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
+
+                        dialog.setTitle("Game Over");
                         dialog.setScene(scene);
                         dialog.show();
                         monsterlist.removeAll(monsterlist);
-                        DDGUI_SpielFeld.this.removeAll();
-                        resetSpiel();
+
                     }
                 });
             }
@@ -584,7 +623,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                             break;
                     }
                     if (umgebung.isHasfocus()) {
-                        g.setColor(Color.white);
+                        g.setColor(java.awt.Color.white);
                         g.drawRect(i * this.ratio, j * this.ratio, this.ratio, this.ratio);
                     }
 
@@ -604,7 +643,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                     // g.drawImage(DDGUI_SpielFeld.this.getGeist(), x * DDGUI_SpielFeld.this.getRatio(), y * DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), DDGUI_SpielFeld.this.getRatio(), null);
                     DD_Monster m = (DD_Monster) this.field[i][j];
                     if (m.isHasfocus()) {
-                        g.setColor(Color.red);
+                        g.setColor(java.awt.Color.red);
                         g.drawRect(i * this.ratio, j * this.ratio, this.ratio + 1, this.ratio + 1);
                     }
                 } else if (this.field[i][j] instanceof DD_Spieler) {
@@ -616,7 +655,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                     this.add(sp.getL_gif());
 
                     if (sp.isHasfocus()) {
-                        g.setColor(Color.green);
+                        g.setColor(java.awt.Color.green);
                         g.drawRect(i * this.ratio, j * this.ratio, this.ratio, this.ratio);
                     }
                 }
