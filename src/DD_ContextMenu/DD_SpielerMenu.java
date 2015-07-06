@@ -129,47 +129,6 @@ public class DD_SpielerMenu extends JPanel {
 
     }
 
-//    JFXPanel fxPanel = new JFXPanel();
-//
-//    public JFXPanel fxPanel() {
-//
-//        Platform.runLater(() -> {
-//            Group root = new Group();
-//            Scene scene = new Scene(root);
-//            //  scene.getStylesheets().add(this.getClass().getResource("heartprogressbar.css").toExternalForm());
-//            Canvas canvas = new Canvas(200, 200);
-//            GraphicsContext gc = canvas.getGraphicsContext2D();
-//            drawShapes(gc);
-//
-//            root.getChildren().add(canvas);
-//
-//            fxPanel.setScene(scene);
-//
-//        });
-//
-//        return fxPanel;
-//    }
-//
-//    private void drawShapes(GraphicsContext gc) {
-//        gc.setFill(Color.GREEN);
-//        gc.setStroke(Color.BLUE);
-//        LinearGradient lg = new LinearGradient(0, 0, 1, 1, true,
-//                CycleMethod.REFLECT,
-//                new Stop(0.0, Color.ALICEBLUE),
-//                new Stop(1.0, Color.AQUAMARINE));
-//
-//      	//Draw two circles
-//		int x1=100, y1=100, r=30;
-//        gc.fillOval(x1-r, y1-r, 2*r, 2*r);
-//        gc.fillOval((int)x1+r-10, y1-r, 2*r, 2*r);
-//        //Tangent
-//        gc.strokeLine(125, y1+5/2*r, (int)(126-30*Math.sqrt(3)), 115);
-//        //Cycle fill
-//        for(int i=125;i<=228;i++){
-//        	gc.strokeLine(125, y1+5/2*r, (int)(i-30*Math.sqrt(3)), 115);
-//        }
-//
-//    }
 
     public JProgressBar getT_leben() {
         return pb_leben;

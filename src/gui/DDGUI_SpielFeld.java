@@ -47,7 +47,7 @@ import spiellogik.DD_Spieler;
 import spiellogik.DD_Umgebung;
 import spiellogik.DD_Zug;
 import spiellogik.IDD_Movable;
-import spiellogik.MonsterKI;
+import spiellogik.KI.MonsterKI;
 //http://www.google.de/imgres?imgurl=http%3A%2F%2Ffc03.deviantart.com%2Ffs27%2Fi%2F2008%2F035%2F5%2Fd%2FDeveloppers_Icons_by_Sekkyumu.png&imgrefurl=http%3A%2F%2Ffxexperience.com%2F2009%2F07%2Ffree-icons-for-your-javafx-applications%2F&h=288&w=600&tbnid=YqrmDiYd05NwKM%3A&zoom=1&docid=4ky5FndJZy1KPM&ei=_viTVY_YA8T_Uv-mpcAF&tbm=isch&iact=rc&uact=3&dur=144&page=1&start=0&ndsp=51&ved=0CCEQrQMwAA
 
 /**
@@ -298,7 +298,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         return false;
     }
 
-    public void monstermovement() {
+     public void monstermovement() {
 
         timer1 = new Timer(1000, new ActionListener() {
 
@@ -307,13 +307,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 // 1 Sekunde abziehen
                 for (DD_Monster monster1 : monsterlist) {
 
-                    if (SpielerInRange(monster1.getXpos(), monster1.getYpos())){
-                        
-                        
-                        
-                    }
+                   
 
-                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this);
+                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this,SpielerInRange(monster1.getXpos(), monster1.getYpos()));
                     if (ki.getDir() != null) {
                         moveSomething(monster1, ki.getWert(), ki.getDir());
                     }
