@@ -374,7 +374,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             }
             sp.setL_mana(mana);
         }
-
+        sp.setL_leben(leben);
         repaint();
 
     }
