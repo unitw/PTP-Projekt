@@ -273,47 +273,20 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     MonsterKI ki;
     Timer timer1;
 
-    public int SpielerInRange(int x1, int y1, int range) {
+    public boolean SpielerInRange(int x1, int y1, int range) {
 
-        int px = dd_player.getXpos();
-        int py = dd_player.getYpos();
+        int px = this.getDD_player().getXpos();
+        int py = this.getDD_player().getYpos();
 
-        for (int x = Math.max(0, x1 - range); x < Math.min(field[0].length, x1 + range); x++) {
-            for (int y = Math.max(0, y1 - range); y < Math.min(field.length, y1 + range); y++) {
-                if (field[x][y] instanceof DD_Spieler) {
-                    Platform.runLater(new Runnable() {
-
-                        @Override
-                        public void run() {
-                            DDGUI_SpielFeld.this.getRoot().getArea().appendText("Spieler in Range\n");
-                        }
-                    });
-
-                    System.out.println("Spieler in range");
-                    return x;
+        for (int x = Math.max(0, x1 - range); x < Math.min(this.getField()[0].length, x1 + range); x++) {
+            for (int y = Math.max(0, y1 - range); y < Math.min(this.getField().length, y1 + range); y++) {
+                if (this.getField()[x][y] instanceof DD_Spieler) {
+                    return true;
 
                 }
             }
         }
-
-//        for (int z = x - 2; z <= x + 2; z++) {
-//            for (int s = y - 2; s <= y + 2; s++) {
-//                if (field[z][s] instanceof DD_Spieler) {
-//                    Platform.runLater(new Runnable() {
-//
-//                        @Override
-//                        public void run() {
-//                            DDGUI_SpielFeld.this.getRoot().getArea().appendText("Spieler in Range\n");
-//                        }
-//                    });
-//
-//                    System.out.println("Spieler in range");
-//                    return true;
-//
-//                }
-//            }
-//        }
-        return 0;
+        return false;
     }
 
     public void monstermovement() {
@@ -325,7 +298,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 // 1 Sekunde abziehen
                 for (DD_Monster monster1 : monsterlist) {
 
-                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this, SpielerInRange(monster1.getXpos(), monster1.getYpos(), 4) > 0);
+                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this, SpielerInRange(monster1.getXpos(), monster1.getYpos(), 4));
                     if (ki.getDir() != null) {
                         moveSomething(monster1, ki.getWert(), ki.getDir());
                     }
@@ -371,7 +344,18 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         int schaden = sp.getAttackNr().get(attackNr).getSchaden();
         int direction = sp.getDir();
         int range = sp.getAttackNr().get(attackNr).getRange();
-        int mana = sp.getL_mana() - sp.getAttackNr().get(attackNr).getManaverbrauch();
+        int mana = sp.getL_mana();
+        if (mana < sp.getAttackNr().get(attackNr).getManaverbrauch()) {
+            Platform.runLater(new Runnable() {
+
+                @Override
+                public void run() {
+                    DDGUI_SpielFeld.this.getRoot().getArea().appendText("KEIN MANA MEHR\n");
+                }
+            });
+        } else {
+            mana = sp.getL_mana() - sp.getAttackNr().get(attackNr).getManaverbrauch();
+        }
         int leben = sp.getL_leben() + sp.getAttackNr().get(attackNr).getHeilung();
 
         Map<Integer, Point> directionMap = new HashMap();

@@ -7,7 +7,9 @@ package spiellogik.KI;
 
 import gui.DDGUI_SpielFeld;
 import java.util.ArrayList;
+import javafx.application.Platform;
 import spiellogik.DD_Monster;
+import spiellogik.DD_Spieler;
 import spiellogik.DD_Zug;
 
 /**
@@ -46,15 +48,18 @@ public class MonsterKI {
         zuege.add(p4);
     }
 
+   
+
     public final int getWert(ArrayList<DD_Zug> zuege) {
 
         if (chase) {
-            if (mon.getXpos() - feld.getDD_player().getXpos() <=1 && mon.getYpos() - feld.getDD_player().getYpos() <= 1) {
-                
+
+            if (feld.SpielerInRange(mon.getXpos(), mon.getYpos(), 1)) {
+
                 feld.Monsterattack(mon, 4);
-                
+
                 System.out.print("Monster greift an");
-                
+
             } else {
                 DD_Zug heuristicZug = astern.setzüge(zuege);
 
@@ -65,7 +70,7 @@ public class MonsterKI {
 
             }
 
-            }else {
+        } else {
 
             if (!mon.getZuege().isEmpty()) {
 
