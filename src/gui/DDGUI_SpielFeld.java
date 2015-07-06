@@ -60,7 +60,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     public final int WIDTH;
     private final int HEIGHT;
-private int lvl;
+    private int lvl;
     private BufferedImage stein;
     private BufferedImage boden;
     private BufferedImage player;
@@ -423,7 +423,7 @@ private int lvl;
             AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
 //todo dritte attacke
         } else if (attacknr == 3) {
-            AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/wasserball2.gif")));
+            AttackAnimation.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/skull2.gif")));
 
         }
         AttackAnimation.setBorder(null);
@@ -503,7 +503,11 @@ private int lvl;
                     public void run() {
                         Stage dialog = new Stage();
                         dialog.initStyle(StageStyle.UTILITY);
+
                         Scene scene = new Scene(new Group(new Label("Spieler besiegt\n  GameOver")));
+                       // scene.getStylesheets().add(""):
+                             
+
                         dialog.setScene(scene);
                         dialog.show();
                         monsterlist.removeAll(monsterlist);
@@ -520,12 +524,11 @@ private int lvl;
         repaint();
     }
 
-    
-    public void resetSpiel(){
+    public void resetSpiel() {
         getRoot().contentPanel.removeAll();
         getRoot().startSpiel(lvl);
     }
-    
+
     public boolean Zugmoeglich(int x, int y) {
         try {
 

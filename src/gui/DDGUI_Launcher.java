@@ -57,15 +57,17 @@ public class DDGUI_Launcher extends JDialog {
         this.setVisible(true);
     }
 
-    JFXPanel fxPanel = new JFXPanel();
+    JFXPanel fxPanel;
     ProgressBar bar;
     Button b_start;
 
     public JFXPanel fxPanel() {
-        bar = new ProgressBar();
+        fxPanel = new JFXPanel();
         Platform.runLater(new Runnable() {
 
             public void run() {
+
+                bar = new ProgressBar();
                 BorderPane border = new BorderPane();
                 Scene scene = new Scene(border);
                 HBox vbButtons = new HBox();
@@ -77,20 +79,13 @@ public class DDGUI_Launcher extends JDialog {
                 b_start.setMaxWidth(Double.MAX_VALUE);
                 b_start.setOnAction((ActionEvent t) -> {
                     DDGUI_RootFrame root = new DDGUI_RootFrame();
-                    DDGUI_Launcher.this.dispose();
+                    endDialog();
                 });
                 bar.setPrefSize(600, 50);
                 bar.setProgress(0.0);
+                startProgressbar();
 
-                final Task<Boolean> login = doLogin();
-
-                login.setOnSucceeded((WorkerStateEvent t) -> {
-                    b_start.setDisable(false);
-                });
-
-                Thread t = new Thread(login);
-                t.start();
-                  scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
+                scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
                 border.setTop(bar);
 
                 vbButtons.getChildren().add(b_start);
@@ -105,24 +100,13 @@ public class DDGUI_Launcher extends JDialog {
     }
     double i = 0;
 
-    public Task<Boolean> doLogin() {
-        return new Task<Boolean>() {
-            @Override
-            protected Boolean call() {
-                Boolean result = null;
-                startProgressbar();
-                if (bar.getProgress() > 100) {
-                    result = Boolean.TRUE;
-                }
-
-                return result;
-            }
-        };
+    public void endDialog() {
+        this.setVisible(false);
     }
 
     public void startProgressbar() {
         final Timeline timeline = new Timeline(
-                new KeyFrame(Duration.millis(500), new KeyValue(bar.progressProperty(), 1))
+                new KeyFrame(Duration.millis(3000), new KeyValue(bar.progressProperty(), 1))
         );
 
         timeline.play();

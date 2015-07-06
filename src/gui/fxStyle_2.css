@@ -1,0 +1,19 @@
+
+.button {
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-background-color: linear-gradient(#d22730, d25d63);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+}
+.button:hover {
+    -fx-background-color: linear-gradient(b30009, ff000d);
+}
+.label {
+
+    -fx-background-image: url("../resources/stern.png");
+    -fx-background-repeat: stretch;   
+    -fx-background-size: 46 46;
+    -fx-background-position: center center;
+    -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
+}
