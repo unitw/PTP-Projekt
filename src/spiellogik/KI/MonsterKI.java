@@ -52,7 +52,7 @@ public class MonsterKI {
 
         if (chase) {
 
-            if (feld.SpielerInRange(mon.getXpos(), mon.getYpos(), 1)) {
+            if (feld.SpielerInRange(mon.getXpos(), mon.getYpos(), 2)) {
 
                 feld.Monsterattack(mon, 4);
 
