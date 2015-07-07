@@ -25,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -32,10 +33,17 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TitledPane;
+import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.RadialGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -67,8 +75,9 @@ public class DDGUI_RootFrame extends JFrame {
     private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 775);
     private DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
     private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl(this);
+   private DDGUI_CharacterAuwahl charselect= new DDGUI_CharacterAuwahl(this);
     private JMenuBar spielmenuBar = new JMenuBar();
-    JPanel contentPanel = new JPanel();
+    DDGUI_ContentPanel contentPanel = new DDGUI_ContentPanel();
 
     public DDGUI_SpielFeld getFeld() {
         return feld;
@@ -97,6 +106,8 @@ public class DDGUI_RootFrame extends JFrame {
         contentPanel.setBackground(Color.white);
         contentPanel.setLayout(new BorderLayout());
 
+        
+        
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         feld.setPreferredSize(new Dimension(775, 775));
@@ -104,7 +115,10 @@ public class DDGUI_RootFrame extends JFrame {
         infopanel.setPreferredSize(new Dimension(200, 600));
 
         contentPanel.add(lvlselect, BorderLayout.CENTER);
-//     
+        contentPanel.add(charselect, BorderLayout.SOUTH);
+        
+        
+        
         java.awt.Image img = null;
         try {
             img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logoklein.png"));
@@ -507,5 +521,8 @@ public class DDGUI_RootFrame extends JFrame {
 
         return fxPanelTextArea;
     }
+      
+    
+   
 
 }

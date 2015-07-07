@@ -17,3 +17,17 @@
     -fx-background-position: center center;
     -fx-effect: dropshadow(three-pass-box, black, 30, 0.5, 0, 0); 
 }
+#krieger{
+    -fx-text-fill: white;
+    -fx-font-family: "Arial Narrow";
+    -fx-font-weight: bold;
+    -fx-graphic: url("../resources/Linksil_1.png");
+    -fx-background-color: linear-gradient(#000000, FFFFFF);
+    //  -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );
+
+}
+#krieger:hover{
+    -fx-graphic: url("../resources/linknotblack.png");
+    -fx-background-repeat: stretch;
+    -fx-background-color: linear-gradient(#000000, FFFFFF);
+}

@@ -521,8 +521,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                         l.getTransforms().add(new Rotate(9, 50, 30));
 
                         Label t = new Label();
-                      //  t.setTranslateY(160);
+                        //  t.setTranslateY(160);
                         t.setTranslateX(75);
+                        t.setTranslateY(10);
                         t.setCache(true);
                         t.setText("GAME OVER");
                         t.setId("GAMEOVER");
@@ -583,8 +584,16 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
     public void resetSpiel() {
-        getRoot().contentPanel.removeAll();
-        getRoot().startSpiel(lvl);
+
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                getRoot().contentPanel.removeAll();
+                getRoot().startSpiel(lvl);
+            }
+        });
+
     }
 
     public boolean Zugmoeglich(int x, int y) {
@@ -599,7 +608,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 Scene scene = new Scene(new Group(new Text(25, 25, "Gewonnen! Schatztruhe gefunden")));
                 dialog.setScene(scene);
                 dialog.show();
-
+                lvl=+1;
                 return false;
             }
 
