@@ -81,12 +81,13 @@ public class DDGUI_Launcher extends JDialog {
                     DDGUI_RootFrame root = new DDGUI_RootFrame();
                     endDialog();
                 });
-                bar.setPrefSize(600, 50);
+                bar.setPrefSize(605, 50);
                 bar.setProgress(0.0);
+                bar.setTranslateY(60);
                 startProgressbar();
 
                 scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
-                border.setTop(bar);
+                border.setCenter(bar);
 
                 vbButtons.getChildren().add(b_start);
                 border.setBottom(b_start);

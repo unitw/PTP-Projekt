@@ -11,47 +11,40 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JProgressBar;
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.stream.XMLEventFactory;
@@ -71,7 +64,7 @@ import org.xml.sax.helpers.XMLReaderFactory;
  */
 public class DDGUI_RootFrame extends JFrame {
 
-    private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 500);
+    private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 775);
     private DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
     private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl(this);
     private JMenuBar spielmenuBar = new JMenuBar();
@@ -106,17 +99,12 @@ public class DDGUI_RootFrame extends JFrame {
 
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        //umgebunng ziel noch ienbaue
-        feld.setPreferredSize(new Dimension(800, 810));
+        feld.setPreferredSize(new Dimension(775, 775));
 
         infopanel.setPreferredSize(new Dimension(200, 600));
 
         contentPanel.add(lvlselect, BorderLayout.CENTER);
-//          contentPanel.add(spielmenuBar,"span 3");
-//        contentPanel.add(feld, "span 2");
-//        contentPanel.add(infopanel, "span 1,wrap");
-//        contentPanel.add(fxPanelTextArea(), "push x");
-
+//     
         java.awt.Image img = null;
         try {
             img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logoklein.png"));
@@ -171,20 +159,23 @@ public class DDGUI_RootFrame extends JFrame {
         feld.repaint();
 
         contentPanel.removeAll();
-        fxPanel();
+        TextArea();
         JPanel panNorth = new JPanel();
         JPanel AreaInfopanel = new JPanel();
-        AreaInfopanel.setPreferredSize(new Dimension(300, 380));
-        AreaInfopanel.setLayout(new BorderLayout());
+        AreaInfopanel.setPreferredSize(new Dimension(300, 350));
 
-        AreaInfopanel.add(infopanel, BorderLayout.NORTH);
-        AreaInfopanel.add(fxPanelTextArea, BorderLayout.CENTER);
+        AreaInfopanel.setLayout(new MigLayout());
+        infopanel.setPreferredSize(new Dimension(200, 700));
+        AreaInfopanel.add(infopanel, "cell 0 0");
+        AreaInfopanel.add(fxPanelTextArea, "cell 0 1");
+
         panNorth.setLayout(new BorderLayout());
-
-        //panNorth.add(FXMenuBar(), BorderLayout.NORTH);
+        //panNorth.add(FXMenuBar(), BorderLayout.NORTH);^
         panNorth.add(feld, BorderLayout.CENTER);
         contentPanel.add(panNorth, BorderLayout.NORTH);
         panNorth.add(AreaInfopanel, BorderLayout.EAST);
+        SpielerSkillbar();
+        panNorth.add(SpielerSkillBar, BorderLayout.PAGE_END);
 
         this.revalidate();
         this.repaint();
@@ -440,7 +431,7 @@ public class DDGUI_RootFrame extends JFrame {
     JFXPanel fxPanelTextArea = new JFXPanel();
     TextArea area = new TextArea();
 
-    public JFXPanel fxPanel() {
+    public JFXPanel TextArea() {
 
         Platform.runLater(new Runnable() {
 
@@ -451,11 +442,66 @@ public class DDGUI_RootFrame extends JFrame {
 
                 Scene scene = new Scene(t1);
 
-                area.setPrefSize(300, 50);
-                t1.setPrefSize(300, 50);
+                area.setPrefSize(300, 150);
+                t1.setPrefSize(300, 150);
                 fxPanelTextArea.setScene(scene);
 
-                fxPanelTextArea.setPreferredSize(new Dimension(780, 50));
+                fxPanelTextArea.setPreferredSize(new Dimension(200, 500));
+            }
+        });
+
+        return fxPanelTextArea;
+    }
+
+    JFXPanel SpielerSkillBar = new JFXPanel();
+    Image autoattackLabel;
+    Image feuerballLabel;
+    Image wasserballLabel;
+
+    public JFXPanel SpielerSkillbar() {
+
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+
+                autoattackLabel = new Image(getClass().getResourceAsStream("../resources/autoattack.gif"));
+                feuerballLabel = new Image(getClass().getResourceAsStream("../resources/feuerball1.gif"));
+                wasserballLabel = new Image(getClass().getResourceAsStream("../resources/wasserball2.gif"));
+
+                GridPane pane = new GridPane();
+                //   TitledPane t1 = new TitledPane("SkillBar Spieler", pane);
+                Label skill1 = new Label("Schlag");
+                skill1.setGraphic(new ImageView(autoattackLabel));
+                Label skill2 = new Label("Feuerball");
+                skill2.setGraphic(new ImageView(feuerballLabel));
+
+                Label skill3 = new Label("Wasserheilung");
+                skill3.setGraphic(new ImageView(wasserballLabel));
+                
+                
+                skill1.setStyle("-fx-border-color: white;");
+                skill2.setStyle("-fx-border-color: white;");
+                skill3.setStyle("-fx-border-color: white;");
+
+                skill1.setPrefSize(100, 50);
+                skill2.setPrefSize(100, 50);
+                skill3.setPrefSize(100, 50);
+
+                ProgressBar life = new ProgressBar();
+                ProgressBar Mana = new ProgressBar();
+
+                life.setProgress(100);
+                Mana.setProgress(30);
+
+                pane.add(skill1, 0, 0);
+                pane.add(skill2, 1, 0);
+                pane.add(skill3, 2, 0);
+                pane.add(life, 3, 0);
+                pane.add(Mana, 4, 0);
+                pane.setTranslateX(250);
+                Scene scene = new Scene(pane);
+                SpielerSkillBar.setScene(scene);
             }
         });
 

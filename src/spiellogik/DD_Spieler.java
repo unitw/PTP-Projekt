@@ -116,21 +116,21 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     @Override
     public void showMenu(JPanel panel) {
-        menu.updateLeben(i_leben);
-        
-        Platform.runLater(new Runnable() {
-
-            @Override
-            public void run() {
-                panel.removeAll();
-                menu.getT_mana().setText(i_mana + "");
-                menu.getT_ruestung().setText(i_ruestung + "");
-
-                panel.add(menu);
-                panel.revalidate();
-                panel.repaint();
-            }
-        });
+//     //   menu.updateLeben(i_leben);
+//        
+//        Platform.runLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+////                panel.removeAll();
+////                menu.getT_mana().setText(i_mana + "");
+////                menu.getT_ruestung().setText(i_ruestung + "");
+////
+////                panel.add(menu);
+////                panel.revalidate();
+////                panel.repaint();
+//            }
+//        });
 
     }
 

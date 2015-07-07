@@ -63,7 +63,7 @@ public class DD_MonsterMenu extends JFXPanel {
     Label l_faehigkeit2;
     Label l_faehigkeit2gif;
 
-    ProgressBar pb_leben;
+  //  ProgressBar pb_leben;
     Text t_mana;
     Text t_leben;
     Text t_ruestung;
@@ -95,8 +95,8 @@ public class DD_MonsterMenu extends JFXPanel {
         l_faehigkeit1gif = new Label();
         l_faehigkeit2gif = new Label();
 
-        pb_leben = new ProgressBar();
-        pb_leben.setProgress(100);
+        //pb_leben = new ProgressBar();
+      //  pb_leben.setProgress(100);
         t_mana = new Text();
         t_ruestung = new Text();
         t_schaden = new Text();
@@ -104,7 +104,7 @@ public class DD_MonsterMenu extends JFXPanel {
         t_faehigkeit2 = new Button("Attack");
 
         pane.add(l_leben, 0, 0);
-        pane.add(pb_leben, 1, 0);
+      //  pane.add(pb_leben, 1, 0);
         pane.add(t_leben, 2, 0);
         pane.add(l_ruestung, 0, 1);
         pane.add(t_ruestung, 1, 1);
@@ -122,43 +122,43 @@ public class DD_MonsterMenu extends JFXPanel {
 
     public void setText_leben(Text t_leben) {
         this.t_leben = t_leben;
-        pb_leben.setProgress(Double.parseDouble(t_leben.getText()));
+   //     pb_leben.setProgress(Double.parseDouble(t_leben.getText()));
 
     }
 
     public void updateLeben(int leben) {
-        Platform.runLater(new Runnable() {
-
-            @Override
-            public void run() {
-                t_leben.setText(leben + "");
-
-                new Thread() {
-                    public void run() {
-
-                        Platform.runLater(() -> pb_leben.setProgress((double) leben));
-
-                        try {
-                            Thread.sleep(1000);
-                        } catch (InterruptedException ex) {
-                            Thread.currentThread().interrupt();
-                        }
-
-                    }
-                }.start();
-
-            }
-        });
+//        Platform.runLater(new Runnable() {
+//
+//            @Override
+//            public void run() {
+//                t_leben.setText(leben + "");
+//
+//                new Thread() {
+//                    public void run() {
+//
+//                        Platform.runLater(() -> pb_leben.setProgress((double) leben));
+//
+//                        try {
+//                            Thread.sleep(1000);
+//                        } catch (InterruptedException ex) {
+//                            Thread.currentThread().interrupt();
+//                        }
+//
+//                    }
+//                }.start();
+//
+//            }
+//        });
 
     }
 
-    public ProgressBar getT_leben() {
-        return pb_leben;
-    }
-
-    public void setT_leben(ProgressBar t_leben) {
-        this.pb_leben = t_leben;
-    }
+//    public ProgressBar getT_leben() {
+//        return pb_leben;
+//    }
+//
+//    public void setT_leben(ProgressBar t_leben) {
+//        this.pb_leben = t_leben;
+//    }
 
     public Text getT_mana() {
         return t_mana;

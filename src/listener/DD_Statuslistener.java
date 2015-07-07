@@ -38,58 +38,69 @@ public class DD_Statuslistener implements MouseListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        this.feld.requestFocus();
-        e.getSource();
-        int posx = e.getX() / feld.ratio;
-        int posy = e.getY() / feld.ratio;
-        System.out.println("X:" + posx + "|" + "Y:" + posy);
-        Platform.runLater(new Runnable() {
+        try {
+            Platform.runLater(new Runnable() {
 
-            @Override
-            public void run() {
-                feld.getRoot().getArea().appendText("X:" + posx + "|" + "Y:" + posy+"\n");
-            }
-        });
-        if (!focusstack.empty()) {
+                @Override
+                public void run() {
 
-            if (focusstack.peek() instanceof IDD_Movable) {
-                IDD_Movable mov = (IDD_Movable) focusstack.pop();
-                mov.getL_gif().setBorder(null);
-            }
-            if (!focusstack.empty()) {
-                IDD_MenuAnzeiger menu = (IDD_MenuAnzeiger) focusstack.pop();
+                    DD_Statuslistener.this.feld.requestFocus();
+                    e.getSource();
+                    int posx = e.getX() / feld.ratio;
+                    int posy = e.getY() / feld.ratio;
+                    System.out.println("X:" + posx + "|" + "Y:" + posy);
+                    Platform.runLater(new Runnable() {
 
-                menu.setHasfocus(false);
-                feld.repaint();
-            }
-        }
+                        @Override
+                        public void run() {
+                            feld.getRoot().getArea().appendText("X:" + posx + "|" + "Y:" + posy + "\n");
+                        }
+                    });
+                    if (!focusstack.empty()) {
 
-        if (feld.getField()[posx][posy] instanceof DD_Umgebung) {
+                        if (focusstack.peek() instanceof IDD_Movable) {
+                            IDD_Movable mov = (IDD_Movable) focusstack.pop();
+                            mov.getL_gif().setBorder(null);
+                        }
+                        if (!focusstack.empty()) {
+                            IDD_MenuAnzeiger menu = (IDD_MenuAnzeiger) focusstack.pop();
 
-            DD_Umgebung umg = (DD_Umgebung) feld.getField()[posx][posy];
-            umg.setHasfocus(true);
-            focusstack.push(umg);
-            System.out.println(umg.getTyp());
+                            menu.setHasfocus(false);
+                            feld.repaint();
+                        }
+                    }
 
-        } else if (feld.getField()[posx][posy] instanceof DD_Spieler) {
-            DD_Spieler player = (DD_Spieler) feld.getField()[posx][posy];
-            player.getL_gif().setBorder(BorderFactory.createLineBorder(Color.green, 1));
-            player.setHasfocus(true);
-            focusstack.push(player);
+                    if (feld.getField()[posx][posy] instanceof DD_Umgebung) {
 
-            player.showMenu(feld.getRoot().getInfopanel());
-            System.out.println("Spieler");
+                        DD_Umgebung umg = (DD_Umgebung) feld.getField()[posx][posy];
+                        umg.setHasfocus(true);
+                        focusstack.push(umg);
+                        System.out.println(umg.getTyp());
 
-        } else if (feld.getField()[posx][posy] instanceof DD_Monster) {
+                    } else if (feld.getField()[posx][posy] instanceof DD_Spieler) {
+                        DD_Spieler player = (DD_Spieler) feld.getField()[posx][posy];
+                        player.getL_gif().setBorder(BorderFactory.createLineBorder(Color.green, 1));
+                        player.setHasfocus(true);
+                        focusstack.push(player);
 
-            DD_Monster mon = (DD_Monster) feld.getField()[posx][posy];
-            mon.getL_gif().setBorder(BorderFactory.createLineBorder(Color.red, 1));
+                        player.showMenu(feld.getRoot().getInfopanel());
+                        System.out.println("Spieler");
 
-            mon.setHasfocus(true);
+                    } else if (feld.getField()[posx][posy] instanceof DD_Monster) {
 
-            focusstack.push(mon);
-            System.out.println("Monster");
-            mon.showMenu(feld.getRoot().getInfopanel());
+                        DD_Monster mon = (DD_Monster) feld.getField()[posx][posy];
+                        mon.getL_gif().setBorder(BorderFactory.createLineBorder(Color.red, 1));
+
+                        mon.setHasfocus(true);
+
+                        focusstack.push(mon);
+                        System.out.println("Monster");
+                        mon.showMenu(feld.getRoot().getInfopanel());
+
+                    }
+                }
+            });
+        } catch (Exception ex) {
 
         }
 

@@ -48,8 +48,6 @@ public class MonsterKI {
         zuege.add(p4);
     }
 
-   
-
     public final int getWert(ArrayList<DD_Zug> zuege) {
 
         if (chase) {
@@ -58,7 +56,13 @@ public class MonsterKI {
 
                 feld.Monsterattack(mon, 4);
 
-                System.out.print("Monster greift an");
+                Platform.runLater(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        feld.getRoot().getArea().appendText("Monster trifft euch mit Geisterriss\n");
+                    }
+                });
 
             } else {
                 DD_Zug heuristicZug = astern.setzüge(zuege);

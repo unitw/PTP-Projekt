@@ -1,4 +1,4 @@
-.label {
+#grave {
 
     -fx-background-image: url("../resources/grabstein.png");
     -fx-background-repeat: stretch;   
@@ -20,4 +20,8 @@
 }
 .button:hover {
     -fx-background-color: linear-gradient(b30009, ff000d);
+}
+.animated-gradient {
+    -gradient-base: red ;
+    -fx-text-fill: linear-gradient(to right, -gradient-base, d25d63);
 }

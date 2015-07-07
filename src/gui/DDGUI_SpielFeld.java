@@ -22,7 +22,13 @@ import java.util.Map;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -37,6 +43,7 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javafx.util.Duration;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -510,15 +517,37 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
                         Label l = new Label();
                         l.setPrefSize(324, 137);
+                        l.setId("grave");
                         l.getTransforms().add(new Rotate(9, 50, 30));
-                        Text t = new Text();
-                        t.setY(160);
+
+                        Label t = new Label();
+                      //  t.setTranslateY(160);
                         t.setTranslateX(75);
                         t.setCache(true);
                         t.setText("GAME OVER");
                         t.setId("GAMEOVER");
+                        t.getStyleClass().add("animated-gradient");
 
                         t.setFont(Font.font(null, FontWeight.BOLD, 30));
+
+                        ObjectProperty<Color> baseColor = new SimpleObjectProperty<>();
+
+                        KeyValue keyValue1 = new KeyValue(baseColor, Color.RED);
+                        KeyValue keyValue2 = new KeyValue(baseColor, Color.YELLOW);
+                        KeyFrame keyFrame1 = new KeyFrame(Duration.ZERO, keyValue1);
+                        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(500), keyValue2);
+                        Timeline timeline = new Timeline(keyFrame1, keyFrame2);
+
+                        baseColor.addListener((obs, oldColor, newColor) -> {
+                            t.setStyle(String.format("-gradient-base: #%02x%02x%02x; ",
+                                    (int) (newColor.getRed() * 255),
+                                    (int) (newColor.getGreen() * 255),
+                                    (int) (newColor.getBlue() * 255)));
+                        });
+
+                        timeline.setAutoReverse(true);
+                        timeline.setCycleCount(Animation.INDEFINITE);
+                        timeline.play();
 
                         Reflection r = new Reflection();
                         r.setFraction(0.7f);
