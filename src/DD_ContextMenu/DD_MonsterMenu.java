@@ -38,16 +38,23 @@ import net.miginfocom.swing.MigLayout;
 
 /**
  *
- * @author rw
+ * @author 
  */
 public class DD_MonsterMenu extends JFXPanel {
 
     boolean player = false;
-
+    
+    /**
+     * Hier wird abgefragt ob das der Spieler ist oder nicht.
+     * @return ja oder nein
+     */
     public boolean isPlayer() {
         return player;
     }
-
+    /**
+     * Hier wird gesetzt, ob es ein Spieler ist oder nicht.
+     * @param player  
+     */
     public void setPlayer(boolean player) {
         this.player = player;
     }
@@ -73,7 +80,11 @@ public class DD_MonsterMenu extends JFXPanel {
 
     Font infomenu = new Font("Arial", Font.BOLD, 20);
     GridPane pane = new GridPane();
-
+    
+    /**
+     * Hier wird die Statusleiste implementiert
+     * @param player 
+     */
     public DD_MonsterMenu(boolean player) {
 
         GridPane pane = new GridPane();

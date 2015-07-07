@@ -15,7 +15,14 @@ public class DD_Fähigkeit {
     int heilung;
     int schaden;
     double treffsicherheit;
-
+    /**
+     * 
+     * @param manaverbrauch gibt den Manaverbrauch der Fähigkeit an
+     * @param range         gibt die Reichweite der Fähigkeit an
+     * @param heilung       gibt die Heilung der Fähigkeit an
+     * @param schaden       gibt den Schaden der Fähigkeit an
+     * @param treffsicherheit   gibt die Treffsicherheit der Fähigkeit an
+     */
     public DD_Fähigkeit(int manaverbrauch, int range, int heilung, int schaden, double treffsicherheit) {
         this.manaverbrauch = manaverbrauch;
         this.range = range;

@@ -37,7 +37,9 @@ import javax.swing.JLabel;
  * @author tw
  */
 public class DDGUI_Launcher extends JDialog {
-
+/**
+ * Hier wird der Launcher implementiert. Dazu gehören Bild, Progressbar und Start-button
+ */
     public DDGUI_Launcher() {
         super();
         this.setLayout(new BorderLayout());

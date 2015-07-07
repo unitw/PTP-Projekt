@@ -26,6 +26,7 @@ import spiellogik.IDD_Movable;
 public class DDGUI_SpielFeldTest {
     
     public DDGUI_SpielFeldTest() {
+    
     }
     
     @BeforeClass

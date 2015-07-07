@@ -42,15 +42,23 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     public Stack<DD_Zug> getZuege() {
         return zuege;
     }
-
+    /**
+     * setzt alle Zuege des Stacks 
+     * @param zuege 
+     */
     public void setZuege(Stack<DD_Zug> zuege) {
         this.zuege = zuege;
     }
-
+    /**
+     *  fügt einen Zug hinzu
+     * @param zueg 
+     */
     public void setZuege(DD_Zug zueg) {
         this.zuege.push(zueg);
     }
-
+    /**
+     * gibt den Monstern die Werte
+     */
     JLabel l_gif = new JLabel();
 
     String Typ = "Monster";
@@ -69,6 +77,11 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     int l_faehigkeit1;
     int l_faehigkeit2;
 
+    /**
+     * erstellt ein Monster an einer bestimmten Position
+     * @param xpos
+     * @param ypos 
+     */
     public DD_Monster(int xpos, int ypos) {
         this.xpos = xpos;
         this.ypos = ypos;

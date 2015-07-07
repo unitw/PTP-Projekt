@@ -41,7 +41,11 @@ public class DDGUI_CharacterAuwahl extends JFXPanel {
     GridPane pane;
     Scene scene;
     DDGUI_RootFrame root;
-
+/**
+ * Hier wird die Charakter Auswahl programmiert
+ * 
+ * @param root 
+ */
     public DDGUI_CharacterAuwahl(DDGUI_RootFrame root) {
         super();
         Platform.runLater(new Runnable() {
