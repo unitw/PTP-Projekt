@@ -364,8 +364,14 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         } else {
             mana = sp.getL_mana() - sp.getAttackNr().get(attackNr).getManaverbrauch();
         }
-        int leben = sp.getL_leben() + sp.getAttackNr().get(attackNr).getHeilung();
 
+        if (sp.getMAXLEBEN() < sp.getL_leben() + sp.getAttackNr().get(attackNr).getHeilung()) {
+
+            int leben = sp.getMAXLEBEN();
+        } else {
+
+            int leben = sp.getL_leben() + sp.getAttackNr().get(attackNr).getHeilung();
+        }
         Map<Integer, Point> directionMap = new HashMap();
         directionMap.put(0, new Point(xpos, ypos - range));
         directionMap.put(1, new Point(xpos, ypos + range));
@@ -609,7 +615,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 Scene scene = new Scene(new Group(new Text(25, 25, "Gewonnen! Schatztruhe gefunden")));
                 dialog.setScene(scene);
                 dialog.show();
-                lvl=+1;
+                lvl = +1;
                 return false;
             }
 

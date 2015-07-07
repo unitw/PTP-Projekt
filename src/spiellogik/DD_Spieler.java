@@ -37,7 +37,11 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     int i_leben = 100;
     int i_mana = 30;
     int i_ruestung = 20;
+    final int MAXLEBEN=100;
 
+    public int getMAXLEBEN() {
+        return MAXLEBEN;
+    }
     DD_Fähigkeit autoattack = new DD_Fähigkeit(0, 1, 0, 20, 1);
     DD_Fähigkeit fireball = new DD_Fähigkeit(10, 1, 0, 30, 1);
     DD_Fähigkeit waterhealing = new DD_Fähigkeit(15, 1, 35, 0, 1);
