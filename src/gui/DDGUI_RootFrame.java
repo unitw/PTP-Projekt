@@ -75,7 +75,7 @@ public class DDGUI_RootFrame extends JFrame {
     private DDGUI_SpielFeld feld = new DDGUI_SpielFeld(this, 800, 775);
     private DDGUI_InfoPanel infopanel = new DDGUI_InfoPanel();
     private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl(this);
-   private DDGUI_CharacterAuwahl charselect= new DDGUI_CharacterAuwahl(this);
+    private DDGUI_CharacterAuwahl charselect = new DDGUI_CharacterAuwahl(this);
     private JMenuBar spielmenuBar = new JMenuBar();
     DDGUI_ContentPanel contentPanel = new DDGUI_ContentPanel();
 
@@ -106,8 +106,6 @@ public class DDGUI_RootFrame extends JFrame {
         contentPanel.setBackground(Color.white);
         contentPanel.setLayout(new BorderLayout());
 
-        
-        
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         feld.setPreferredSize(new Dimension(775, 775));
@@ -116,9 +114,7 @@ public class DDGUI_RootFrame extends JFrame {
 
         contentPanel.add(lvlselect, BorderLayout.CENTER);
         contentPanel.add(charselect, BorderLayout.SOUTH);
-        
-        
-        
+
         java.awt.Image img = null;
         try {
             img = ImageIO.read(ClassLoader.getSystemClassLoader().getResource("resources/logoklein.png"));
@@ -472,6 +468,13 @@ public class DDGUI_RootFrame extends JFrame {
     Image feuerballLabel;
     Image wasserballLabel;
 
+    ProgressBar life;
+    ProgressBar Mana;
+
+
+    
+   // public void setLeben(int )
+    
     public JFXPanel SpielerSkillbar() {
 
         Platform.runLater(new Runnable() {
@@ -492,15 +495,14 @@ public class DDGUI_RootFrame extends JFrame {
 
                 Label skill3 = new Label("Wasserheilung");
                 skill3.setGraphic(new ImageView(wasserballLabel));
-                
-                
+
                 skill1.setStyle("-fx-border-color: white;");
                 skill2.setStyle("-fx-border-color: white;");
                 skill3.setStyle("-fx-border-color: white;");
 
                 skill1.setPrefSize(100, 50);
                 skill2.setPrefSize(100, 50);
-                skill3.setPrefSize(100, 50);
+                skill3.setPrefSize(150, 50);
 
                 ProgressBar life = new ProgressBar();
                 ProgressBar Mana = new ProgressBar();
@@ -521,8 +523,5 @@ public class DDGUI_RootFrame extends JFrame {
 
         return fxPanelTextArea;
     }
-      
-    
-   
 
 }
