@@ -32,6 +32,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TitledPane;
 import javafx.scene.effect.BoxBlur;
 import javafx.scene.image.Image;
@@ -44,6 +45,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
+import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -126,7 +128,7 @@ public class DDGUI_RootFrame extends JFrame {
         this.setIconImage(img);
         this.add(FXMenuBar(), BorderLayout.NORTH);
         this.add(contentPanel, BorderLayout.CENTER);
-        this.setSize(new Dimension(1100, 850));
+        this.setSize(new Dimension(1100, 900));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
 
@@ -443,21 +445,16 @@ public class DDGUI_RootFrame extends JFrame {
 
     public JFXPanel TextArea() {
 
-        Platform.runLater(new Runnable() {
+        Platform.runLater(() -> {
+            TitledPane t1 = new TitledPane("Spielausgabe", area);
 
-            @Override
-            public void run() {
+            Scene scene = new Scene(t1);
 
-                TitledPane t1 = new TitledPane("Spielausgabe", area);
+            area.setPrefSize(300, 150);
+            t1.setPrefSize(300, 150);
+            fxPanelTextArea.setScene(scene);
 
-                Scene scene = new Scene(t1);
-
-                area.setPrefSize(300, 150);
-                t1.setPrefSize(300, 150);
-                fxPanelTextArea.setScene(scene);
-
-                fxPanelTextArea.setPreferredSize(new Dimension(200, 500));
-            }
+            fxPanelTextArea.setPreferredSize(new Dimension(200, 500));
         });
 
         return fxPanelTextArea;
@@ -470,11 +467,24 @@ public class DDGUI_RootFrame extends JFrame {
 
     ProgressBar life;
     ProgressBar Mana;
+    Text leben1;
+    Text mana1;
 
+    public void setLeben(double leben) {
+        Platform.runLater(() -> {
+            life.setProgress(leben);
+            leben1.setText(leben*100 + "");
+        });
 
-    
-   // public void setLeben(int )
-    
+    }
+
+    public void setMana(double mana) {
+        Platform.runLater(() -> {
+            Mana.setProgress(mana);
+            mana1.setText(mana*100 + "");
+        });
+    }
+
     public JFXPanel SpielerSkillbar() {
 
         Platform.runLater(new Runnable() {
@@ -504,18 +514,30 @@ public class DDGUI_RootFrame extends JFrame {
                 skill2.setPrefSize(100, 50);
                 skill3.setPrefSize(150, 50);
 
-                ProgressBar life = new ProgressBar();
-                ProgressBar Mana = new ProgressBar();
+                life = new ProgressBar(1.0);
+                Mana = new ProgressBar(0.3);
+                life.setPrefSize(100, 50);
+                Mana.setPrefSize(100, 50);
+                
+                leben1 = new Text("100");
+                leben1.setTranslateX(35);
 
-                life.setProgress(100);
-                Mana.setProgress(30);
+                leben1.setFill(javafx.scene.paint.Color.WHITE);
+                mana1 = new Text("30");
+                mana1.setTranslateX(35);
+                //mana1.setFill(javafx.scene.paint.Color.WHITE);
+
+                leben1.setStyle(" -fx-background-color: red");
 
                 pane.add(skill1, 0, 0);
                 pane.add(skill2, 1, 0);
                 pane.add(skill3, 2, 0);
                 pane.add(life, 3, 0);
+                pane.add(leben1, 3, 0);
                 pane.add(Mana, 4, 0);
-                pane.setTranslateX(250);
+                pane.add(mana1, 4, 0);
+
+                pane.setTranslateX(180);
                 Scene scene = new Scene(pane);
                 SpielerSkillBar.setScene(scene);
             }
