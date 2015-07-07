@@ -263,7 +263,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 //        monstermovement();
 
         if (getDD_player().getL_mana() < 30) {
-            getDD_player().setL_mana(getDD_player().getL_mana() + 7);
+
+            int newmana = getDD_player().getL_mana() + 7;
+            if(newmana>30){
+                newmana=30;
+            }
+            getDD_player().setL_mana(newmana);
+            getRoot().setMana(newmana*0.01);
         }
         runde += 1;
 //        Platform.runLater(new Runnable() {
@@ -387,6 +393,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 Schadenberechnung(mon, schaden);
             }
             sp.setL_mana(mana);
+            getRoot().setMana(mana * 0.01);
         }
         sp.setL_leben(leben);
         repaint();
@@ -581,10 +588,10 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                     }
                 });
             }
+            getRoot().setLeben(newleben * 0.01);
         }
 
         mon.setL_leben(newleben);
-        mon.showMenu(root.getInfopanel());
 
         repaint();
 

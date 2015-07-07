@@ -38,6 +38,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     int i_mana = 30;
     int i_ruestung = 20;
     final int MAXLEBEN=100;
+    
 
     public int getMAXLEBEN() {
         return MAXLEBEN;
