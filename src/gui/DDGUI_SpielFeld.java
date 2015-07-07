@@ -360,6 +360,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                     DDGUI_SpielFeld.this.getRoot().getArea().appendText("KEIN MANA MEHR\n");
                 }
             });
+            return;
         } else {
             mana = sp.getL_mana() - sp.getAttackNr().get(attackNr).getManaverbrauch();
         }

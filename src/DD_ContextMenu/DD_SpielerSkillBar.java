@@ -101,7 +101,7 @@ public class DD_SpielerSkillBar extends JPanel {
 
         this.add(l_mana, "span, split 2, center,");
         l_mana.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/mana.png")));
-        t_mana.setPreferredSize(new Dimension(50, 25));
+        t_mana.setPreferredSize(new Dimension(100, 25));
         this.add(t_mana, "span, split 2, center,wrap");
         t_mana.setEditable(false);
 
