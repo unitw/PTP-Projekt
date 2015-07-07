@@ -5,7 +5,7 @@
  */
 package spiellogik;
 
-import DD_ContextMenu.DD_SpielerMenu;
+import DD_ContextMenu.DD_MonsterMenu;
 import XML.StaxStore;
 import XML.StaxWriter;
 import gui.DDGUI_SpielFeld;
@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.Stack;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -25,16 +26,17 @@ import javax.xml.stream.XMLStreamException;
  */
 public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
-    DD_SpielerMenu menu = new DD_SpielerMenu(false);
+    DD_MonsterMenu menu = new DD_MonsterMenu(false);
     Stack<DD_Zug> zuege = new Stack();
 
     public DD_Zug getZueg() {
-       
-            return zuege.pop();
-       
+
+        return zuege.pop();
+
     }
+
     /**
-     * 
+     *
      * @return Gibt den letzten Zug des Monster zurück
      */
     public Stack<DD_Zug> getZuege() {
@@ -63,7 +65,7 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     int l_mana = 50;//not used
     int l_ruestung = 15;
-    int l_schaden=20;
+    int l_schaden = 20;
     int l_faehigkeit1;
     int l_faehigkeit2;
 
@@ -92,11 +94,11 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         this.dir = dir;
     }
 
-    public DD_SpielerMenu getMenu() {
+    public DD_MonsterMenu getMenu() {
         return menu;
     }
 
-    public void setMenu(DD_SpielerMenu menu) {
+    public void setMenu(DD_MonsterMenu menu) {
         this.menu = menu;
     }
     boolean hasfocus = false;
@@ -183,15 +185,23 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     @Override
     public void showMenu(JPanel panel) {
-        panel.removeAll();
-        menu.getT_leben().setValue(l_leben);
-        menu.getT_leben().setString(l_leben + "");
-        menu.getT_mana().setText(l_mana + "");
-        menu.getT_ruestung().setText(l_ruestung + "");
 
-        panel.add(menu);
-        panel.revalidate();
-        panel.repaint();
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                panel.removeAll();
+                menu.getT_leben().setProgress(l_leben);
+                menu.getText_leben().setText(l_leben + "");
+                menu.getT_mana().setText(l_mana + "");
+                menu.getT_ruestung().setText(l_ruestung + "");
+
+                panel.add(menu);
+                panel.revalidate();
+                panel.repaint();
+            }
+        });
+
     }
 
     public void moveMonster() {

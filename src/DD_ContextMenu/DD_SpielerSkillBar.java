@@ -33,7 +33,7 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author rw
  */
-public class DD_SpielerMenu extends JPanel {
+public class DD_SpielerSkillBar extends JPanel {
 
     boolean player = false;
 
@@ -65,7 +65,7 @@ public class DD_SpielerMenu extends JPanel {
 
     Font infomenu = new Font("Arial", Font.BOLD, 20);
 
-    public DD_SpielerMenu(boolean player) {
+    public DD_SpielerSkillBar(boolean player) {
         this.player = player;
 
         this.setPreferredSize(new Dimension(400, 600));

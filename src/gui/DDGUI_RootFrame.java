@@ -178,7 +178,7 @@ public class DDGUI_RootFrame extends JFrame {
         AreaInfopanel.setLayout(new BorderLayout());
 
         AreaInfopanel.add(infopanel, BorderLayout.NORTH);
-        AreaInfopanel.add(fxPanelTextArea, BorderLayout.SOUTH);
+        AreaInfopanel.add(fxPanelTextArea, BorderLayout.CENTER);
         panNorth.setLayout(new BorderLayout());
 
         //panNorth.add(FXMenuBar(), BorderLayout.NORTH);
@@ -387,13 +387,12 @@ public class DDGUI_RootFrame extends JFrame {
                     Stage webdialog = new Stage();
                     webdialog.initStyle(StageStyle.DECORATED);
                     WebView browser = new WebView();
-                   
-                    URL url=getClass().getResource("/resources/Spielanleitung.html");
+
+                    URL url = getClass().getResource("/resources/Spielanleitung.html");
                     WebEngine webEngine = browser.getEngine();
                     webEngine.load(url.toString());
                     Scene scene1 = new Scene(browser);
-                    
-                    
+
                     webdialog.setMaxHeight(600);
                     webdialog.setTitle("Spielanleitung");
                     webdialog.setScene(scene1);
@@ -452,11 +451,11 @@ public class DDGUI_RootFrame extends JFrame {
 
                 Scene scene = new Scene(t1);
 
-                area.setPrefSize(300, 100);
-
+                area.setPrefSize(300, 50);
+                t1.setPrefSize(300, 50);
                 fxPanelTextArea.setScene(scene);
 
-                fxPanelTextArea.setPreferredSize(new Dimension(780, 200));
+                fxPanelTextArea.setPreferredSize(new Dimension(780, 50));
             }
         });
 

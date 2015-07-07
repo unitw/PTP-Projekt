@@ -5,7 +5,7 @@
  */
 package spiellogik;
 
-import DD_ContextMenu.DD_SpielerMenu;
+import DD_ContextMenu.DD_MonsterMenu;
 import XML.StaxStore;
 import XML.StaxWriter;
 import gui.DDGUI_SpielFeld;
@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -28,7 +29,7 @@ import javax.xml.stream.XMLStreamException;
  */
 public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
-    DD_SpielerMenu menu = new DD_SpielerMenu(true);
+    DD_MonsterMenu menu = new DD_MonsterMenu(true);
     int xpos;
     int ypos;
     int dir;
@@ -36,24 +37,19 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     int i_leben = 100;
     int i_mana = 30;
     int i_ruestung = 20;
-   
-    DD_Fähigkeit autoattack= new DD_Fähigkeit(0, 1, 0, 20, 1);
-    DD_Fähigkeit fireball= new DD_Fähigkeit(10, 1, 0, 30, 1);
-    DD_Fähigkeit waterhealing= new DD_Fähigkeit(15, 1, 35, 0, 1);
-    
-    
-    Map<Integer,DD_Fähigkeit> attackNr= new HashMap();
+
+    DD_Fähigkeit autoattack = new DD_Fähigkeit(0, 1, 0, 20, 1);
+    DD_Fähigkeit fireball = new DD_Fähigkeit(10, 1, 0, 30, 1);
+    DD_Fähigkeit waterhealing = new DD_Fähigkeit(15, 1, 35, 0, 1);
+
+    Map<Integer, DD_Fähigkeit> attackNr = new HashMap();
 
     public Map<Integer, DD_Fähigkeit> getAttackNr() {
         return attackNr;
     }
-    
-    
 
     String Typ = "Spieler";
-    
-  
-   
+
     boolean hasfocus = false;
 
     public DD_Spieler(int xpos, int ypos) {
@@ -61,18 +57,15 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         attackNr.put(2, fireball);
         attackNr.put(3, waterhealing);
 
-        
-            dir = 1;
-            this.xpos = xpos;
-            this.ypos = ypos;
-           
+        dir = 1;
+        this.xpos = xpos;
+        this.ypos = ypos;
+
         l_gif.setIcon(new ImageIcon(ClassLoader.getSystemClassLoader().getResource("resources/playerz.gif")));
         l_gif.setBorder(null);
         l_gif.setOpaque(true);
 
     }
-
- 
 
     @Override
     public boolean isHasfocus() {
@@ -96,14 +89,13 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         return l_gif;
     }
 
-  
-
     public int getL_leben() {
         return i_leben;
     }
 
     public void setL_leben(int l_leben) {
         this.i_leben = l_leben;
+
     }
 
     public int getL_mana() {
@@ -122,21 +114,24 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         this.i_ruestung = l_ruestung;
     }
 
-  
-
     @Override
     public void showMenu(JPanel panel) {
+        menu.updateLeben(i_leben);
+        
+        Platform.runLater(new Runnable() {
 
-        panel.removeAll();
+            @Override
+            public void run() {
+                panel.removeAll();
+                menu.getT_mana().setText(i_mana + "");
+                menu.getT_ruestung().setText(i_ruestung + "");
 
-        menu.getT_leben().setValue(i_leben);
-        menu.getT_leben().setString(i_leben + "");
-        menu.getT_mana().setText(i_mana + "");
-        menu.getT_ruestung().setText(i_ruestung + "");
+                panel.add(menu);
+                panel.revalidate();
+                panel.repaint();
+            }
+        });
 
-        panel.add(menu);
-        panel.revalidate();
-        panel.repaint();
     }
 
     public int getXpos() {
@@ -218,12 +213,12 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     }
 
     @Override
-    public void setMenu(DD_SpielerMenu menu) {
+    public void setMenu(DD_MonsterMenu menu) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public DD_SpielerMenu getMenu() {
+    public DD_MonsterMenu getMenu() {
         return this.menu;
     }
 
