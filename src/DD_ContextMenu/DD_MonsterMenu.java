@@ -38,7 +38,7 @@ public class DD_MonsterMenu extends JFXPanel {
     Image autoattackLabel;
 
     ProgressBar life;
-
+    Text fähigkeit;
     Text leben1;
     Label skill1;
     Text lebenanz;
@@ -55,29 +55,30 @@ public class DD_MonsterMenu extends JFXPanel {
             @Override
             public void run() {
                 autoattackLabel = new Image(getClass().getResourceAsStream("../resources/skull2.gif"));
-                GridPane pane = new GridPane();
 
+                GridPane pane = new GridPane();
+                Scene scene = new Scene(pane);
+                scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
                 skill1 = new Label("Geisterriss");
                 skill1.setGraphic(new ImageView(autoattackLabel));
 
                 skill1.setPrefSize(100, 50);
 
-                life = new ProgressBar(0.8);
-                life.setId("leben");
+                life = new ProgressBar();
+                life.setId("monsterleben");
 
                 life.setPrefSize(100, 50);
                 lebenanz = new Text("Leben: ");
                 leben1 = new Text("100");
                 leben1.setTranslateX(35);
                 leben1.setFill(javafx.scene.paint.Color.BLACK);
+                fähigkeit = new Text("Fertigkeit: ");
 
-                pane.add(skill1, 0, 0);
                 pane.add(lebenanz, 0, 1);
                 pane.add(life, 1, 1);
                 pane.add(leben1, 1, 1);
-
-                Scene scene = new Scene(pane);
-                scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
+                pane.add(fähigkeit, 0, 2);
+                pane.add(skill1, 1, 2);
 
                 DD_MonsterMenu.this.setScene(scene);
                 //  DD_MonsterMenu.this.add(SpielerSkillBar);
@@ -96,6 +97,9 @@ public class DD_MonsterMenu extends JFXPanel {
                 leben1.setVisible(b);
                 skill1.setVisible(b);
                 lebenanz.setVisible(b);
+                lebenanz.setVisible(b);
+                fähigkeit.setVisible(b);
+
             }
         });
 
@@ -107,9 +111,9 @@ public class DD_MonsterMenu extends JFXPanel {
 
             @Override
             public void run() {
-              
-                life.setProgress(leben * 0.01);
-                leben1.setText(leben + "");
+
+                life.setProgress(leben );
+                leben1.setText(leben * 100 + "");
             }
         });
 

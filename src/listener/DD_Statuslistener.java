@@ -90,7 +90,7 @@ public class DD_Statuslistener implements MouseListener {
 
                 focusstack.push(mon);
                 
-                mon.showMenu(feld.getRoot().getInfopanel());
+               feld.getRoot().getInfopanel().getMenu().setLeben(mon.getL_leben()*0.01);
 
             }
 

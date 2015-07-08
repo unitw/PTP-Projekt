@@ -293,8 +293,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         int px = this.getDD_player().getXpos();
         int py = this.getDD_player().getYpos();
 
-        for (int x = Math.max(0, x1 - range); x < Math.min(this.getField()[0].length, x1 + range); x++) {
-            for (int y = Math.max(0, y1 - range); y < Math.min(this.getField().length, y1 + range); y++) {
+        for (int x = Math.max(0, x1 - range); x < Math.min(this.getField()[0].length, x1 + range + 1); x++) {
+            for (int y = Math.max(0, y1 - range); y < Math.min(this.getField().length, y1 + range + 1); y++) {
                 if (this.getField()[x][y] instanceof DD_Spieler) {
                     return true;
 
@@ -444,6 +444,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         }
         AttackAnimation.setBorder(null);
         AttackAnimation.setOpaque(false);
+
         AttackAnimation.setBounds(xpos * DDGUI_SpielFeld.this.ratio + 5, ypos * DDGUI_SpielFeld.this.ratio + range, DDGUI_SpielFeld.this.ratio, DDGUI_SpielFeld.this.ratio);
 
         DDGUI_SpielFeld.this.add(AttackAnimation);
@@ -509,8 +510,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 mon.getMenu().removeAll();
 
             }
-            getRoot().getInfopanel().getMenu().setLeben(newleben*0.01);
-            
+            getRoot().getInfopanel().getMenu().setLeben(newleben * 0.01);
+
         } else {
             if (newleben < 0) {
                 newleben = 0;
@@ -530,6 +531,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                         reset.setOnAction((javafx.event.ActionEvent event) -> {
                             dialog.close();
                             DDGUI_SpielFeld.this.removeAll();
+
                             resetSpiel();
                         });
 
@@ -608,7 +610,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             @Override
             public void run() {
                 getRoot().contentPanel.removeAll();
+                //  getRoot().getContentPane().removeAll();
                 getRoot().startSpiel(lvl);
+
             }
         });
 
@@ -620,13 +624,86 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             if (dd_player.getXpos() == zielX && dd_player.getYpos() == zielY) {
                 this.removeKeyListener(figurkeylistener);
                 timer.stop();
+//                Platform.runLater(new Runnable() {
+//
+//                    @Override
+//                    public void run() {
+//                    ////<editor-fold defaultstate="collapsed" desc="fx">
+//                        
+////                        Stage dialog1 = new Stage();
+////                        dialog1.initStyle(StageStyle.UNDECORATED);
+////
+////                        Button reset = new Button("Next Level");
+////
+////                        reset.setPrefSize(100, 40);
+////                        reset.setTranslateX(110);
+////                        reset.setTranslateY(80);
+//////                        reset.setOnAction((javafx.event.ActionEvent event) -> {
+//////
+//////                        });
+////
+////
+////
+////                        Label t = new Label();
+////                        //  t.setTranslateY(160);
+////                        t.setTranslateX(75);
+////                        t.setTranslateY(10);
+////                        t.setCache(true);
+////                        t.setText("Gewonnen");
+////                        t.setId("NextLevel");
+////                        t.getStyleClass().add("animated-gradient");
+////
+////                        t.setFont(Font.font(null, FontWeight.BOLD, 30));
+////
+////                        ObjectProperty<Color> baseColor = new SimpleObjectProperty<>();
+////
+////                        KeyValue keyValue1 = new KeyValue(baseColor, Color.RED);
+////                        KeyValue keyValue2 = new KeyValue(baseColor, Color.YELLOW);
+////                        KeyFrame keyFrame1 = new KeyFrame(Duration.ZERO, keyValue1);
+////                        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(500), keyValue2);
+////                        Timeline timeline = new Timeline(keyFrame1, keyFrame2);
+////
+////                        baseColor.addListener((obs, oldColor, newColor) -> {
+////                            t.setStyle(String.format("-gradient-base: #%02x%02x%02x; ",
+////                                    (int) (newColor.getRed() * 255),
+////                                    (int) (newColor.getGreen() * 255),
+////                                    (int) (newColor.getBlue() * 255)));
+////                        });
+////
+////                        timeline.setAutoReverse(true);
+////                        timeline.setCycleCount(Animation.INDEFINITE);
+////                        timeline.play();
+////
+////                        Reflection r = new Reflection();
+////                        r.setFraction(0.7f);
+////
+////                        t.setEffect(r);
+////
+////                        // t.setTranslateY(400);
+////                        GridPane pane = new GridPane();
+////                        Scene scene = new Scene(pane);
+////
+////                        pane.setPrefSize(300, 300);
+////                        pane.getStyleClass().add("bordered-titled-border");
+////
+////                        pane.add(t, 0, 1);
+////                        pane.add(reset, 0, 2);
+////                      //  scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
+////                        dialog1.setMaxHeight(600);
+////                        dialog1.setTitle("Winner");
+////                        dialog1.setX(Toolkit.getDefaultToolkit().getScreenSize().width/2);
+////                        dialog1.setY(Toolkit.getDefaultToolkit().getScreenSize().height/2);
+////                        dialog1.show();
+////                        monsterlist.removeAll(monsterlist);
+////</editor-fold>
+//
+//                    }
+//                });
+                
+                ImageIcon winlink= new ImageIcon(ClassLoader.getSystemClassLoader().getResource("/resources/link.jpg"));
+                JOptionPane.showMessageDialog(root, image, "Gewonnen", JOptionPane.CLOSED_OPTION);
 
-                Stage dialog = new Stage();
-                dialog.initStyle(StageStyle.UTILITY);
-                Scene scene = new Scene(new Group(new Text(25, 25, "Gewonnen! Schatztruhe gefunden")));
-                dialog.setScene(scene);
-                dialog.show();
-                lvl = +1;
+                monsterlist.removeAll(monsterlist);
                 return false;
             }
 
