@@ -35,6 +35,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TitledPane;
 import javafx.scene.effect.BoxBlur;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -188,6 +189,7 @@ public class DDGUI_RootFrame extends JFrame {
         panNorth.add(AreaInfopanel, BorderLayout.EAST);
         SpielerSkillbar();
         panNorth.add(SpielerSkillBar, BorderLayout.PAGE_END);
+        //SpielerSkillbar().setPreferredSize(new Dimension(400,60));
 
         this.revalidate();
         this.repaint();
@@ -473,7 +475,7 @@ public class DDGUI_RootFrame extends JFrame {
     public void setLeben(double leben) {
         Platform.runLater(() -> {
             life.setProgress(leben);
-            leben1.setText(leben*100 + "");
+            leben1.setText(leben * 100 + "");
         });
 
     }
@@ -481,7 +483,7 @@ public class DDGUI_RootFrame extends JFrame {
     public void setMana(double mana) {
         Platform.runLater(() -> {
             Mana.setProgress(mana);
-            mana1.setText(mana*100 + "");
+            mana1.setText(mana * 100 + "");
         });
     }
 
@@ -500,10 +502,13 @@ public class DDGUI_RootFrame extends JFrame {
                 //   TitledPane t1 = new TitledPane("SkillBar Spieler", pane);
                 Label skill1 = new Label("Schlag");
                 skill1.setGraphic(new ImageView(autoattackLabel));
+                skill1.setId("skill1");
                 Label skill2 = new Label("Feuerball");
+                skill1.setId("skill2");
                 skill2.setGraphic(new ImageView(feuerballLabel));
 
                 Label skill3 = new Label("Wasserheilung");
+                skill1.setId("skill3");
                 skill3.setGraphic(new ImageView(wasserballLabel));
 
                 skill1.setStyle("-fx-border-color: white;");
@@ -515,30 +520,41 @@ public class DDGUI_RootFrame extends JFrame {
                 skill3.setPrefSize(150, 50);
 
                 life = new ProgressBar(1.0);
+                life.setId("leben");
                 Mana = new ProgressBar(0.3);
                 life.setPrefSize(100, 50);
                 Mana.setPrefSize(100, 50);
-                
+
                 leben1 = new Text("100");
                 leben1.setTranslateX(35);
 
-                leben1.setFill(javafx.scene.paint.Color.WHITE);
+                Text lebenanz = new Text("Leben: ");
+                Text manaanz = new Text("Mana: ");
+
+                leben1.setFill(javafx.scene.paint.Color.BLACK);
                 mana1 = new Text("30");
                 mana1.setTranslateX(35);
                 //mana1.setFill(javafx.scene.paint.Color.WHITE);
 
-                leben1.setStyle(" -fx-background-color: red");
-
                 pane.add(skill1, 0, 0);
                 pane.add(skill2, 1, 0);
                 pane.add(skill3, 2, 0);
-                pane.add(life, 3, 0);
-                pane.add(leben1, 3, 0);
-                pane.add(Mana, 4, 0);
-                pane.add(mana1, 4, 0);
+                pane.add(lebenanz, 3, 0);
+                pane.add(life, 4, 0);
+                pane.add(leben1, 4, 0);
+                pane.add(manaanz, 5, 0);
 
-                pane.setTranslateX(180);
+                pane.add(Mana, 6, 0);
+                pane.add(mana1, 6, 0);
+
+                pane.setTranslateX(100);
+                Reflection r = new Reflection();
+                r.setFraction(0.7f);
+
+                pane.setEffect(r);
                 Scene scene = new Scene(pane);
+                scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
+
                 SpielerSkillBar.setScene(scene);
             }
         });

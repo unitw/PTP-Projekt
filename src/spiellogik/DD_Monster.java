@@ -26,7 +26,7 @@ import javax.xml.stream.XMLStreamException;
  */
 public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
-    DD_MonsterMenu menu = new DD_MonsterMenu(false);
+    DD_MonsterMenu menu = new DD_MonsterMenu();
     Stack<DD_Zug> zuege = new Stack();
 
     public DD_Zug getZueg() {
@@ -199,21 +199,10 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     @Override
     public void showMenu(JPanel panel) {
 
-//        Platform.runLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                panel.removeAll();
-//              //  menu.getT_leben().setProgress(l_leben);
-//                //menu.getText_leben().setText(l_leben + "");
-////                menu.getT_mana().setText(l_mana + "");
-////                menu.getT_ruestung().setText(l_ruestung + "");
-////
-////                panel.add(menu);
-//                //panel.revalidate();
-//                //panel.repaint();
-//            }
-//        });
+                panel.removeAll();
+                menu.setLeben(l_leben*0.01);
+                panel.add(menu);
+        
 
     }
 

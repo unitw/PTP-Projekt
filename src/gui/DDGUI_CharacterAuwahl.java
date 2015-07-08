@@ -25,6 +25,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.RadialGradient;
 import javafx.scene.paint.Stop;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -41,11 +42,12 @@ public class DDGUI_CharacterAuwahl extends JFXPanel {
     GridPane pane;
     Scene scene;
     DDGUI_RootFrame root;
-/**
- * Hier wird die Charakter Auswahl programmiert
- * 
- * @param root 
- */
+
+    /**
+     * Hier wird die Charakter Auswahl programmiert
+     *
+     * @param root
+     */
     public DDGUI_CharacterAuwahl(DDGUI_RootFrame root) {
         super();
         Platform.runLater(new Runnable() {
@@ -59,9 +61,9 @@ public class DDGUI_CharacterAuwahl extends JFXPanel {
                 DDGUI_CharacterAuwahl.this.setScene(scene);
                 DDGUI_CharacterAuwahl.this.root = root;
 
-            //    Image img = new Image(getClass().getResourceAsStream("../resources/Linksil.png"));
+                //    Image img = new Image(getClass().getResourceAsStream("../resources/Linksil.png"));
                 pane.setTranslateX(400);
-         //       krieger.setGraphic(new ImageView(img));
+                //       krieger.setGraphic(new ImageView(img));
                 krieger.setId("krieger");
 
                 scene.getStylesheets().add(this.getClass().getResource("fxStyle.css").toExternalForm());
@@ -72,14 +74,17 @@ public class DDGUI_CharacterAuwahl extends JFXPanel {
 
                     @Override
                     public void handle(ActionEvent t) {
+                        SwingUtilities.invokeLater(new Runnable() {
 
-                        root.startSpiel(1);
+                            @Override
+                            public void run() {
+                                root.startSpiel(1);
+                            }
+                        });
 
                     }
                 });
 
-              
-                
                 DDGUI_CharacterAuwahl.this.setBackground(Color.white);
                 DDGUI_CharacterAuwahl.this.setPreferredSize(new Dimension(500, 500));
                 DDGUI_CharacterAuwahl.this.setScene(scene);
@@ -89,5 +94,5 @@ public class DDGUI_CharacterAuwahl extends JFXPanel {
         );
 
     }
-  
+
 }

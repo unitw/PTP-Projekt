@@ -262,24 +262,26 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     public void nextRound() {
 //        monstermovement();
 
+        if (getDD_player().getL_leben() < 100) {
+            int newleben = getDD_player().getL_leben() + 10;
+            if (newleben > 100) {
+                newleben = 100;
+            }
+
+            getDD_player().setL_leben(newleben);
+            this.getRoot().setLeben(newleben * 0.01);
+
+        }
         if (getDD_player().getL_mana() < 30) {
 
             int newmana = getDD_player().getL_mana() + 7;
-            if(newmana>30){
-                newmana=30;
+            if (newmana > 30) {
+                newmana = 30;
             }
             getDD_player().setL_mana(newmana);
-            getRoot().setMana(newmana*0.01);
+            getRoot().setMana(newmana * 0.01);
         }
         runde += 1;
-//        Platform.runLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-//                DDGUI_SpielFeld.this.getRoot().getArea().appendText("Runde:" + runde + "\n");
-//                System.out.println("Runde:" + runde);
-//            }
-//        });
 
     }
 

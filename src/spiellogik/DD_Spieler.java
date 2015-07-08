@@ -29,7 +29,7 @@ import javax.xml.stream.XMLStreamException;
  */
 public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
-    DD_MonsterMenu menu = new DD_MonsterMenu(true);
+    
     int xpos;
     int ypos;
     int dir;
@@ -119,25 +119,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         this.i_ruestung = l_ruestung;
     }
 
-    @Override
-    public void showMenu(JPanel panel) {
-//     //   menu.updateLeben(i_leben);
-//        
-//        Platform.runLater(new Runnable() {
-//
-//            @Override
-//            public void run() {
-////                panel.removeAll();
-////                menu.getT_mana().setText(i_mana + "");
-////                menu.getT_ruestung().setText(i_ruestung + "");
-////
-////                panel.add(menu);
-////                panel.revalidate();
-////                panel.repaint();
-//            }
-//        });
-
-    }
+  
 
     public int getXpos() {
         return xpos;
@@ -223,8 +205,15 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     }
 
     @Override
-    public DD_MonsterMenu getMenu() {
-        return this.menu;
+    public void showMenu(JPanel panel) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    @Override
+    public DD_MonsterMenu getMenu() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    
 
 }
