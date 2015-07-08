@@ -9,6 +9,7 @@ import DD_ContextMenu.DD_MonsterMenu;
 import XML.StaxStore;
 import XML.StaxWriter;
 import gui.DDGUI_SpielFeld;
+import java.awt.Dimension;
 import java.util.LinkedList;
 import java.util.Stack;
 import java.util.logging.Level;
@@ -42,16 +43,20 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     public Stack<DD_Zug> getZuege() {
         return zuege;
     }
+
     /**
-     * setzt alle Zuege des Stacks 
-     * @param zuege 
+     * setzt alle Zuege des Stacks
+     *
+     * @param zuege
      */
     public void setZuege(Stack<DD_Zug> zuege) {
         this.zuege = zuege;
     }
+
     /**
-     *  fügt einen Zug hinzu
-     * @param zueg 
+     * fügt einen Zug hinzu
+     *
+     * @param zueg
      */
     public void setZuege(DD_Zug zueg) {
         this.zuege.push(zueg);
@@ -79,8 +84,9 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     /**
      * erstellt ein Monster an einer bestimmten Position
+     *
      * @param xpos
-     * @param ypos 
+     * @param ypos
      */
     public DD_Monster(int xpos, int ypos) {
         this.xpos = xpos;
@@ -196,13 +202,13 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         this.l_faehigkeit2 = l_faehigkeit2;
     }
 
-    @Override
-    public void showMenu(JPanel panel) {
+    
+    public void showMenu(DD_MonsterMenu menu) {
 
-                panel.removeAll();
-                menu.setLeben(l_leben*0.01);
-                panel.add(menu);
+        menu.setLeben(l_leben * 0.01);
         
+       
+      
 
     }
 
@@ -270,6 +276,11 @@ public class DD_Monster implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     @Override
     public void sethoehe(String s) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void showMenu(JPanel panel) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

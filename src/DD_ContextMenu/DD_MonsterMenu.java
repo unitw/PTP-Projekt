@@ -12,6 +12,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TitledPane;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,7 +29,7 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author
  */
-public class DD_MonsterMenu extends JPanel {
+public class DD_MonsterMenu extends JFXPanel {
 
     Font infomenu = new Font("Arial", Font.BOLD, 20);
     GridPane pane = new GridPane();
@@ -39,6 +40,8 @@ public class DD_MonsterMenu extends JPanel {
     ProgressBar life;
 
     Text leben1;
+    Label skill1;
+    Text lebenanz;
 
     /**
      * Hier wird die Statusleiste implementiert
@@ -51,41 +54,64 @@ public class DD_MonsterMenu extends JPanel {
 
             @Override
             public void run() {
-                //      autoattackLabel = new Image(getClass().getResourceAsStream("../resources/skull2.gif"));
+                autoattackLabel = new Image(getClass().getResourceAsStream("../resources/skull2.gif"));
                 GridPane pane = new GridPane();
 
-                //   TitledPane t1 = new TitledPane("SkillBar Spieler", pane);
-                Label skill1 = new Label("Geisterriss");
-                //    skill1.setGraphic(new ImageView(autoattackLabel));
+                skill1 = new Label("Geisterriss");
+                skill1.setGraphic(new ImageView(autoattackLabel));
 
                 skill1.setPrefSize(100, 50);
 
-                life = new ProgressBar();
-                life.setProgress(0.8);
+                life = new ProgressBar(0.8);
+                life.setId("leben");
 
-                // life.setPreferredSize(new Dimension(100, 50));
-                Text lebenanz = new Text("Leben: ");
+                life.setPrefSize(100, 50);
+                lebenanz = new Text("Leben: ");
                 leben1 = new Text("100");
                 leben1.setTranslateX(35);
+                leben1.setFill(javafx.scene.paint.Color.BLACK);
+
                 pane.add(skill1, 0, 0);
-                pane.add(lebenanz, 1, 0);
+                pane.add(lebenanz, 0, 1);
                 pane.add(life, 1, 1);
                 pane.add(leben1, 1, 1);
 
                 Scene scene = new Scene(pane);
+                scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
 
-                SpielerSkillBar.setScene(scene);
-                DD_MonsterMenu.this.add(SpielerSkillBar);
+                DD_MonsterMenu.this.setScene(scene);
+                //  DD_MonsterMenu.this.add(SpielerSkillBar);
 
+            }
+        });
+        this.setPreferredSize(new Dimension(200, 700));
+    }
+
+    public void setallVisible(boolean b) {
+        Platform.runLater(new Runnable() {
+
+            @Override
+            public void run() {
+                life.setVisible(b);
+                leben1.setVisible(b);
+                skill1.setVisible(b);
+                lebenanz.setVisible(b);
             }
         });
 
     }
 
     public void setLeben(double leben) {
+        setallVisible(true);
+        Platform.runLater(new Runnable() {
 
-        life.setProgress(leben * 0.01);
-        leben1.setText(leben + "");
+            @Override
+            public void run() {
+              
+                life.setProgress(leben * 0.01);
+                leben1.setText(leben + "");
+            }
+        });
 
     }
 }

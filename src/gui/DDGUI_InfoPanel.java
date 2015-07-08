@@ -5,6 +5,7 @@
  */
 package gui;
 
+import DD_ContextMenu.DD_MonsterMenu;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -27,11 +28,21 @@ import net.miginfocom.swing.MigLayout;
  * @author 3flim
  */
 public class DDGUI_InfoPanel extends JPanel {
-
+    DD_MonsterMenu menu= new DD_MonsterMenu();
+    
+    
     public DDGUI_InfoPanel() {
         super();
         this.setBackground(Color.white);
-
+        this.add(menu);
+        menu.setallVisible(false);
     }
 
+    public DD_MonsterMenu getMenu() {
+        return menu;
+    }
+
+    
+    
+    
 }

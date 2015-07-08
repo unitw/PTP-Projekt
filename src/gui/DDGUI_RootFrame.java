@@ -56,6 +56,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.stream.XMLEventFactory;
@@ -80,6 +81,8 @@ public class DDGUI_RootFrame extends JFrame {
     private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl(this);
     private DDGUI_CharacterAuwahl charselect = new DDGUI_CharacterAuwahl(this);
     private JMenuBar spielmenuBar = new JMenuBar();
+  
+    
     DDGUI_ContentPanel contentPanel = new DDGUI_ContentPanel();
 
     public DDGUI_SpielFeld getFeld() {
@@ -90,7 +93,7 @@ public class DDGUI_RootFrame extends JFrame {
         this.feld = feld;
     }
 
-    public JPanel getInfopanel() {
+    public DDGUI_InfoPanel getInfopanel() {
         return infopanel;
     }
 

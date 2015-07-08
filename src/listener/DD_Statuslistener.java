@@ -89,7 +89,7 @@ public class DD_Statuslistener implements MouseListener {
                 mon.setHasfocus(true);
 
                 focusstack.push(mon);
-                System.out.println("Monster");
+                
                 mon.showMenu(feld.getRoot().getInfopanel());
 
             }

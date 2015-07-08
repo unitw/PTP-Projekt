@@ -509,6 +509,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                 mon.getMenu().removeAll();
 
             }
+            getRoot().getInfopanel().getMenu().setLeben(newleben*0.01);
+            
         } else {
             if (newleben < 0) {
                 newleben = 0;
