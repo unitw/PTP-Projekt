@@ -624,86 +624,86 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             if (dd_player.getXpos() == zielX && dd_player.getYpos() == zielY) {
                 this.removeKeyListener(figurkeylistener);
                 timer.stop();
-//                Platform.runLater(new Runnable() {
-//
-//                    @Override
-//                    public void run() {
-//                    ////<editor-fold defaultstate="collapsed" desc="fx">
-//                        
-////                        Stage dialog1 = new Stage();
-////                        dialog1.initStyle(StageStyle.UNDECORATED);
-////
-////                        Button reset = new Button("Next Level");
-////
-////                        reset.setPrefSize(100, 40);
-////                        reset.setTranslateX(110);
-////                        reset.setTranslateY(80);
-//////                        reset.setOnAction((javafx.event.ActionEvent event) -> {
-//////
-//////                        });
-////
-////
-////
-////                        Label t = new Label();
-////                        //  t.setTranslateY(160);
-////                        t.setTranslateX(75);
-////                        t.setTranslateY(10);
-////                        t.setCache(true);
-////                        t.setText("Gewonnen");
-////                        t.setId("NextLevel");
-////                        t.getStyleClass().add("animated-gradient");
-////
-////                        t.setFont(Font.font(null, FontWeight.BOLD, 30));
-////
-////                        ObjectProperty<Color> baseColor = new SimpleObjectProperty<>();
-////
-////                        KeyValue keyValue1 = new KeyValue(baseColor, Color.RED);
-////                        KeyValue keyValue2 = new KeyValue(baseColor, Color.YELLOW);
-////                        KeyFrame keyFrame1 = new KeyFrame(Duration.ZERO, keyValue1);
-////                        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(500), keyValue2);
-////                        Timeline timeline = new Timeline(keyFrame1, keyFrame2);
-////
-////                        baseColor.addListener((obs, oldColor, newColor) -> {
-////                            t.setStyle(String.format("-gradient-base: #%02x%02x%02x; ",
-////                                    (int) (newColor.getRed() * 255),
-////                                    (int) (newColor.getGreen() * 255),
-////                                    (int) (newColor.getBlue() * 255)));
-////                        });
-////
-////                        timeline.setAutoReverse(true);
-////                        timeline.setCycleCount(Animation.INDEFINITE);
-////                        timeline.play();
-////
-////                        Reflection r = new Reflection();
-////                        r.setFraction(0.7f);
-////
-////                        t.setEffect(r);
-////
-////                        // t.setTranslateY(400);
-////                        GridPane pane = new GridPane();
-////                        Scene scene = new Scene(pane);
-////
-////                        pane.setPrefSize(300, 300);
-////                        pane.getStyleClass().add("bordered-titled-border");
-////
-////                        pane.add(t, 0, 1);
-////                        pane.add(reset, 0, 2);
-////                      //  scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
-////                        dialog1.setMaxHeight(600);
-////                        dialog1.setTitle("Winner");
-////                        dialog1.setX(Toolkit.getDefaultToolkit().getScreenSize().width/2);
-////                        dialog1.setY(Toolkit.getDefaultToolkit().getScreenSize().height/2);
-////                        dialog1.show();
-////                        monsterlist.removeAll(monsterlist);
-////</editor-fold>
-//
-//                    }
-//                });
-                
-                ImageIcon winlink= new ImageIcon(ClassLoader.getSystemClassLoader().getResource("/resources/link.jpg"));
-                JOptionPane.showMessageDialog(root, image, "Gewonnen", JOptionPane.CLOSED_OPTION);
+                Platform.runLater(new Runnable() {
 
-                monsterlist.removeAll(monsterlist);
+                    @Override
+                    public void run() {
+                    //<editor-fold defaultstate="collapsed" desc="fx">
+                        
+                        Stage dialog1 = new Stage();
+                        dialog1.initStyle(StageStyle.UNDECORATED);
+
+                        Button reset = new Button("Next Level");
+
+                        reset.setPrefSize(100, 40);
+                        reset.setTranslateX(110);
+                        reset.setTranslateY(80);
+//                        reset.setOnAction((javafx.event.ActionEvent event) -> {
+//
+//                        });
+
+
+
+                        Label t = new Label();
+                        //  t.setTranslateY(160);
+                        t.setTranslateX(75);
+                        t.setTranslateY(10);
+                        t.setCache(true);
+                        t.setText("Gewonnen");
+                        t.setId("NextLevel");
+                        t.getStyleClass().add("animated-gradient");
+
+                        t.setFont(Font.font(null, FontWeight.BOLD, 30));
+
+                        ObjectProperty<Color> baseColor = new SimpleObjectProperty<>();
+
+                        KeyValue keyValue1 = new KeyValue(baseColor, Color.RED);
+                        KeyValue keyValue2 = new KeyValue(baseColor, Color.YELLOW);
+                        KeyFrame keyFrame1 = new KeyFrame(Duration.ZERO, keyValue1);
+                        KeyFrame keyFrame2 = new KeyFrame(Duration.millis(500), keyValue2);
+                        Timeline timeline = new Timeline(keyFrame1, keyFrame2);
+
+                        baseColor.addListener((obs, oldColor, newColor) -> {
+                            t.setStyle(String.format("-gradient-base: #%02x%02x%02x; ",
+                                    (int) (newColor.getRed() * 255),
+                                    (int) (newColor.getGreen() * 255),
+                                    (int) (newColor.getBlue() * 255)));
+                        });
+
+                        timeline.setAutoReverse(true);
+                        timeline.setCycleCount(Animation.INDEFINITE);
+                        timeline.play();
+
+                        Reflection r = new Reflection();
+                        r.setFraction(0.7f);
+
+                        t.setEffect(r);
+
+                        // t.setTranslateY(400);
+                        GridPane pane1 = new GridPane();
+                        Scene scene = new Scene(pane1);
+
+                        pane1.setPrefSize(300, 300);
+                        pane1.getStyleClass().add("bordered-titled-border");
+
+                        pane1.add(t, 0, 1);
+                        pane1.add(reset, 0, 2);
+                      //  scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
+                        dialog1.setMaxHeight(600);
+                        dialog1.setTitle("Winner");
+                        dialog1.setX(Toolkit.getDefaultToolkit().getScreenSize().width/2);
+                        dialog1.setY(Toolkit.getDefaultToolkit().getScreenSize().height/2);
+                        dialog1.show();
+                        monsterlist.removeAll(monsterlist);
+///<editor-fold>
+
+                    }});
+               
+                
+//                ImageIcon winlink= new ImageIcon(ClassLoader.getSystemClassLoader().getResource("/resources/link.jpg"));
+//                JOptionPane.showMessageDialog(root, image, "Gewonnen", JOptionPane.CLOSED_OPTION);
+//
+//                monsterlist.removeAll(monsterlist);
                 return false;
             }
 
