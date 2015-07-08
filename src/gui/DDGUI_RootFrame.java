@@ -25,27 +25,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.TitledPane;
-import javafx.scene.effect.BoxBlur;
 import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.CycleMethod;
-import javafx.scene.paint.RadialGradient;
-import javafx.scene.paint.Stop;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -56,7 +47,6 @@ import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.WindowConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.xml.stream.XMLEventFactory;
@@ -81,8 +71,8 @@ public class DDGUI_RootFrame extends JFrame {
     private DDGUI_LevelAuswahl lvlselect = new DDGUI_LevelAuswahl(this);
     private DDGUI_CharacterAuwahl charselect = new DDGUI_CharacterAuwahl(this);
     private JMenuBar spielmenuBar = new JMenuBar();
-  
-    
+    private JPanel gesamtPane = new JPanel();
+
     DDGUI_ContentPanel contentPanel = new DDGUI_ContentPanel();
 
     public DDGUI_SpielFeld getFeld() {
@@ -106,7 +96,7 @@ public class DDGUI_RootFrame extends JFrame {
     }
 
     public DDGUI_RootFrame() {
-        this.setLayout(new BorderLayout());
+        gesamtPane.setLayout(new BorderLayout());
 
         //  setUpMenubar(spielmenuBar);
         contentPanel.setBackground(Color.white);
@@ -130,12 +120,12 @@ public class DDGUI_RootFrame extends JFrame {
         }
 
         this.setIconImage(img);
-        this.add(FXMenuBar(), BorderLayout.NORTH);
-        this.add(contentPanel, BorderLayout.CENTER);
+        gesamtPane.add(FXMenuBar(), BorderLayout.NORTH);
+        gesamtPane.add(contentPanel, BorderLayout.CENTER);
         this.setSize(new Dimension(1100, 900));
         this.setVisible(true);
         this.setLocationRelativeTo(null);
-
+        this.add(gesamtPane);
     }
 
     Map<Integer, URL> lvlXml = new HashMap();

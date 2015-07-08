@@ -36,6 +36,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.Reflection;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -311,11 +312,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 1 Sekunde abziehen
-                for (DD_Monster monster1 : monsterlist) {
+                if (!monsterlist.isEmpty()) {
+                    for (DD_Monster monster1 : monsterlist) {
 
-                    ki = new MonsterKI(monster1, DDGUI_SpielFeld.this, SpielerInRange(monster1.getXpos(), monster1.getYpos(), 4));
-                    if (ki.getDir() != null) {
-                        moveSomething(monster1, ki.getWert(), ki.getDir());
+                        ki = new MonsterKI(monster1, DDGUI_SpielFeld.this, SpielerInRange(monster1.getXpos(), monster1.getYpos(), 4));
+                        if (ki.getDir() != null) {
+                            moveSomething(monster1, ki.getWert(), ki.getDir());
+                        }
                     }
                 }
             }
@@ -628,26 +631,17 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
                     @Override
                     public void run() {
-                    //<editor-fold defaultstate="collapsed" desc="fx">
-                        
+
+                        monsterlist.removeAll(monsterlist);
+
                         Stage dialog1 = new Stage();
-                        dialog1.initStyle(StageStyle.UNDECORATED);
-
-                        Button reset = new Button("Next Level");
-
-                        reset.setPrefSize(100, 40);
-                        reset.setTranslateX(110);
-                        reset.setTranslateY(80);
-//                        reset.setOnAction((javafx.event.ActionEvent event) -> {
-//
-//                        });
-
-
+                        GridPane pane1 = new GridPane();
+                        Scene scene = new Scene(pane1);
 
                         Label t = new Label();
                         //  t.setTranslateY(160);
-                        t.setTranslateX(75);
-                        t.setTranslateY(10);
+                        t.setTranslateX(0);
+                        t.setTranslateY(0);
                         t.setCache(true);
                         t.setText("Gewonnen");
                         t.setId("NextLevel");
@@ -674,32 +668,41 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                         timeline.setCycleCount(Animation.INDEFINITE);
                         timeline.play();
 
+                        Button reset = new Button("Next Level");
+
+                        reset.setPrefSize(100, 40);
+                        reset.setTranslateX(110);
+                        reset.setTranslateY(80);
+                        reset.setOnAction((javafx.event.ActionEvent event) -> {
+                            dialog1.close();
+                            DDGUI_SpielFeld.this.removeAll();
+
+                        });
+                        
+                        reset.setTranslateX(95);
+                        t.setTranslateX(75);
+                        
                         Reflection r = new Reflection();
                         r.setFraction(0.7f);
 
                         t.setEffect(r);
-
-                        // t.setTranslateY(400);
-                        GridPane pane1 = new GridPane();
-                        Scene scene = new Scene(pane1);
-
                         pane1.setPrefSize(300, 300);
                         pane1.getStyleClass().add("bordered-titled-border");
+                        scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
 
-                        pane1.add(t, 0, 1);
-                        pane1.add(reset, 0, 2);
-                      //  scene.getStylesheets().add(this.getClass().getResource("link.css").toExternalForm());
+                        pane1.add(t, 0, 0);
+                        pane1.add(reset, 0, 1);
+                        
+                        
+                        dialog1.setScene(scene);
                         dialog1.setMaxHeight(600);
                         dialog1.setTitle("Winner");
-                        dialog1.setX(Toolkit.getDefaultToolkit().getScreenSize().width/2);
-                        dialog1.setY(Toolkit.getDefaultToolkit().getScreenSize().height/2);
+                       
                         dialog1.show();
-                        monsterlist.removeAll(monsterlist);
-///<editor-fold>
 
-                    }});
-               
-                
+                    }
+                });
+
 //                ImageIcon winlink= new ImageIcon(ClassLoader.getSystemClassLoader().getResource("/resources/link.jpg"));
 //                JOptionPane.showMessageDialog(root, image, "Gewonnen", JOptionPane.CLOSED_OPTION);
 //
