@@ -27,10 +27,10 @@ public class MonsterKI {
     AStar astern;
 
      /**
-      * 
-      * @param mon
-      * @param feld
-      * @param b 
+      * Initialisiert die MonsterKI mit dem Monster und dem entsprechenden Spielfeld
+      * @param mon Monster das die ki bekommt
+      * @param feld Spielfeld des Monsters
+      * @param b wenn der Spieler in einer Range von 3 ist verfolgen sie ihn
       */
     public MonsterKI(DD_Monster mon, DDGUI_SpielFeld feld, boolean b) {
         chase = b;
@@ -42,7 +42,7 @@ public class MonsterKI {
     }
 
      /**
-      * 
+      * Setzt die 4 Möglichen züge die auf dem 2D Spielfeld möglich sind
       */
     public final void initZuege() {
 
@@ -58,9 +58,10 @@ public class MonsterKI {
     }
 
      /**
+      * Errechnet den aktuellen Zug, wenn chase true ist dann wird mit astern der beste wert errechnet, wenn der spieler in einer ranger vonn 1 ist wird angegriffen
       * 
-      * @param zuege
-      * @return 
+      * @param zuege ArrayList
+      * @return  DD_Zug
       */
     public final int getWert(ArrayList<DD_Zug> zuege) {
 
@@ -133,16 +134,16 @@ public class MonsterKI {
     }
 
      /**
-      * 
-      * @return 
+      * gibt die Direction wieder (x,y)
+      * @return die Richtung des zuges
       */
     public String getDir() {
         return Dir;
     }
 
      /**
-      * 
-      * @return 
+      * gibt den wert zurück (-1,1)
+      * @return den weite des Zuges
       */
     public int getWert() {
         return wert;

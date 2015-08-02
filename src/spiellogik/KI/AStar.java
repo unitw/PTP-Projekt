@@ -32,7 +32,7 @@ public class AStar {
 
      /**
       * 
-      * @param spiel 
+      * @param spiel  das betreffende Spielfed
       */
     public AStar(DDGUI_SpielFeld spiel) {
         this.spiel = spiel;
@@ -41,9 +41,9 @@ public class AStar {
     }
 
      /**
-      * 
-      * @param zugliste
-      * @return 
+      * Hier wird für jeden Zug in der Liste eine Heristic berechnet,der Zug mit der Besten Heuristic (niedrigsten Wert) zurück gegeben
+      * @param zugliste liste der möglichen züge
+      * @return bester Zug
       */
     public DD_Zug setzüge(ArrayList<DD_Zug> zugliste) {
         float heuristic = 0;
@@ -70,9 +70,9 @@ public class AStar {
 
      /**
       * 
-      * @param x
-      * @param y
-      * @return 
+      * @param x xpos
+      * @param y ypos
+      * @return  wenn schon besucht true
       */
     public boolean visited(int x, int y) {
         return visited[x][y];
@@ -80,20 +80,20 @@ public class AStar {
 
      /**
       * 
-      * @param x
-      * @param y 
+      * @param x xpos
+      * @param y  ypos
       */
     public void setvisited(int x, int y) {
         visited[x][y] = true;
     }
 
      /**
-      * 
-      * @param sx
-      * @param sy
-      * @param tx
-      * @param ty
-      * @return 
+      * Manhattan distanz zur heuristischen berechnet
+      * @param sx Start Coordinate X
+      * @param sy Start Coordinate Y
+      * @param tx Ziel Coordinate  X
+      * @param ty Ziel Coordinate  Y
+      * @return  heuristic des Zuges
       */
     public float getCost(int sx, int sy, int tx, int ty) {
 

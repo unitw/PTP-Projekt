@@ -27,8 +27,8 @@ public class DD_Figurkeylistener implements KeyListener {
     }
 
      /**
-      * 
-      * @param e 
+      * Handelt die Tastatur eingaben während des Spiels
+      * @param e  KeyEvent 
       */
     @Override
     public void keyPressed(KeyEvent e) {

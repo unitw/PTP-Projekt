@@ -27,7 +27,7 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return ob das Feld angeklickt wurde
       */
     public boolean isHasfocus() {
         return hasfocus;
@@ -35,7 +35,7 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
 
      /**
       * 
-      * @param hasfocus 
+      * @param hasfocus true /false 
       */
     public void setHasfocus(boolean hasfocus) {
         this.hasfocus = hasfocus;
@@ -50,15 +50,16 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return gibt den Typ zurück (Boden,baum)
       */
     public String getTyp() {
         return Typ;
     }
 
      /**
+      * Setzt den Typ
+      * @param Typ  Entweder Boden oder Baum
       * 
-      * @param Typ 
       */
     public void setTyp(String Typ) {
         this.Typ = Typ;
@@ -70,9 +71,9 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
     }
 
      /**
-      * 
-      * @param staxwriter
-      * @param eventFactory 
+      * Speichert das Objekt als XML
+      * @param staxwriter Writer des XML Files
+      * @param eventFactory Handler für die Start und End Tags
       */
    @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {

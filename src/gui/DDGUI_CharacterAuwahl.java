@@ -46,7 +46,7 @@ public class DDGUI_CharacterAuwahl extends JFXPanel {
     /**
      * Hier wird die Charakter Auswahl programmiert
      *
-     * @param root
+     * @param root setzt das RootFrame
      */
     public DDGUI_CharacterAuwahl(DDGUI_RootFrame root) {
         super();

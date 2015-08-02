@@ -42,7 +42,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return Das maximale Leben des Spielers
       */
     public int getMAXLEBEN() {
         return MAXLEBEN;
@@ -78,7 +78,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return ob der spieler angeklickt worden ist 
       */
     @Override
     public boolean isHasfocus() {
@@ -92,15 +92,15 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return gibt die Direction
       */
     public int getDir() {
         return dir;
     }
 
      /**
-      * 
-      * @param dir 
+      * setzt die Richtung des Zuges
+      * @param dir  Richtung des Zuges
       */
     public void setDir(int dir) {
         this.dir = dir;
@@ -108,23 +108,23 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return gibnt das Leben gif zurück
       */
     public JLabel getL_gif() {
         return l_gif;
     }
 
      /**
-      * 
-      * @return 
+      * gibt die Lifepoints des Spielers zurück
+      * @return  Leben des Spielers
       */
     public int getL_leben() {
         return i_leben;
     }
 
      /**
-      * 
-      * @param l_leben 
+      * setzt die neuen Lifepoints
+      * @param l_leben neues Leben (int)
       */
     public void setL_leben(int l_leben) {
         this.i_leben = l_leben;
@@ -133,15 +133,15 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return das Mana des Spielers
       */
     public int getL_mana() {
         return i_mana;
     }
 
      /**
-      * 
-      * @param l_mana 
+      *  Setzt das neue Mana
+      * @param l_mana neues Mana 
       */
     public void setL_mana(int l_mana) {
         this.i_mana = l_mana;
@@ -149,7 +149,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @return 
+      * @return die Rüstung des Spielers
       */
     public int getL_ruestung() {
         return i_ruestung;
@@ -157,7 +157,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @param l_ruestung 
+      * @param l_ruestung neue Rüstung des Spielers 
       */
     public void setL_ruestung(int l_ruestung) {
         this.i_ruestung = l_ruestung;
@@ -183,7 +183,7 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
      /**
       * 
-      * @param label 
+      * @param label label m,it der Spieler Animation
       */
     @Override
     public void setL_gif(JLabel label) {
@@ -191,9 +191,9 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     }
 
      /**
-      * 
-      * @param staxwriter
-      * @param eventFactory 
+      * Speichert das objekt als xml 
+      * @param staxwriter der Writer ,der die XML auf die Platteschreibt
+      * @param eventFactory Handler für die Start und End Tags
       */
     @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {

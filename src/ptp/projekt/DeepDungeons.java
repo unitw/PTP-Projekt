@@ -15,6 +15,7 @@ import gui.DDGUI_RootFrame;
 public class DeepDungeons {
 
     /**
+     * Startet das Spiel
      * @param args the command line arguments
      */
     public static void main(String[] args) {

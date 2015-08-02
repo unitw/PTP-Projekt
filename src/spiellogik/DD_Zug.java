@@ -17,10 +17,10 @@ public class DD_Zug {
 
       /**
        * 
-       * @param xpos
-       * @param ypos
-       * @param wert
-       * @param Dir 
+       * @param xpos X Position des Zugs
+       * @param ypos Y Position des Zugs
+       * @param wert weite des Zug
+       * @param Dir Direction des Zug(x,y)
        */
     public DD_Zug(int xpos, int ypos, int wert, String Dir) {
         this.xpos = xpos;

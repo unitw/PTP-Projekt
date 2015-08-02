@@ -76,32 +76,32 @@ public class DDGUI_RootFrame extends JFrame {
     DDGUI_ContentPanel contentPanel = new DDGUI_ContentPanel();
 
      /**
-      * 
-      * @return 
+      * Spielfeld getter
+      * @return das aktuelle Spielfeld
       */
     public DDGUI_SpielFeld getFeld() {
         return feld;
     }
 
      /**
-      * 
-      * @param feld 
+      * Kann ein neues Spielfeld gesetzt werden
+      * @param feld neues Spielfeld
       */
     public void setFeld(DDGUI_SpielFeld feld) {
         this.feld = feld;
     }
 
      /**
-      * 
-      * @return 
+      * Gibt das InfoPanel zum Anzeigen der Monster Informationen 
+      * @return  DDGUI_InfoPanel
       */
     public DDGUI_InfoPanel getInfopanel() {
         return infopanel;
     }
 
      /**
-      * 
-      * @return 
+      * Gibt die Area zum anzeigen der Spielfeld ereignisse wider
+      * @return FXArea
       */
     public TextArea getArea() {
         return area;
@@ -110,14 +110,14 @@ public class DDGUI_RootFrame extends JFrame {
     
      /**
       * 
-      * @param area 
+      * @param area  den Spielfeld output
       */
     public void setArea(TextArea area) {
         this.area = area;
     }
 
      /**
-      * 
+      * Konstruktor
       */
     public DDGUI_RootFrame() {
         gesamtPane.setLayout(new BorderLayout());
@@ -155,8 +155,8 @@ public class DDGUI_RootFrame extends JFrame {
     Map<Integer, URL> lvlXml = new HashMap();
 
      /**
-      * 
-      * @param i 
+      * hier werden die level auswahl gesetzt und aus den mit dem Editor erstellte xml geladen
+      * @param i Level nummer
       */
     public void startSpiel(int i) {
         lvlXml.put(1, getClass().getResource("/resources/FirstLevel.xml"));
@@ -311,8 +311,8 @@ public class DDGUI_RootFrame extends JFrame {
 //</editor-fold>
     
      /**
-      * 
-      * @return 
+      * Obere menu leiste wird erstellt
+      * @return Menubar oberer Rand
       */
     public JFXPanel FXMenuBar() {
         JFXPanel menubar = new JFXPanel();
@@ -444,9 +444,9 @@ public class DDGUI_RootFrame extends JFrame {
     }
 
      /**
-      * 
-      * @param staxwriter
-      * @throws Exception 
+      *  
+      * @param staxwriter Writer des XML Streams(STAX)
+      * @throws Exception Fehler Exception
       */
     public void StoreProject(StaxWriter staxwriter) throws Exception {
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
@@ -504,8 +504,8 @@ public class DDGUI_RootFrame extends JFrame {
     Text mana1;
 
      /**
-      * 
-      * @param leben 
+      * Setzt das leben des Spielers
+      * @param leben Leben des Spierls
       */
     public void setLeben(double leben) {
         Platform.runLater(() -> {
@@ -516,8 +516,8 @@ public class DDGUI_RootFrame extends JFrame {
     }
 
      /**
-      * 
-      * @param mana 
+      * Gibt das Mana zurück
+      * @param mana Mana des Spielers
       */
     public void setMana(double mana) {
         Platform.runLater(() -> {
@@ -527,8 +527,8 @@ public class DDGUI_RootFrame extends JFrame {
     }
 
      /**
-      * 
-      * @return 
+      * Spielerskillbar wird erstellt
+      * @return Skillbar des spielers in einem JFXPanel
       */
     public JFXPanel SpielerSkillbar() {
 

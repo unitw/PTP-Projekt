@@ -106,16 +106,14 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
     
-     /**
-      * 
-      */
+    
     private Object[][] field;
 
     
     
      /**
       * 
-      * @return 
+      * @return das Spielfeld auf dem die Figuren Stehen
       */
     public Object[][] getField() {
         return field;
@@ -124,7 +122,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     
      /**
       * 
-      * @param field 
+      * @param field neues Spielfeld gesetzt(muss quardratisch sein)
       */
     public void setField(Object[][] field) {
         this.field = field;
@@ -148,8 +146,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     public final int ratio;
 
      /**
-      * 
-      * @return 
+      * Gibt die für die figuren den faktor zurück,mit dem sie beim zeichen multipliziert werden
+      * @return  Ratio
       */
     public int getRatio() {
         return ratio;
@@ -162,9 +160,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     private int runde = 0;
 
      /**
-      * 
-      * @param WIDTH
-      * @param HEIGHT 
+      * für die Testklassen einen einfacheren konstruktor
+      * @param WIDTH spalten anzahl
+      * @param HEIGHT zeilen anzahl
       */
     public DDGUI_SpielFeld(int WIDTH, int HEIGHT) {
         this.WIDTH = WIDTH;
@@ -176,9 +174,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
      /**
       * 
-      * @param root
-      * @param width
-      * @param height 
+      * @param root Rootframe des Spielfeld
+      * @param width breite des Spielfeld
+      * @param height höhe des Spielfeld
       */
     public DDGUI_SpielFeld(DDGUI_RootFrame root, int width, int height) {
         this.setLayout(null);
@@ -209,8 +207,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @return 
+      * getter für das rootframe um auf die info panel zurgreifen zu können
+      * @return  Den Rootframe für das Spielfeld
       */
     public DDGUI_RootFrame getRoot() {
         return root;
@@ -218,7 +216,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
      /**
       * 
-      * @return 
+      * @return die aktuelle runde
       */
     public int getRunde() {
         return runde;
@@ -226,25 +224,25 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
      /**
       * 
-      * @param runde 
+      * @param runde setzt die runde
       */
     public void setRunde(int runde) {
         this.runde = runde;
     }
 
      /**
-      * 
-      * @param root 
+      * Setzt den Rootframe für das Spielfeld
+      * @param root Rootframe des Spielfelds 
       */
     public void setRoot(DDGUI_RootFrame root) {
         this.root = root;
     }
 
      /**
-      * 
-      * @param o
-      * @param i
-      * @param dir 
+      * bewegt den spieler über das feld
+      * @param o Spieler der bewegt werden soll
+      * @param i weite des Zuges
+      * @param dir  Richtung des Zuges (x,y)
       */
     public void moveChar(Object o, int i, String dir) {
 
@@ -280,10 +278,10 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @param o
-      * @param i
-      * @param dir 
+      * bewegt monster oder andere sachen über das feld
+      * @param o zubewegendes Objekt    
+      * @param i weite des zuges
+      * @param dir richtung des zuges
       */
     public void moveSomething(Object o, int i, String dir) {
 
@@ -319,8 +317,8 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @return 
+      * Gibt das level wider
+      * @return momentanes lvl
       */
     public int getLvl() {
         return lvl;
@@ -328,14 +326,15 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
      /**
       * 
-      * @param lvl 
+      * @param lvl setzt neues lvl
       */
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }
 
      /**
-      * 
+      * nach jeder bewegung des spieler wird der runden counter hochgezählt
+      * dabei werden mana und leben wieder aufgefüllt
       */
     public void nextRound() {
 //        monstermovement();
@@ -367,11 +366,11 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     Timer timer1;
 
      /**
-      * 
-      * @param x1
-      * @param y1
-      * @param range
-      * @return 
+      * sucht in einer umgebung range alle felder ab
+      * @param x1 zentrum xypos
+      * @param y1 zentrum ypos
+      * @param range radius des suchraums
+      * @return true wenn der spieler in range ist
       */
     public boolean SpielerInRange(int x1, int y1, int range) {
 
@@ -390,7 +389,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
+      * Alle monster werden jeder sekunde durch einen timer bewegt
       */
     public void monstermovement() {
 
@@ -446,9 +445,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @param sp
-      * @param attackNr 
+      * Attacke des Spielers wird abgefraft und es wird angegriffen wenn eiu monster in range ist
+      * @param sp  Spieler der angreifen ist
+      * @param attackNr jeweilige Attacke des spielers
       */
     public void Spielerattack(DD_Spieler sp, int attackNr) {
 
@@ -501,9 +500,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @param sp
-      * @param attackNr 
+      * Hier wird der angriff des monsters durchgeführt
+      * @param sp Monster das angreift
+      * @param attackNr  attacke des Monsters
       */
     public void Monsterattack(DD_Monster sp, int attackNr) {
 
@@ -526,12 +525,12 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @param attacknr
-      * @param xpos
-      * @param ypos
-      * @param range 
-      */
+      * Hier wird auf der jeweiligen Position die Attacken Animation(gif-Bilder) angezeigt
+      * @param attacknr jeweilige Attacke
+      * @param xpos Ziel X-Coordinate
+      * @param ypos Ziel Y-Coordinate
+      * @param range  Reichweite der Attacke
+            */
     public void showAttackEffect(int attacknr, int xpos, int ypos, int range) {
 
         if (AttackAnimation != null) {
@@ -596,9 +595,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @param mon
-      * @param schaden 
+      * Hier wird die schadensberechnung für Monster und Spieler druchgeführt
+      * @param mon Monster oder Spieler der angegriffen wird
+      * @param schaden  schaden der von den Lebenspunkten abgezogen wird
       */
     public void Schadenberechnung(IDD_Movable mon, int schaden) {
 
@@ -719,7 +718,7 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
+      * Hier wird beim tode des spielers das Spiel resetet
       */
     public void resetSpiel() {
 
@@ -737,10 +736,10 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     }
 
      /**
-      * 
-      * @param x
-      * @param y
-      * @return 
+      * Die Methode prüft ob der gewählte zug möglich ist
+      * @param x Ziel X-Coordinate
+      * @param y Ziel Y-Coordinate
+      * @return true wenn der Zug möglich ist 
       */
     public boolean Zugmoeglich(int x, int y) {
         try {
@@ -918,9 +917,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     int aktvalue;
 
      /**
-      * 
-      * @param staxwriter
-      * @param eventFactory 
+      * Hier wird das Field Objekt array zeilen weise in XML wegespeichert
+      * @param staxwriter Writer des XML STreams
+      * @param eventFactory Handler für die Start und End Tags
       */
     @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
@@ -957,46 +956,25 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
-     /**
-      * 
-      * @return 
-      */
-    public int getGesamt() {
-        return gesamt;
-    }
+    
 
-     /**
-      * 
-      * @return 
-      */
-    public int getAktvalue() {
-        return aktvalue;
-    }
+    
 
-     /**
-      * 
-      * @return 
-      */
+    
     @Override
     public String getIdentifier() {
 
         return null;
     }
 
-     /**
-      * 
-      * @param s 
-      */
+    
     @Override
     public void setIdentifier(String s
     ) {
 
     }
 
-     /**
-      * 
-      * @return 
-      */
+   
     @Override
     public int getXpos() {
         return this.getX();

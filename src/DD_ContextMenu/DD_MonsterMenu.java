@@ -25,10 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 import net.miginfocom.swing.MigLayout;
 
-/**
- *
- * @author
- */
+
 public class DD_MonsterMenu extends JFXPanel {
 
     Font infomenu = new Font("Arial", Font.BOLD, 20);
@@ -46,7 +43,6 @@ public class DD_MonsterMenu extends JFXPanel {
     /**
      * Hier wird die Statusleiste implementiert
      *
-     * @param player
      */
     public DD_MonsterMenu() {
 

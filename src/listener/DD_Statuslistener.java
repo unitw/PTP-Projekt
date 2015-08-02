@@ -37,8 +37,8 @@ public class DD_Statuslistener implements MouseListener {
     }
 
      /**
-      * 
-      * @param e 
+      * Werter die Mausklicks aus
+      * @param e (MouseEvent)
       */
     @Override
     public void mousePressed(MouseEvent e) {
