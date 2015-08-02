@@ -26,6 +26,10 @@ public class DD_Figurkeylistener implements KeyListener {
 
     }
 
+     /**
+      * 
+      * @param e 
+      */
     @Override
     public void keyPressed(KeyEvent e) {
 

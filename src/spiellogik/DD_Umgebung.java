@@ -25,10 +25,18 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
     int xpos;
     int ypos;
 
+     /**
+      * 
+      * @return 
+      */
     public boolean isHasfocus() {
         return hasfocus;
     }
 
+     /**
+      * 
+      * @param hasfocus 
+      */
     public void setHasfocus(boolean hasfocus) {
         this.hasfocus = hasfocus;
     }
@@ -40,10 +48,18 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
         this.ypos = y;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public String getTyp() {
         return Typ;
     }
 
+     /**
+      * 
+      * @param Typ 
+      */
     public void setTyp(String Typ) {
         this.Typ = Typ;
     }
@@ -53,6 +69,11 @@ public class DD_Umgebung implements IDD_MenuAnzeiger, StaxStore {
 
     }
 
+     /**
+      * 
+      * @param staxwriter
+      * @param eventFactory 
+      */
    @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
 

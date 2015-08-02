@@ -105,12 +105,27 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         this.dd_player = dd_player;
     }
 
+    
+     /**
+      * 
+      */
     private Object[][] field;
 
+    
+    
+     /**
+      * 
+      * @return 
+      */
     public Object[][] getField() {
         return field;
     }
 
+    
+     /**
+      * 
+      * @param field 
+      */
     public void setField(Object[][] field) {
         this.field = field;
         for (int i = 0; i < ZELLEN; i++) {
@@ -132,6 +147,10 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     private final int ZELLEN = 30;
     public final int ratio;
 
+     /**
+      * 
+      * @return 
+      */
     public int getRatio() {
         return ratio;
     }
@@ -142,6 +161,25 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     private int runde = 0;
 
+     /**
+      * 
+      * @param WIDTH
+      * @param HEIGHT 
+      */
+    public DDGUI_SpielFeld(int WIDTH, int HEIGHT) {
+        this.WIDTH = WIDTH;
+        this.HEIGHT = HEIGHT;
+        this.ratio = 1;
+
+        this.field = new Object[WIDTH][HEIGHT];
+    }
+
+     /**
+      * 
+      * @param root
+      * @param width
+      * @param height 
+      */
     public DDGUI_SpielFeld(DDGUI_RootFrame root, int width, int height) {
         this.setLayout(null);
         this.root = root;
@@ -170,22 +208,44 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         monstermovement();
     }
 
+     /**
+      * 
+      * @return 
+      */
     public DDGUI_RootFrame getRoot() {
         return root;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getRunde() {
         return runde;
     }
 
+     /**
+      * 
+      * @param runde 
+      */
     public void setRunde(int runde) {
         this.runde = runde;
     }
 
+     /**
+      * 
+      * @param root 
+      */
     public void setRoot(DDGUI_RootFrame root) {
         this.root = root;
     }
 
+     /**
+      * 
+      * @param o
+      * @param i
+      * @param dir 
+      */
     public void moveChar(Object o, int i, String dir) {
 
         if (o instanceof IDD_Movable) {
@@ -219,6 +279,12 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         repaint();
     }
 
+     /**
+      * 
+      * @param o
+      * @param i
+      * @param dir 
+      */
     public void moveSomething(Object o, int i, String dir) {
 
         if (o instanceof IDD_Movable) {
@@ -252,14 +318,25 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         repaint();
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getLvl() {
         return lvl;
     }
 
+     /**
+      * 
+      * @param lvl 
+      */
     public void setLvl(int lvl) {
         this.lvl = lvl;
     }
 
+     /**
+      * 
+      */
     public void nextRound() {
 //        monstermovement();
 
@@ -289,6 +366,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     MonsterKI ki;
     Timer timer1;
 
+     /**
+      * 
+      * @param x1
+      * @param y1
+      * @param range
+      * @return 
+      */
     public boolean SpielerInRange(int x1, int y1, int range) {
 
         int px = this.getDD_player().getXpos();
@@ -305,6 +389,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         return false;
     }
 
+     /**
+      * 
+      */
     public void monstermovement() {
 
         timer1 = new Timer(1000, new ActionListener() {
@@ -331,6 +418,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     JDialog optiondia = new JDialog();
 
+     /**
+      * 
+      */
     public void displayOptionDialog() {
 
         JPanel optionPanel = new JPanel();
@@ -355,6 +445,11 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
+     /**
+      * 
+      * @param sp
+      * @param attackNr 
+      */
     public void Spielerattack(DD_Spieler sp, int attackNr) {
 
         int xpos = sp.getXpos();
@@ -405,6 +500,11 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
+     /**
+      * 
+      * @param sp
+      * @param attackNr 
+      */
     public void Monsterattack(DD_Monster sp, int attackNr) {
 
         int xpos = sp.getXpos();
@@ -425,6 +525,13 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
         return timer;
     }
 
+     /**
+      * 
+      * @param attacknr
+      * @param xpos
+      * @param ypos
+      * @param range 
+      */
     public void showAttackEffect(int attacknr, int xpos, int ypos, int range) {
 
         if (AttackAnimation != null) {
@@ -488,6 +595,11 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
+     /**
+      * 
+      * @param mon
+      * @param schaden 
+      */
     public void Schadenberechnung(IDD_Movable mon, int schaden) {
 
         int newleben = (mon.getL_leben() - schaden);
@@ -606,6 +718,9 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
+     /**
+      * 
+      */
     public void resetSpiel() {
 
         Platform.runLater(new Runnable() {
@@ -621,6 +736,12 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
+     /**
+      * 
+      * @param x
+      * @param y
+      * @return 
+      */
     public boolean Zugmoeglich(int x, int y) {
         try {
 
@@ -678,10 +799,10 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
                             DDGUI_SpielFeld.this.removeAll();
 
                         });
-                        
+
                         reset.setTranslateX(95);
                         t.setTranslateX(75);
-                        
+
                         Reflection r = new Reflection();
                         r.setFraction(0.7f);
 
@@ -692,12 +813,11 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
                         pane1.add(t, 0, 0);
                         pane1.add(reset, 0, 1);
-                        
-                        
+
                         dialog1.setScene(scene);
                         dialog1.setMaxHeight(600);
                         dialog1.setTitle("Winner");
-                       
+
                         dialog1.show();
 
                     }
@@ -797,6 +917,11 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
     int gesamt;
     int aktvalue;
 
+     /**
+      * 
+      * @param staxwriter
+      * @param eventFactory 
+      */
     @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
 
@@ -832,34 +957,54 @@ public class DDGUI_SpielFeld extends JPanel implements StaxStore {
 
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getGesamt() {
         return gesamt;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getAktvalue() {
         return aktvalue;
     }
 
+     /**
+      * 
+      * @return 
+      */
     @Override
     public String getIdentifier() {
 
         return null;
     }
 
+     /**
+      * 
+      * @param s 
+      */
     @Override
     public void setIdentifier(String s
     ) {
 
     }
 
+     /**
+      * 
+      * @return 
+      */
     @Override
     public int getXpos() {
         return this.getX();
     }
 
+    
     @Override
-    public void setXpos(String s
-    ) {
+    public void setXpos(String s) {
 
     }
 

@@ -40,6 +40,10 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
     final int MAXLEBEN=100;
     
 
+     /**
+      * 
+      * @return 
+      */
     public int getMAXLEBEN() {
         return MAXLEBEN;
     }
@@ -72,6 +76,10 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
 
     }
 
+     /**
+      * 
+      * @return 
+      */
     @Override
     public boolean isHasfocus() {
         return hasfocus;
@@ -82,39 +90,75 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         this.hasfocus = hasfocus;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getDir() {
         return dir;
     }
 
+     /**
+      * 
+      * @param dir 
+      */
     public void setDir(int dir) {
         this.dir = dir;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public JLabel getL_gif() {
         return l_gif;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getL_leben() {
         return i_leben;
     }
 
+     /**
+      * 
+      * @param l_leben 
+      */
     public void setL_leben(int l_leben) {
         this.i_leben = l_leben;
 
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getL_mana() {
         return i_mana;
     }
 
+     /**
+      * 
+      * @param l_mana 
+      */
     public void setL_mana(int l_mana) {
         this.i_mana = l_mana;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getL_ruestung() {
         return i_ruestung;
     }
 
+     /**
+      * 
+      * @param l_ruestung 
+      */
     public void setL_ruestung(int l_ruestung) {
         this.i_ruestung = l_ruestung;
     }
@@ -137,11 +181,20 @@ public class DD_Spieler implements IDD_MenuAnzeiger, IDD_Movable, StaxStore {
         this.ypos = ypos;
     }
 
+     /**
+      * 
+      * @param label 
+      */
     @Override
     public void setL_gif(JLabel label) {
         this.l_gif = label;
     }
 
+     /**
+      * 
+      * @param staxwriter
+      * @param eventFactory 
+      */
     @Override
     public void STAXStore(StaxWriter staxwriter, XMLEventFactory eventFactory) {
 

@@ -15,6 +15,13 @@ public class DD_Zug {
      int wert;
      String Dir;
 
+      /**
+       * 
+       * @param xpos
+       * @param ypos
+       * @param wert
+       * @param Dir 
+       */
     public DD_Zug(int xpos, int ypos, int wert, String Dir) {
         this.xpos = xpos;
         this.ypos = ypos;

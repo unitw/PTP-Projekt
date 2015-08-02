@@ -14,14 +14,7 @@ import spiellogik.DD_Spieler;
 import spiellogik.DD_Umgebung;
 import spiellogik.DD_Zug;
 
-/**
- * The data map from our example game. This holds the state and context of each
- * tile on the map. It also implements the interface required by the path
- * finder. It's implementation of the path finder related methods add specific
- * handling for the types of units and terrain in the example game.
- *
- * @author Kevin Glass
- */
+
 public class AStar {
 
     public static final int WIDTH = 30;
@@ -37,12 +30,21 @@ public class AStar {
     DDGUI_SpielFeld spiel;
     Map<Float, DD_Zug> zugMap = new HashMap<>();
 
+     /**
+      * 
+      * @param spiel 
+      */
     public AStar(DDGUI_SpielFeld spiel) {
         this.spiel = spiel;
         this.field = spiel.getField();
 
     }
 
+     /**
+      * 
+      * @param zugliste
+      * @return 
+      */
     public DD_Zug setzüge(ArrayList<DD_Zug> zugliste) {
         float heuristic = 0;
 
@@ -66,14 +68,33 @@ public class AStar {
         return zugMap.get(heuristic);
     }
 
+     /**
+      * 
+      * @param x
+      * @param y
+      * @return 
+      */
     public boolean visited(int x, int y) {
         return visited[x][y];
     }
 
+     /**
+      * 
+      * @param x
+      * @param y 
+      */
     public void setvisited(int x, int y) {
         visited[x][y] = true;
     }
 
+     /**
+      * 
+      * @param sx
+      * @param sy
+      * @param tx
+      * @param ty
+      * @return 
+      */
     public float getCost(int sx, int sy, int tx, int ty) {
 
         int dx = abs(tx - sx);

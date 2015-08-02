@@ -75,26 +75,50 @@ public class DDGUI_RootFrame extends JFrame {
 
     DDGUI_ContentPanel contentPanel = new DDGUI_ContentPanel();
 
+     /**
+      * 
+      * @return 
+      */
     public DDGUI_SpielFeld getFeld() {
         return feld;
     }
 
+     /**
+      * 
+      * @param feld 
+      */
     public void setFeld(DDGUI_SpielFeld feld) {
         this.feld = feld;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public DDGUI_InfoPanel getInfopanel() {
         return infopanel;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public TextArea getArea() {
         return area;
     }
 
+    
+     /**
+      * 
+      * @param area 
+      */
     public void setArea(TextArea area) {
         this.area = area;
     }
 
+     /**
+      * 
+      */
     public DDGUI_RootFrame() {
         gesamtPane.setLayout(new BorderLayout());
 
@@ -130,6 +154,10 @@ public class DDGUI_RootFrame extends JFrame {
 
     Map<Integer, URL> lvlXml = new HashMap();
 
+     /**
+      * 
+      * @param i 
+      */
     public void startSpiel(int i) {
         lvlXml.put(1, getClass().getResource("/resources/FirstLevel.xml"));
         lvlXml.put(2, getClass().getResource("/resources/Test.xml"));
@@ -281,6 +309,11 @@ public class DDGUI_RootFrame extends JFrame {
 //
 //    }
 //</editor-fold>
+    
+     /**
+      * 
+      * @return 
+      */
     public JFXPanel FXMenuBar() {
         JFXPanel menubar = new JFXPanel();
         Platform.runLater(new Runnable() {
@@ -410,6 +443,11 @@ public class DDGUI_RootFrame extends JFrame {
         return menubar;
     }
 
+     /**
+      * 
+      * @param staxwriter
+      * @throws Exception 
+      */
     public void StoreProject(StaxWriter staxwriter) throws Exception {
         XMLOutputFactory outputFactory = XMLOutputFactory.newInstance();
 
@@ -465,6 +503,10 @@ public class DDGUI_RootFrame extends JFrame {
     Text leben1;
     Text mana1;
 
+     /**
+      * 
+      * @param leben 
+      */
     public void setLeben(double leben) {
         Platform.runLater(() -> {
             life.setProgress(leben);
@@ -473,6 +515,10 @@ public class DDGUI_RootFrame extends JFrame {
 
     }
 
+     /**
+      * 
+      * @param mana 
+      */
     public void setMana(double mana) {
         Platform.runLater(() -> {
             Mana.setProgress(mana);
@@ -480,6 +526,10 @@ public class DDGUI_RootFrame extends JFrame {
         });
     }
 
+     /**
+      * 
+      * @return 
+      */
     public JFXPanel SpielerSkillbar() {
 
         Platform.runLater(new Runnable() {

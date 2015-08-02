@@ -26,6 +26,12 @@ public class MonsterKI {
     ArrayList<DD_Zug> zuege = new ArrayList();
     AStar astern;
 
+     /**
+      * 
+      * @param mon
+      * @param feld
+      * @param b 
+      */
     public MonsterKI(DD_Monster mon, DDGUI_SpielFeld feld, boolean b) {
         chase = b;
         this.feld = feld;
@@ -35,6 +41,9 @@ public class MonsterKI {
         getWert(zuege);
     }
 
+     /**
+      * 
+      */
     public final void initZuege() {
 
         DD_Zug p1 = new DD_Zug(mon.getXpos() + 1, mon.getYpos(), 1, "x");
@@ -48,6 +57,11 @@ public class MonsterKI {
         zuege.add(p4);
     }
 
+     /**
+      * 
+      * @param zuege
+      * @return 
+      */
     public final int getWert(ArrayList<DD_Zug> zuege) {
 
         if (chase) {
@@ -118,10 +132,18 @@ public class MonsterKI {
         return -1;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public String getDir() {
         return Dir;
     }
 
+     /**
+      * 
+      * @return 
+      */
     public int getWert() {
         return wert;
     }
